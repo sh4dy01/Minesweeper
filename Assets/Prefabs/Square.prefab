@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5693992967202101528}
   - component: {fileID: 6420657940318479942}
   - component: {fileID: 2377209672436867870}
-  - component: {fileID: 7393989592205165293}
+  - component: {fileID: 7076930349213765558}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1858918954, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
+  m_Sprite: {fileID: 975738907, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,9 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBomb: 0
   _bombCounter: 0
-  _emptySprite: {fileID: -1267008225, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
+  _emptySprite: {fileID: 1888634947, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
   _bombSprite: {fileID: 1574073706, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
---- !u!61 &7393989592205165293
+--- !u!61 &7076930349213765558
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,10 +115,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.5, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
