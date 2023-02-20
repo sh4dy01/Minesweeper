@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5693992967202101528}
   - component: {fileID: 6420657940318479942}
   - component: {fileID: 2377209672436867870}
+  - component: {fileID: 7393989592205165293}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -98,3 +99,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBomb: 0
+  _emptySprite: {fileID: -1267008225, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
+  _bombSprite: {fileID: 1574073706, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
+--- !u!61 &7393989592205165293
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6701616694451313148}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
