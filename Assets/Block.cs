@@ -18,5 +18,6 @@ public class Block : MonoBehaviour
         
     }
 
-    public void SetBomb() => _isBomb = true;
+    public void SetBomb(bool value) => _isBomb = value;
+    
 }
