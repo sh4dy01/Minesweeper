@@ -5,40 +5,30 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private bool _isBomb = false;
-    [SerializeField] private int _bombCounter = 0;
-
-    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private bool _isBomb;
+    [SerializeField] private int _bombCounter;
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
-    private Vector3 _position;
-    public Vector3 Position
-    {
-        get => _position;
-        set => _position = value;
-    }
+    
+    private SpriteRenderer _spriteRenderer;
+
+    public Vector3 Position { get; set; }
+
+    public bool IsBomb => _isBomb;
+    public void SetBomb(bool value) => _isBomb = value;
+    public void IncrementBombCounter() => _bombCounter++;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
+        _bombCounter = 0;
+        _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (_isBomb)
-            {
-                _spriteRenderer.sprite = _bombSprite;
-            }
-            else
-            {
-                _spriteRenderer.sprite = _emptySprite;
-            }
-        }
+        if (!Input.GetMouseButtonDown(0)) return;
+        _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
     }
-
-    public void SetBomb() => _isBomb = true;
-    public void IncrementBombCounter() => _bombCounter++;
 }

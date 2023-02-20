@@ -8,11 +8,10 @@ using Random = UnityEngine.Random;
 
 public class GameGrid : MonoBehaviour
 {
-    [SerializeField] private GameObject _block;
-    
-    [SerializeField] private int bombAmount;
-    [SerializeField] private int width;
-    [SerializeField] private int height;
+    [SerializeField] private GameObject _baseBlock;
+    [SerializeField] private int _bombAmount;
+    [SerializeField] private int _width;
+    [SerializeField] private int _height;
 
     private Block[,] _grid;
     
@@ -30,66 +29,67 @@ public class GameGrid : MonoBehaviour
 
     private void Awake()
     {
-        _grid = new Block[width, height];
+        _grid = new Block[_width, _height];
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         CreateGrid();
+        SetBomb();
         SetBlock();
     }
 
-    void CreateGrid()
+    private void CreateGrid()
     {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < _width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < _height; y++)
             {
-                _grid[x, y] = _block.GetComponent<Block>();
-                _grid[x, y].Position = new Vector3(x, y);
+                Block block = gameObject.AddComponent<Block>();
+                block.Position = new Vector3(x, y);
+                _grid[y, x] = block;
             }
         }
-        
-        SetBomb();
     }
 
-    void SetBomb()
+    private void SetBomb()
     {
         int bombPlaced = 0;
         
-        while (bombPlaced < bombAmount)
+        while (bombPlaced < _bombAmount)
         {
-            int x = Random.Range(0, width);
-            int y = Random.Range(0, height);
+            int x = Random.Range(0, _width);
+            int y = Random.Range(0, _height);
+            Debug.Log(_grid[x, y].IsBomb);
+            if (_grid[x, y].IsBomb) continue;
             
-            if (!_grid[x, y])
+            _grid[x, y].SetBomb(true);
+
+            Vector3Int bombPos = new Vector3Int(x, y);
+            foreach (var position in _neighbourPositions)
             {
-                Vector3Int bombPos = new Vector3Int(x, y);
-                foreach (var position in _neighbourPositions)
+                Vector3Int neighbor = bombPos + position;
+                if (neighbor.x >= _width || neighbor.y >= _height || neighbor.x <= 0 || neighbor.y <= 0)
                 {
-                    Vector3Int neighbor = bombPos + position;
-                    if (neighbor.x > width || neighbor.y > height || neighbor.x < 0 || neighbor.y < 0)
-                    {
-                        continue;
-                    }
-                    
-                    _grid[neighbor.x, neighbor.y].IncrementBombCounter();
+                    continue;
                 }
-                
-                _grid[x, y].SetBomb();
-                bombPlaced++;
+                    
+                _grid[neighbor.x, neighbor.y].IncrementBombCounter();
             }
+                
+            bombPlaced++;
         }
     }
 
-    void SetBlock()
+    private void SetBlock()
     {
         foreach (var block in _grid)
         {
-            GameObject blockObj = _block;
-            blockObj.transform.position = block.Position;
-            Instantiate(_block, blockObj.transform.position, Quaternion.identity);
+            GameObject blockObj = Instantiate(_baseBlock, block.Position, Quaternion.identity, transform);
+            blockObj.name = block.IsBomb ? "Bomb" : "Empty";
+            blockObj.GetComponent<Block>().Position = block.Position;
+            blockObj.GetComponent<Block>().SetBomb(block.IsBomb);
         }
     }
 }

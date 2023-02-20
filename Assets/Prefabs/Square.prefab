@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6701616694451313148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBomb: 0
+  _bombCounter: 0
   _emptySprite: {fileID: -1267008225, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
   _bombSprite: {fileID: 1574073706, guid: e2fadc1db3209fe4f91ac7f2555ea407, type: 3}
 --- !u!61 &7393989592205165293
