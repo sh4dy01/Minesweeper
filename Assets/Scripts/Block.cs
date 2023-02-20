@@ -6,11 +6,18 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     [SerializeField] private bool _isBomb = false;
+    [SerializeField] private int _bombCounter = 0;
 
     private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
-    
+    private Vector3 _position;
+    public Vector3 Position
+    {
+        get => _position;
+        set => _position = value;
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,11 +39,6 @@ public class Block : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        
-    }
-
-    public void SetBomb(bool value) => _isBomb = value;
-    
+    public void SetBomb() => _isBomb = true;
+    public void IncrementBombCounter() => _bombCounter++;
 }
