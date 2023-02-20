@@ -1,33 +1,73 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class GameGrid : MonoBehaviour
 {
-    [SerializeField] private GameObject block;
-    public GameObject[,] grid = new GameObject[10, 10];
+    [SerializeField] private Block _block;
     
+    [SerializeField] private int bombAmount;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+
+    private bool[,] _grid;
+
+    private void Awake()
+    {
+        _grid = new bool[width, height];
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i <= 10; i++)
+        CreateGrid();
+        SetBlock();
+    }
+
+    void CreateGrid()
+    {
+        for (int x = 0; x < width; x++)
         {
-            SpawnGrid();
+            for (int y = 0; y < height; y++)
+            {
+                _grid[x, y] = false;
+            }
+        }
+        
+        SetBomb();
+    }
+
+    void SetBomb()
+    {
+        for (int i = 0; i < bombAmount; i++)
+        {
+            while (true)
+            {
+                int x = Random.Range(0, 10);
+                int y = Random.Range(0, 10);
+
+                if (_grid[x, y] == false) _grid[x, y] = true;
+                else
+                    continue;
+                break;
+            }
         }
     }
 
-    void SpawnGrid()
+    void SetBlock()
     {
-        int x = Random.Range(0, 10);
-        int y = Random.Range(0, 10);
-
-        if (grid[x, y] == null)
+        for (int y = 0; y < width; y++)
         {
-            Instantiate(block, new Vector3(x, y, 0), Quaternion.identity);
-            block.GetComponent<Block>().SetBomb();
-            Debug.Log("bomb x: " + gameObject.transform.position.x + " y: " + gameObject.transform.position.y);
-        } else SpawnGrid();
+            for (int x = 0; x < height; x++)
+            {
+                Block block = _block;
+                block.SetBomb(_grid[x,y]);
+                Instantiate(block.gameObject, new Vector3(x, y, 0), Quaternion.identity);
+            }
+        }
     }
 }
