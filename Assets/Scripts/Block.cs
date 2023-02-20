@@ -15,8 +15,10 @@ public class Block : MonoBehaviour
     public Vector3 Position { get; set; }
 
     public bool IsBomb => _isBomb;
+    public int Bombcounter => _bombCounter;
     public void SetBomb(bool value) => _isBomb = value;
     public void IncrementBombCounter() => _bombCounter++;
+    public void SetBombCounter(int value) => _bombCounter = value;
 
     // Start is called before the first frame update
     private void Awake()
