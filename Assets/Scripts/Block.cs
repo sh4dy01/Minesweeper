@@ -9,8 +9,10 @@ public class Block : MonoBehaviour
     [SerializeField] private int _bombCounter;
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
-    
-    private SpriteRenderer _spriteRenderer;
+
+	[SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
+
+	private SpriteRenderer _spriteRenderer;
 
     public Vector3 Position { get; set; }
 
@@ -32,6 +34,12 @@ public class Block : MonoBehaviour
     {
         if (!Input.GetMouseButtonDown(0)) return;
         Debug.Log(_isBomb);
-        _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
+
+        Sprite which = _bombSprite;
+		if (!_isBomb)
+        {
+            which = _bombCounter == 0 ? _emptySprite : _bombCounterSprites[_bombCounter - 1];
+		}
+        _spriteRenderer.sprite = which;
     }
 }

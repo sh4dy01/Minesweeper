@@ -102,6 +102,15 @@ MonoBehaviour:
   _bombCounter: 0
   _emptySprite: {fileID: 21300000, guid: dde1612883127e242a3ea44ee01a48a2, type: 3}
   _bombSprite: {fileID: 21300000, guid: bba08aa75ee94e543a7f56e1d7d4df4e, type: 3}
+  _bombCounterSprites:
+  - {fileID: 21300000, guid: a94200569fcfdf1458b3620a700a57b5, type: 3}
+  - {fileID: 21300000, guid: abeb9a543dcbd664f86f3b8474ee9184, type: 3}
+  - {fileID: 21300000, guid: 387e1ab55b9dabf4aa7120e4faafd69c, type: 3}
+  - {fileID: 21300000, guid: 1427b8415cf71074fb16f46ffcf17a32, type: 3}
+  - {fileID: 21300000, guid: 677f15b56569fce4288658693803bb3c, type: 3}
+  - {fileID: 21300000, guid: 001f856da656b3a478d5a9ed19a7c2f5, type: 3}
+  - {fileID: 21300000, guid: 438f76cbc90fb7b4b9fb1f3651b2dd99, type: 3}
+  - {fileID: 21300000, guid: 4bcd25863b0aefb49ad22ec6a7a2a59c, type: 3}
 --- !u!61 &7076930349213765558
 BoxCollider2D:
   m_ObjectHideFlags: 0
