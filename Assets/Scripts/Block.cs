@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     [SerializeField] private int _bombCounter;
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
+    [SerializeField] private GameObject _flag;
     
     private SpriteRenderer _spriteRenderer;
 
@@ -30,8 +31,21 @@ public class Block : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
-        Debug.Log(_isBomb);
-        _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
+        //Left click to open block
+        if (Input.GetMouseButtonDown(0))
+        {
+            _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
+        }
+        
+        //Right click to place a flag
+        if (_spriteRenderer.sprite == _emptySprite || _spriteRenderer.sprite == _bombSprite)
+        {
+            if(_flag.activeSelf) _flag.SetActive(false); 
+            return;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            _flag.SetActive(!_flag.activeSelf);
+        }
     }
 }
