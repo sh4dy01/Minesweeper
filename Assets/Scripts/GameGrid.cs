@@ -49,6 +49,7 @@ public class GameGrid : MonoBehaviour
     {
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         if (Camera.main != null) Camera.main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
+        Camera.main.orthographicSize = (_gameMod.Height / 2) + 2 ;
     }
 
     // Start is called before the first frame update
