@@ -9,18 +9,14 @@ public class Block : MonoBehaviour
     [SerializeField] private int _bombAroundCounter;
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
-
-
-	[SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
+    [SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
 	[SerializeField] private GameObject _flag;
 
 	private SpriteRenderer _spriteRenderer;
-
-
+    
     public Vector3 Position { get; set; }
 
     public bool IsBomb => _isBomb;
-    public int BombAroundCounter => _bombAroundCounter;
     public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
 
@@ -37,23 +33,29 @@ public class Block : MonoBehaviour
         //Left click to open block
         if (Input.GetMouseButtonDown(0))
         {
-             Sprite which = _bombSprite;
+            Sprite which = _bombSprite;
+            
             if (!_isBomb)
-                {
-                    which = _bombCounter == 0 ? _emptySprite : _bombCounterSprites[_bombCounter - 1];
-                 }
+            {
+                which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
+            }
+            else
+            {
+                GameManager.Instance.DecreaseBombCounter();
+            }
+            
             _spriteRenderer.sprite = which;
-        }
-        
-        //Right click to place a flag
-        if (_spriteRenderer.sprite == _emptySprite || _spriteRenderer.sprite == _bombSprite)
+        } 
+        //Right click to flag a block
+        else if (Input.GetMouseButtonDown(1))
         {
-            if(_flag.activeSelf) _flag.SetActive(false); 
-            return;
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
+            if (_spriteRenderer.sprite == _emptySprite || _spriteRenderer.sprite == _bombSprite)
+            {
+                if(_flag.activeSelf) _flag.SetActive(false); 
+                return;
+            }
+            
             _flag.SetActive(!_flag.activeSelf);
         }
-	}
+    }
 }
