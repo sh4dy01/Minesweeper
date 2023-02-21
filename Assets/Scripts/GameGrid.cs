@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjects.script;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -12,7 +11,9 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject baseBlock;
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
-    [SerializeField] private GameDifficultySo _gameMod;
+    [SerializeField] private GameDifficultySo gameMod;
+  
+    private int _flagCounter;
 
     private class BlockInfo
     {
@@ -52,9 +53,10 @@ public class GameGrid : MonoBehaviour
         Camera.main.orthographicSize = (_gameMod.Height / 2) + 2 ;
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
+        GameManager.Instance.InitBombCounter(gameMod.BombQuantity);
+
         CreateGrid();
         SetBomb();
         SetBlock();
@@ -62,9 +64,9 @@ public class GameGrid : MonoBehaviour
 
     private void CreateGrid()
     {
-        for (int x = 0; x < _gameMod.Width; x++)
+        for (int x = 0; x < gameMod.Width; x++)
         {
-            for (int y = 0; y < _gameMod.Height; y++)
+            for (int y = 0; y < gameMod.Height; y++)
             {
                 BlockInfo info = new();
                 info.Init(new Vector3Int(x, y, 0));
@@ -77,10 +79,10 @@ public class GameGrid : MonoBehaviour
     {
         int bombPlaced = 0;
         
-        while (bombPlaced < _gameMod.BombQuantity)
+        while (bombPlaced < gameMod.BombQuantity)
         {
-            int x = Random.Range(0, _gameMod.Width);
-            int y = Random.Range(0, _gameMod.Height);
+            int x = Random.Range(0, gameMod.Width);
+            int y = Random.Range(0, gameMod.Height);
             Debug.Log(_grid[x, y].IsBomb);
             if (_grid[x, y].IsBomb) continue;
 
@@ -91,7 +93,7 @@ public class GameGrid : MonoBehaviour
             foreach (var position in _neighbourPositions)
             {
                 Vector3Int neighbor = bombPos + position;
-                if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+                if (neighbor.x >= gameMod.Width || neighbor.y >= gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
                     continue;
                 
                     
@@ -113,7 +115,7 @@ public class GameGrid : MonoBehaviour
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
             infoComponent.Position = info.Position;
             infoComponent.SetBomb(info.IsBomb);
-            infoComponent.SetBombCounter(info.BombCounter);
+            infoComponent.SetBombAroundCounter(info.BombCounter);
         }
     }
 }
