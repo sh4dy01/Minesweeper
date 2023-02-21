@@ -12,7 +12,9 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private GameDifficultySo gameMod;
-    
+  
+    private int _flagCounter;
+
     private class BlockInfo
     {
         public Vector3Int Position { get; private set; }

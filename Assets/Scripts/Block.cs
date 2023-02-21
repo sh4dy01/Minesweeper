@@ -9,8 +9,13 @@ public class Block : MonoBehaviour
     [SerializeField] private int _bombAroundCounter;
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
-    
-    private SpriteRenderer _spriteRenderer;
+
+
+	[SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
+	[SerializeField] private GameObject _flag;
+
+	private SpriteRenderer _spriteRenderer;
+
 
     public Vector3 Position { get; set; }
 
@@ -29,11 +34,26 @@ public class Block : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
-        _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
-        if (_isBomb)
+        //Left click to open block
+        if (Input.GetMouseButtonDown(0))
         {
-            GameManager.Instance.DecreaseBombCounter();
+             Sprite which = _bombSprite;
+            if (!_isBomb)
+                {
+                    which = _bombCounter == 0 ? _emptySprite : _bombCounterSprites[_bombCounter - 1];
+                 }
+            _spriteRenderer.sprite = which;
         }
-    }
+        
+        //Right click to place a flag
+        if (_spriteRenderer.sprite == _emptySprite || _spriteRenderer.sprite == _bombSprite)
+        {
+            if(_flag.activeSelf) _flag.SetActive(false); 
+            return;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            _flag.SetActive(!_flag.activeSelf);
+        }
+	}
 }
