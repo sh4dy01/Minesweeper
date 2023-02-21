@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94a4f14044399c41a1041bfcb2dbd15, type: 3}
   m_Name: HardGameMod
   m_EditorClassIdentifier: 
-  _width: 0
-  _height: 0
-  _bombQuantity: 0
+  _width: 30
+  _height: 16
+  _bombQuantity: 99
