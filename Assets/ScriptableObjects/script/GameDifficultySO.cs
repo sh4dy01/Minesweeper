@@ -1,12 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameDifficulty", order = 0)]
-public class GameDifficultySo : ScriptableObject
+namespace ScriptableObjects.script
 {
-    [SerializeField] public int _width;
-    [SerializeField] public int _height;
-    [SerializeField] public int _bombQuantity;
-    
+    [CreateAssetMenu(fileName = "GameDifficulty", order = 0)]
+    public class GameDifficultySo : ScriptableObject
+    {
+        [SerializeField] private int _width;
+        [SerializeField] private int _height;
+        [SerializeField] private int _bombQuantity;
+
+        public int Width => _width;
+        public int Height => _height;
+        public int BombQuantity => _bombQuantity;
+    }
 }

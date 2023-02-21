@@ -108,9 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c767a7b49ee3d3448df1f547b32db45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseBlock: {fileID: 6701616694451313148, guid: 5d7016f80e1a26441a5383d71b182317, type: 3}
-  _bombContainer: {fileID: 5268617884696954965}
-  _blockContainer: {fileID: 2504414786894710017}
-  _bombAmount: 10
-  _width: 10
-  _height: 10
+  baseBlock: {fileID: 6701616694451313148, guid: 5d7016f80e1a26441a5383d71b182317, type: 3}
+  bombContainer: {fileID: 5268617884696954965}
+  blockContainer: {fileID: 2504414786894710017}
+  _gameMod: {fileID: 0}

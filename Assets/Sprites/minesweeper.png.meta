@@ -393,48 +393,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: minesweeper_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b962eeff711ccf48aa9c750ed5a088a
-      internalID: 1858918954
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: minesweeper_13
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa1cfd65940ffc04f96d40216cc304fc
-      internalID: -1267008225
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: minesweeper_14
       rect:
         serializedVersion: 2
@@ -476,6 +434,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: minesweeper_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8e90659b01d69940963d6c5e35d5756
+      internalID: 1858918954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: minesweeper_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21c4ee0eb6aa5b5428c2021d31c11dc7
+      internalID: -1267008225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -487,22 +487,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      minesweeper_8: -702659663
+      minesweeper_0: -1390589037
+      minesweeper_1: 1988930251
+      minesweeper_10: -1340264972
+      minesweeper_11: 506545748
+      minesweeper_12: 1858918954
+      minesweeper_13: -1267008225
+      minesweeper_14: 975738907
       minesweeper_15: 1888634947
       minesweeper_2: 573568968
-      minesweeper_4: -11791483
       minesweeper_3: 1574073706
+      minesweeper_4: -11791483
       minesweeper_5: -1112688078
-      minesweeper_9: -570113480
-      minesweeper_12: 1858918954
-      minesweeper_11: 506545748
-      minesweeper_1: 1988930251
       minesweeper_6: -207372970
-      minesweeper_0: -1390589037
       minesweeper_7: -845244643
-      minesweeper_13: -1267008225
-      minesweeper_10: -1340264972
-      minesweeper_14: 975738907
+      minesweeper_8: -702659663
+      minesweeper_9: -570113480
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
