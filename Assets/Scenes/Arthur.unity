@@ -283,6 +283,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: gameMod
+      value: 
+      objectReference: {fileID: 11400000, guid: bc424ca8ecca95e428bc95cc87dda5c2, type: 2}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: _gameMod
       value: 
       objectReference: {fileID: 11400000, guid: b96cfac0ae384a845ab05ca0b31e5797, type: 2}
