@@ -67,7 +67,7 @@ public class GameGrid : MonoBehaviour
             {
                 BlockInfo info = new();
                 info.Init(new Vector3Int(x, y, 0));
-                _grid[y, x] = info;
+                _grid[x, y] = info;
             }
         }
     }
