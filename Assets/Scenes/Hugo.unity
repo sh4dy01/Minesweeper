@@ -410,6 +410,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1086888720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1086888722}
+  - component: {fileID: 1086888721}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1086888721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086888720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b283e1e7c459c43b0be8dacb7a6826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1086888722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086888720}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4593854, y: 0.14718658, z: 0.020188093}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1100774824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -417,6 +461,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: gameMod
+      value: 
+      objectReference: {fileID: 11400000, guid: b96cfac0ae384a845ab05ca0b31e5797, type: 2}
     - target: {fileID: 3747098514834780508, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -833,3 +881,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombText: {fileID: 1752697876}
   timerText: {fileID: 467508571}
+  baseTimerText: 'Timer : '
+  baseBombText: 'Bomb : '
