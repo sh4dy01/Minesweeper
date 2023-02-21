@@ -225,10 +225,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
-      propertyPath: _gameMod
-      value: 
-      objectReference: {fileID: 11400000, guid: 8e37235ea436c1146abab1ec8d7369d7, type: 2}
-    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: width
       value: 10
       objectReference: {fileID: 0}
@@ -236,6 +232,10 @@ PrefabInstance:
       propertyPath: height
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: _gameMod
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a22bf3adb77dbc43a3981ef3dbd3c45, type: 2}
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: baseBlock
       value: 
