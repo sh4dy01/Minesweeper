@@ -10,6 +10,7 @@ public class Block : MonoBehaviour
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
     [SerializeField] private GameObject _flag;
+    [SerializeField] private Texture2D _screwdriverCursor;
     
     private SpriteRenderer _spriteRenderer;
 
@@ -31,8 +32,10 @@ public class Block : MonoBehaviour
 
     private void OnMouseOver()
     {
+        Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
+        
         //Left click to open block
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
             _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
         }
@@ -47,5 +50,10 @@ public class Block : MonoBehaviour
         {
             _flag.SetActive(!_flag.activeSelf);
         }
+    }
+
+    private void OnMouseExit()
+    {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }
