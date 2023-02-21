@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,17 +8,30 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI bombText;
     [SerializeField] private TextMeshProUGUI timerText;
-
-    private float timer = 0;
+    [SerializeField] private string baseTimerText;
+    [SerializeField] private string baseBombText;
     
-    // Update is called once per frame
+    private float _timer;
+
+    private void Awake()
+    {
+        _timer = 0;
+        timerText.text = baseTimerText + "00";
+        bombText.text = baseBombText;
+    }
+
     private void Update()
     {
-        timer += Time.deltaTime;
+        _timer += Time.deltaTime;
 
-        if (!(timer >= 1)) return;
+        if (!(_timer >= 1)) return;
         
-        timerText.text = Time.timeSinceLevelLoad.ToString("00");
-        timer = 0;
+        timerText.text = baseTimerText + Time.timeSinceLevelLoad.ToString("00");
+        _timer = 0;
+    }
+
+    public void UpdateBombText(int bombCounter)
+    {
+        bombText.text = baseBombText + bombCounter.ToString("00");
     }
 }
