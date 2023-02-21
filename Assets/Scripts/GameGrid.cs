@@ -48,9 +48,12 @@ public class GameGrid : MonoBehaviour
 
     private void Awake()
     {
-        _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
-        if (Camera.main != null) Camera.main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
-        Camera.main.orthographicSize = (_gameMod.Height / 2) + 2 ;
+        _grid = new BlockInfo[gameMod.Width, gameMod.Height];
+        if (Camera.main == null) return;
+        
+        var main = Camera.main;
+        main.transform.position = new Vector3(gameMod.Width * 0.5f, gameMod.Height * 0.5f, -10);
+        main.orthographicSize = (gameMod.Height / 2) + 2;
     }
 
     private void Start()
