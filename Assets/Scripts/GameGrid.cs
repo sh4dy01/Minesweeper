@@ -11,9 +11,7 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject _baseBlock;
     [SerializeField] private GameObject _bombContainer;
     [SerializeField] private GameObject _blockContainer;
-    [SerializeField] private int _bombAmount;
-    [SerializeField] private int _width;
-    [SerializeField] private int _height;
+    [SerializeField] private GameDifficultySo _gameMod;
 
     private Block[,] _grid;
     
@@ -31,8 +29,8 @@ public class GameGrid : MonoBehaviour
 
     private void Awake()
     {
-        _grid = new Block[_width, _height];
-        if (Camera.main != null) Camera.main.transform.position = new Vector3(_width * 0.5f, _height * 0.5f, -10);
+        _grid = new Block[_gameMod._width, _gameMod._height];
+        if (Camera.main != null) Camera.main.transform.position = new Vector3(_gameMod._width * 0.5f, _gameMod._height * 0.5f, -10);
     }
 
     // Start is called before the first frame update
@@ -45,9 +43,9 @@ public class GameGrid : MonoBehaviour
 
     private void CreateGrid()
     {
-        for (int x = 0; x < _width; x++)
+        for (int x = 0; x < _gameMod._width; x++)
         {
-            for (int y = 0; y < _height; y++)
+            for (int y = 0; y < _gameMod._height; y++)
             {
                 Block block = new Block();
                 block.Position = new Vector3(x, y);
@@ -60,10 +58,10 @@ public class GameGrid : MonoBehaviour
     {
         int bombPlaced = 0;
         
-        while (bombPlaced < _bombAmount)
+        while (bombPlaced < _gameMod._bombQuantity)
         {
-            int x = Random.Range(0, _width);
-            int y = Random.Range(0, _height);
+            int x = Random.Range(0, _gameMod._width);
+            int y = Random.Range(0, _gameMod._height);
             Debug.Log(_grid[x, y].IsBomb);
             if (_grid[x, y].IsBomb) continue;
             
@@ -73,7 +71,7 @@ public class GameGrid : MonoBehaviour
             foreach (var position in _neighbourPositions)
             {
                 Vector3Int neighbor = bombPos + position;
-                if (neighbor.x >= _width || neighbor.y >= _height || neighbor.x < 0 || neighbor.y < 0)
+                if (neighbor.x >= _gameMod._width || neighbor.y >= _gameMod._height || neighbor.x < 0 || neighbor.y < 0)
                 {
                     continue;
                 }
