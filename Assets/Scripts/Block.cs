@@ -31,6 +31,7 @@ public class Block : MonoBehaviour
     private void OnMouseOver()
     {
         if (!Input.GetMouseButtonDown(0)) return;
+        Debug.Log(_isBomb);
         _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
     }
 }

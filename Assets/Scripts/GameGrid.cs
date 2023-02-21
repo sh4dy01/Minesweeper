@@ -14,7 +14,7 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private GameDifficultySo _gameMod;
 
-    private struct BlockInfo
+    private class BlockInfo
     {
         public Vector3Int Position { get; private set; }
         public bool IsBomb { get; private set; }

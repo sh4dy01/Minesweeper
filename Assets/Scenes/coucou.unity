@@ -452,16 +452,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875648928}
   m_CullTransparentMesh: 1
---- !u!1 &1881979657 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2504414786894710017, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
-  m_PrefabInstance: {fileID: 2391271681431840026}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1995724348 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5268617884696954965, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
-  m_PrefabInstance: {fileID: 2391271681431840026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2391271681431840026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,11 +482,11 @@ PrefabInstance:
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: bombContainer
       value: 
-      objectReference: {fileID: 1995724348}
+      objectReference: {fileID: 362400004}
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: blockContainer
       value: 
-      objectReference: {fileID: 1881979657}
+      objectReference: {fileID: 1313859349}
     - target: {fileID: 3747098514834780508, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: m_RootOrder
       value: 1
