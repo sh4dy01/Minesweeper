@@ -6,7 +6,7 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     [SerializeField] private bool _isBomb;
-    [SerializeField] private int _bombCounter;
+    [SerializeField] private int _bombAroundCounter;
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
     
@@ -15,15 +15,14 @@ public class Block : MonoBehaviour
     public Vector3 Position { get; set; }
 
     public bool IsBomb => _isBomb;
-    public int Bombcounter => _bombCounter;
+    public int BombAroundCounter => _bombAroundCounter;
     public void SetBomb(bool value) => _isBomb = value;
-    public void IncrementBombCounter() => _bombCounter++;
-    public void SetBombCounter(int value) => _bombCounter = value;
+    public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        _bombCounter = 0;
+        _bombAroundCounter = 0;
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
@@ -31,7 +30,10 @@ public class Block : MonoBehaviour
     private void OnMouseOver()
     {
         if (!Input.GetMouseButtonDown(0)) return;
-        Debug.Log(_isBomb);
         _spriteRenderer.sprite = _isBomb ? _bombSprite : _emptySprite;
+        if (_isBomb)
+        {
+            GameManager.Instance.DecreaseBombCounter();
+        }
     }
 }
