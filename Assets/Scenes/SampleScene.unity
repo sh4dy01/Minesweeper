@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c767a7b49ee3d3448df1f547b32db45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _block: {fileID: 2377209672436867870, guid: 5d7016f80e1a26441a5383d71b182317, type: 3}
-  bombAmount: 10
-  width: 10
-  height: 10
+  baseBlock: {fileID: 0}
+  bombContainer: {fileID: 0}
+  blockContainer: {fileID: 0}
+  _gameMod: {fileID: 0}
