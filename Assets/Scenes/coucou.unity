@@ -421,7 +421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1498.3, y: 788.24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875648930
@@ -480,7 +480,7 @@ PrefabInstance:
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: _gameMod
       value: 
-      objectReference: {fileID: 11400000, guid: b96cfac0ae384a845ab05ca0b31e5797, type: 2}
+      objectReference: {fileID: 11400000, guid: dc6b9b88bb5603a4c8f599c7c3cbefbf, type: 2}
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: baseBlock
       value: 
