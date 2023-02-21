@@ -207,6 +207,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &362400004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5268617884696954965, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+  m_PrefabInstance: {fileID: 2391271681431840026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1313859349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2504414786894710017, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+  m_PrefabInstance: {fileID: 2391271681431840026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2391271681431840026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,6 +224,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: width
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: height
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: baseBlock
+      value: 
+      objectReference: {fileID: 6701616694451313148, guid: 5d7016f80e1a26441a5383d71b182317, type: 3}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: bombAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: bombContainer
+      value: 
+      objectReference: {fileID: 362400004}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: blockContainer
+      value: 
+      objectReference: {fileID: 1313859349}
     - target: {fileID: 3747098514834780508, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: m_RootOrder
       value: 1
