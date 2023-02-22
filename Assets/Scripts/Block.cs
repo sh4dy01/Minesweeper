@@ -18,12 +18,10 @@ public class Block : MonoBehaviour
     private AudioSource _audioSource;
 
     public Vector3 Position { get; set; }
-<<<<<<< HEAD
     public GameGrid.BlockInfo BlockInfo { get; set; }
     public bool Revealed { get; set; }
 
-=======
->>>>>>> b9cc206439251de1aad9a7f9d4560cc11fa0c08d
+
     public bool IsBomb => _isBomb;
     public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
@@ -46,27 +44,9 @@ public class Block : MonoBehaviour
         //Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
-<<<<<<< HEAD
             GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
-=======
+
             _audioSource.Play();
-            
-            Sprite which = _bombSprite;
-            
-            if (!IsBomb)
-            {
-                which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
-            }
-            else
-            {
-                GameManager.Instance.DecreaseBombCounter();
-                Explosion();
-                _rigidbody.bodyType = RigidbodyType2D.Static;
-            }
-            
-            _spriteRenderer.sprite = which;
-           //GetComponent<Collider2D>().enabled = false;
->>>>>>> b9cc206439251de1aad9a7f9d4560cc11fa0c08d
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
