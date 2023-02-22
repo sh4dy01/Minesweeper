@@ -184,7 +184,6 @@ GameObject:
   - component: {fileID: 3392382428762942236}
   - component: {fileID: 3392382428762942239}
   - component: {fileID: 3392382428762942226}
-  - component: {fileID: 3392382428762942224}
   - component: {fileID: 3392382428762942227}
   m_Layer: 0
   m_Name: BombCounter
@@ -309,19 +308,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3326702, y: 3.3435023}
   m_EdgeRadius: 0
---- !u!114 &3392382428762942224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3392382428762942238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a8bc46cb80c3143a5a2b7bff272fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerText: {fileID: 3392382428212971545}
 --- !u!114 &3392382428762942227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657efa99acff5024cad6ebb5876c16b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cursorGrab: {fileID: 0}
+  _cursorGrab: {fileID: 2800000, guid: 14ca3e5b620f5614385c7b874a10a011, type: 3}
 --- !u!1 &4277175697371432302
 GameObject:
   m_ObjectHideFlags: 0
