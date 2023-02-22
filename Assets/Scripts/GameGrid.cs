@@ -167,4 +167,43 @@ public class GameGrid : MonoBehaviour
 			}
 		}
     }
+
+    // Called whe  the player presses a number. It will try to reveal the squares around it, if there
+    // are enough flags.
+    public void RevealAround(BlockInfo info)
+    {
+        RevealAround(info.X, info.Y, info.BombCounter);
+    }
+
+    public void RevealAround(int x, int y, int requiredFlags)
+    {
+        // Get number of surrounding flags.
+        int numFlags = 0;
+		foreach (Vector3Int position in _neighbourPositions)
+		{
+			Vector3Int neighbor = new Vector3Int(x, y) + position;
+			if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+				continue;
+
+			if (_blocks[neighbor.x, neighbor.y].Flagged)
+            {
+                numFlags++;
+            }
+		}
+
+        // Not enough.
+        if (numFlags < requiredFlags) return;
+
+		foreach (Vector3Int position in _neighbourPositions)
+		{
+			Vector3Int neighbor = new Vector3Int(x, y) + position;
+			if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+				continue;
+
+			if (!_blocks[neighbor.x, neighbor.y].Flagged)
+			{
+                RevealBlock(neighbor.x, neighbor.y);
+			}
+		}
+	}
 }
