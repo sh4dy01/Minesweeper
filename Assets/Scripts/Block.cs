@@ -70,6 +70,9 @@ public class Block : MonoBehaviour
 
     public void RevealThisBlock()
     {
+        // This block is flagged.
+        if (_flag.activeSelf) return;
+
         Revealed = true;
 
 		Sprite which = _bombSprite;
