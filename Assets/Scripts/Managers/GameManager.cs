@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -40,7 +38,7 @@ public class GameManager : MonoBehaviour
         BombCounter = bombs;
         _uiManager.UpdateBombText(BombCounter);
     } 
-    
+
     public void DecreaseBombCounter()
     {
         if (BombCounter <= 0) return;

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Block : MonoBehaviour
@@ -38,13 +35,14 @@ public class Block : MonoBehaviour
         {
             Sprite which = _bombSprite;
             
-            if (!_isBomb)
+            if (!IsBomb)
             {
                 which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
             }
             else
             {
-                GameManager.Instance.DecreaseBombCounter();
+                //Loose
+                //Explode
             }
             
             _spriteRenderer.sprite = which;
