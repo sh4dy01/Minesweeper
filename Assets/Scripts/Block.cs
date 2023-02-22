@@ -16,6 +16,8 @@ public class Block : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     public Vector3 Position { get; set; }
+    public GameGrid.BlockInfo BlockInfo { get; set; }
+    public bool Revealed { get; set; }
 
     public bool IsBomb => _isBomb;
     public void SetBomb(bool value) => _isBomb = value;
@@ -24,6 +26,7 @@ public class Block : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Revealed = false;
         _bombAroundCounter = 0;
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -36,19 +39,7 @@ public class Block : MonoBehaviour
         //Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
-            Sprite which = _bombSprite;
-            
-            if (!_isBomb)
-            {
-                which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
-            }
-            else
-            {
-                GameManager.Instance.DecreaseBombCounter();
-            }
-            
-            _spriteRenderer.sprite = which;
-            GetComponent<Collider2D>().enabled = false;
+            GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
@@ -73,4 +64,23 @@ public class Block : MonoBehaviour
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
+
+    public void RevealThisBlock()
+    {
+        Revealed = true;
+
+		Sprite which = _bombSprite;
+
+		if (!_isBomb)
+		{
+			which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
+		}
+		else
+		{
+			GameManager.Instance.DecreaseBombCounter();
+		}
+
+		_spriteRenderer.sprite = which;
+		GetComponent<Collider2D>().enabled = false;
+	}
 }
