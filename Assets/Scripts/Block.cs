@@ -15,9 +15,9 @@ public class Block : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
+    private AudioSource _audioSource;
 
     public Vector3 Position { get; set; }
-
     public bool IsBomb => _isBomb;
     public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
@@ -28,6 +28,7 @@ public class Block : MonoBehaviour
         _bombAroundCounter = 0;
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _audioSource = gameObject.GetComponent<AudioSource>();
         _rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -38,6 +39,8 @@ public class Block : MonoBehaviour
         //Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
+            _audioSource.Play();
+            
             Sprite which = _bombSprite;
             
             if (!IsBomb)
