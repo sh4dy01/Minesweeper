@@ -16,9 +16,12 @@ public class Block : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private AudioSource _audioSource;
-    private bool _isRevealed;
 
     public Vector3 Position { get; set; }
+    public GameGrid.BlockInfo BlockInfo { get; set; }
+    public bool Revealed { get; set; }
+
+
     public bool IsBomb => _isBomb;
     public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
@@ -26,9 +29,9 @@ public class Block : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Revealed = false;
         _bombAroundCounter = 0;
         _isBomb = false;
-        _isRevealed = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _audioSource = gameObject.GetComponent<AudioSource>();
         _rigidbody = gameObject.GetComponent<Rigidbody2D>();
@@ -39,25 +42,11 @@ public class Block : MonoBehaviour
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
         
         //Left click to open block
-        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf && !_isRevealed)
+        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
-            _audioSource.Play();
-            
-            Sprite which = _bombSprite;
-            
-            if (!IsBomb)
-            {
-                which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
-            }
-            else
-            {
-                GameManager.Instance.DecreaseBombCounter();
-                Explosion();
-                _rigidbody.bodyType = RigidbodyType2D.Static;
-            }
+            GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
 
-            _isRevealed = true;
-            _spriteRenderer.sprite = which;
+            _audioSource.Play();
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
@@ -82,7 +71,26 @@ public class Block : MonoBehaviour
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
-    
+
+    public void RevealThisBlock()
+    {
+        Revealed = true;
+
+		Sprite which = _bombSprite;
+
+		if (!_isBomb)
+		{
+			which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
+		}
+		else
+		{
+			GameManager.Instance.DecreaseBombCounter();
+		}
+
+		_spriteRenderer.sprite = which;
+		GetComponent<Collider2D>().enabled = false;
+	}
+
     private void Explosion()
     {
         colliders = Physics2D.OverlapCircleAll(transform.position, radius);

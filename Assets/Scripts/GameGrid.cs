@@ -13,13 +13,17 @@ public class GameGrid : MonoBehaviour
   
     private int _flagCounter;
 
-    private class BlockInfo
+    public class BlockInfo
     {
         public Vector3Int Position { get; private set; }
         public bool IsBomb { get; private set; }
         public int BombCounter { get; private set; }
         
-        public void IncrementBombCounter() => BombCounter++;
+        // Block position in game grid.
+        public int X { get => Position.x; }
+		public int Y { get => Position.y; }
+
+		public void IncrementBombCounter() => BombCounter++;
         public void SetBomb() => IsBomb = true;
         
         public void Init(Vector3Int position)
@@ -31,6 +35,7 @@ public class GameGrid : MonoBehaviour
     }
     
     private BlockInfo[,] _grid;
+    private Block[,] _blocks;
 
     private readonly Vector3Int[] _neighbourPositions = 
     {
@@ -47,6 +52,7 @@ public class GameGrid : MonoBehaviour
     private void Awake()
     {
         _grid = new BlockInfo[gameMod.Width, gameMod.Height];
+        _blocks = new Block[gameMod.Width, gameMod.Height];
         if (Camera.main == null) return;
         
         var main = Camera.main;
@@ -107,18 +113,55 @@ public class GameGrid : MonoBehaviour
 
     private void SetBlock()
     {
-        foreach (var info in _grid)
+        foreach (BlockInfo info in _grid)
         {
             Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
             GameObject blockObj = Instantiate(baseBlock, info.Position, Quaternion.identity, parent);
             Block infoComponent = blockObj.GetComponent<Block>();
-                
+
+            _blocks[info.X, info.Y] = infoComponent;
+            infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
             blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? _explodeSFX : _breakSFX;
-
             infoComponent.Position = info.Position;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
         }
+    }
+
+	public void RevealBlock(BlockInfo info)
+    {
+        RevealBlock(info.X, info.Y);
+    }
+
+	public void RevealBlock(int x, int y)
+    {
+        Block b = _blocks[x, y];
+        BlockInfo info = _grid[x, y];
+
+        // Already revealed.
+        if (b.Revealed) return;
+
+        b.RevealThisBlock();
+
+        if (info.IsBomb)
+        {
+            // Lose.
+            Debug.Log("BOOOOOOM");
+        }
+        else
+        {
+            // Propagate.
+            if (info.BombCounter != 0) return;
+
+			foreach (Vector3Int position in _neighbourPositions)
+			{
+				Vector3Int neighbor = info.Position + position;
+				if (neighbor.x >= gameMod.Width || neighbor.y >= gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+					continue;
+
+				RevealBlock(neighbor.x, neighbor.y);
+			}
+		}
     }
 }

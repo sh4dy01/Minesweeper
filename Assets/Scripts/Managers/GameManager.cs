@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private GameGrid _gameGrid;
     private UIManager _uiManager;
     private int _maxBombCounter;
 
     public int BombCounter { get; private set; }
+
+    public GameGrid GameGrid { get => _gameGrid; }
 
     #region Singleton
 
@@ -16,6 +19,10 @@ public class GameManager : MonoBehaviour
         if (!Instance)
         {
             Instance = this;
+
+			Instance._gameGrid = FindObjectOfType<GameGrid>();
+			Instance._uiManager = FindObjectOfType<UIManager>();
+
             DontDestroyOnLoad(Instance);
         }
         else
