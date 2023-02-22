@@ -19,7 +19,8 @@ public class Block : MonoBehaviour
     public Vector3 Position { get; set; }
     public GameGrid.BlockInfo BlockInfo { get; set; }
     public bool Revealed { get; set; }
-    public void SetBomb(bool value) => _isBomb = value;
+	public bool Flagged { get => _flag.activeSelf; }
+	public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
 
     // Start is called before the first frame update
@@ -39,9 +40,12 @@ public class Block : MonoBehaviour
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
         
         //Left click to open block
-        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf && !Revealed)
+        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
-            GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
+            if (!Revealed)
+                GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
+            else if (BlockInfo.BombCounter != 0)
+                GameManager.Instance.GameGrid.RevealAround(BlockInfo);
             _audioSource.Play();
         } 
         //Right click to flag a block
