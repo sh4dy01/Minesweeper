@@ -86,7 +86,6 @@ public class GameGrid : MonoBehaviour
         {
             int x = Random.Range(0, gameMod.Width);
             int y = Random.Range(0, gameMod.Height);
-            Debug.Log(_grid[x, y].IsBomb);
             if (_grid[x, y].IsBomb) continue;
 
             BlockInfo info = _grid[x, y];

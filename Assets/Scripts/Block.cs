@@ -12,7 +12,11 @@ public class Block : MonoBehaviour
     [SerializeField] private GameObject _flag;
     [SerializeField] private Texture2D _screwdriverCursor;
     [SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
-    
+    [SerializeField] private float radius = 10.0F;
+    [SerializeField] private float power = 10.0F;
+    private Collider2D[] colliders = null;
+
+    private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
 
     public Vector3 Position { get; set; }
@@ -27,6 +31,7 @@ public class Block : MonoBehaviour
         _bombAroundCounter = 0;
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void OnMouseOver()
@@ -45,10 +50,12 @@ public class Block : MonoBehaviour
             else
             {
                 GameManager.Instance.DecreaseBombCounter();
+                Explosion();
+                _rigidbody.bodyType = RigidbodyType2D.Static;
             }
             
             _spriteRenderer.sprite = which;
-            GetComponent<Collider2D>().enabled = false;
+           //GetComponent<Collider2D>().enabled = false;
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
@@ -72,5 +79,26 @@ public class Block : MonoBehaviour
     private void OnMouseExit()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+    
+    
+
+    private void Explosion()
+    {
+        colliders = Physics2D.OverlapCircleAll(transform.position, radius);
+        foreach (Collider2D hit in colliders)
+        {
+            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+
+            if (rb != null)
+            {
+                Vector2 distanceToVector = hit.transform.position - transform.position;
+                if (distanceToVector.magnitude > 0)
+                {
+                    float explosionForce = power*50 / distanceToVector.magnitude;
+                    rb.AddForce(distanceToVector.normalized * explosionForce);
+                }
+            }
+        }
     }
 }
