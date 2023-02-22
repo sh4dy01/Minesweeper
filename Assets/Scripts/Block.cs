@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Block : MonoBehaviour
@@ -12,13 +9,21 @@ public class Block : MonoBehaviour
     [SerializeField] private GameObject _flag;
     [SerializeField] private Texture2D _screwdriverCursor;
     [SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
-    
+    [SerializeField] private float radius = 10.0F;
+    [SerializeField] private float power = 10.0F;
+    private Collider2D[] colliders = null;
+
+    private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
+    private AudioSource _audioSource;
 
     public Vector3 Position { get; set; }
+<<<<<<< HEAD
     public GameGrid.BlockInfo BlockInfo { get; set; }
     public bool Revealed { get; set; }
 
+=======
+>>>>>>> b9cc206439251de1aad9a7f9d4560cc11fa0c08d
     public bool IsBomb => _isBomb;
     public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
@@ -30,6 +35,8 @@ public class Block : MonoBehaviour
         _bombAroundCounter = 0;
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _audioSource = gameObject.GetComponent<AudioSource>();
+        _rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void OnMouseOver()
@@ -39,7 +46,27 @@ public class Block : MonoBehaviour
         //Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
+<<<<<<< HEAD
             GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
+=======
+            _audioSource.Play();
+            
+            Sprite which = _bombSprite;
+            
+            if (!IsBomb)
+            {
+                which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
+            }
+            else
+            {
+                GameManager.Instance.DecreaseBombCounter();
+                Explosion();
+                _rigidbody.bodyType = RigidbodyType2D.Static;
+            }
+            
+            _spriteRenderer.sprite = which;
+           //GetComponent<Collider2D>().enabled = false;
+>>>>>>> b9cc206439251de1aad9a7f9d4560cc11fa0c08d
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
@@ -83,4 +110,23 @@ public class Block : MonoBehaviour
 		_spriteRenderer.sprite = which;
 		GetComponent<Collider2D>().enabled = false;
 	}
+
+    private void Explosion()
+    {
+        colliders = Physics2D.OverlapCircleAll(transform.position, radius);
+        foreach (Collider2D hit in colliders)
+        {
+            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+
+            if (rb != null)
+            {
+                Vector2 distanceToVector = hit.transform.position - transform.position;
+                if (distanceToVector.magnitude > 0)
+                {
+                    float explosionForce = power*50 / distanceToVector.magnitude;
+                    rb.AddForce(distanceToVector.normalized * explosionForce);
+                }
+            }
+        }
+    }
 }

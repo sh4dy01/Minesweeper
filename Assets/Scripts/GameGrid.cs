@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using ScriptableObjects.script;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class GameGrid : MonoBehaviour
@@ -12,6 +8,8 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private GameDifficultySo gameMod;
+    [SerializeField] private AudioClip _explodeSFX;
+    [SerializeField] private AudioClip _breakSFX;
   
     private int _flagCounter;
 
@@ -92,7 +90,7 @@ public class GameGrid : MonoBehaviour
         {
             int x = Random.Range(0, gameMod.Width);
             int y = Random.Range(0, gameMod.Height);
-            Debug.Log(_grid[x, y].IsBomb);
+            
             if (_grid[x, y].IsBomb) continue;
 
             BlockInfo info = _grid[x, y];
@@ -120,10 +118,11 @@ public class GameGrid : MonoBehaviour
             Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
             GameObject blockObj = Instantiate(baseBlock, info.Position, Quaternion.identity, parent);
             Block infoComponent = blockObj.GetComponent<Block>();
-            _blocks[info.X, info.Y] = infoComponent;
 
+            _blocks[info.X, info.Y] = infoComponent;
             infoComponent.BlockInfo = info;
-			blockObj.name = info.IsBomb ? "Bomb" : "Empty";
+            blockObj.name = info.IsBomb ? "Bomb" : "Empty";
+            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? _explodeSFX : _breakSFX;
             infoComponent.Position = info.Position;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
