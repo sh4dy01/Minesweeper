@@ -45,7 +45,6 @@ public class Block : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
             GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
-
             _audioSource.Play();
         } 
         //Right click to flag a block
@@ -91,7 +90,7 @@ public class Block : MonoBehaviour
 		GetComponent<Collider2D>().enabled = false;
 	}
 
-    private void Explosion()
+    public void Explosion()
     {
         colliders = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D hit in colliders)

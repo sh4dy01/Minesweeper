@@ -146,8 +146,7 @@ public class GameGrid : MonoBehaviour
 
         if (info.IsBomb)
         {
-            // Lose.
-            Debug.Log("BOOOOOOM");
+            b.Explosion();
         }
         else
         {
