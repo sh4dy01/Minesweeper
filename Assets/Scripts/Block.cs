@@ -86,7 +86,6 @@ public class Block : MonoBehaviour
 			GameManager.Instance.DecreaseBombCounter();
         }
 
-        GetComponent<Rigidbody2D>().gravityScale = 0;
         _spriteRenderer.sprite = which;
     }
 

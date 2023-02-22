@@ -1,3 +1,4 @@
+using System;
 using ScriptableObjects.script;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -36,7 +37,7 @@ public class GameGrid : MonoBehaviour
     
     private BlockInfo[,] _grid;
     private Block[,] _blocks;
-
+    
     private readonly Vector3Int[] _neighbourPositions = 
     {
         Vector3Int.up,
@@ -136,7 +137,7 @@ public class GameGrid : MonoBehaviour
         RevealBlock(info.X, info.Y);
     }
 
-	public void RevealBlock(int x, int y)
+    public void RevealBlock(int x, int y)
     {
         Block b = _blocks[x, y];
         BlockInfo info = _grid[x, y];
