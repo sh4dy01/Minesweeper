@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private GameGrid _gameGrid;
     private UIManager _uiManager;
     private int _maxBombCounter;
     [SerializeField] private GameDifficultySo _difficulty;
 
     public int BombCounter { get; private set; }
     public GameDifficultySo GameDifficulty => _difficulty;
+
+    public GameGrid GameGrid { get => _gameGrid; }
 
     #region Singleton
     public static GameManager Instance { get; private set; }
@@ -18,6 +21,10 @@ public class GameManager : MonoBehaviour
         if (!Instance)
         {
             Instance = this;
+
+			Instance._gameGrid = FindObjectOfType<GameGrid>();
+			Instance._uiManager = FindObjectOfType<UIManager>();
+
             DontDestroyOnLoad(Instance);
         }
         else
