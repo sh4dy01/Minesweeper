@@ -1,21 +1,28 @@
+using ScriptableObjects.script;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameDifficultySo _difficulty;
+
+    private GameGrid _gameGrid;
     private UIManager _uiManager;
     private int _maxBombCounter;
+    private bool _isFinished;
 
+    public bool IsFinished => _isFinished;
     public int BombCounter { get; private set; }
+    public GameDifficultySo GameDifficulty => _difficulty;
+    public GameGrid GameGrid { get => _gameGrid; }
 
     #region Singleton
     public static GameManager Instance { get; private set; }
-
     private void Awake()
     {
         if (!Instance)
         {
             Instance = this;
-            Instance._uiManager = FindObjectOfType<UIManager>();
+            DontDestroyOnLoad(Instance);
         }
         else
         {
@@ -32,10 +39,14 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public void InitBombCounter(int bombs)
+    public void InitializeGame()
     {
-        _maxBombCounter = bombs;
-        BombCounter = bombs;
+        _gameGrid = FindObjectOfType<GameGrid>();
+        _uiManager = FindObjectOfType<UIManager>();
+
+        _isFinished = false;
+        _maxBombCounter = _difficulty.BombQuantity;
+        BombCounter = _maxBombCounter;
         _uiManager.UpdateBombText(BombCounter);
     } 
 
@@ -51,5 +62,15 @@ public class GameManager : MonoBehaviour
         if (BombCounter >= _maxBombCounter) return;
         BombCounter++;
         _uiManager.UpdateBombText(BombCounter);
+    }
+
+    public void SetDifficulty(GameDifficultySo difficulty)
+    {
+        _difficulty = difficulty;
+    }
+
+    public void FinishTheGame()
+    {
+        _isFinished = true;
     }
 }
