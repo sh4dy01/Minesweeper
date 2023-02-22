@@ -53,6 +53,8 @@ public class Block : MonoBehaviour
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
         {
+            if (!_flag.activeSelf && GameManager.Instance.BombCounter <= 0) return;
+
             _flag.SetActive(!_flag.activeSelf);
             switch (_flag.activeSelf)
             {
