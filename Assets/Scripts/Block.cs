@@ -16,6 +16,7 @@ public class Block : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private AudioSource _audioSource;
+    private bool _isRevealed;
 
     public Vector3 Position { get; set; }
     public bool IsBomb => _isBomb;
@@ -27,6 +28,7 @@ public class Block : MonoBehaviour
     {
         _bombAroundCounter = 0;
         _isBomb = false;
+        _isRevealed = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _audioSource = gameObject.GetComponent<AudioSource>();
         _rigidbody = gameObject.GetComponent<Rigidbody2D>();
@@ -37,7 +39,7 @@ public class Block : MonoBehaviour
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
         
         //Left click to open block
-        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
+        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf && !_isRevealed)
         {
             _audioSource.Play();
             
@@ -53,9 +55,9 @@ public class Block : MonoBehaviour
                 Explosion();
                 _rigidbody.bodyType = RigidbodyType2D.Static;
             }
-            
+
+            _isRevealed = true;
             _spriteRenderer.sprite = which;
-           //GetComponent<Collider2D>().enabled = false;
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
@@ -81,8 +83,6 @@ public class Block : MonoBehaviour
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
     
-    
-
     private void Explosion()
     {
         colliders = Physics2D.OverlapCircleAll(transform.position, radius);
