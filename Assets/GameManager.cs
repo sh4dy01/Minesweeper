@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int _bombCounter;
     private UIManager _uiManager;
+    private int _maxBombCounter;
+
+    public int BombCounter { get; private set; }
 
     #region Singleton
     public static GameManager Instance { get; private set; }
@@ -34,12 +36,22 @@ public class GameManager : MonoBehaviour
 
     public void InitBombCounter(int bombs)
     {
-        _bombCounter = bombs;
-        _uiManager.UpdateBombText(_bombCounter);
+        _maxBombCounter = bombs;
+        BombCounter = bombs;
+        _uiManager.UpdateBombText(BombCounter);
     } 
+    
     public void DecreaseBombCounter()
     {
-        _bombCounter--;
-        _uiManager.UpdateBombText(_bombCounter);
+        if (BombCounter <= 0) return;
+        BombCounter--;
+        _uiManager.UpdateBombText(BombCounter);
+    }
+
+    public void IncreaseBombCounter()
+    {
+        if (BombCounter >= _maxBombCounter) return;
+        BombCounter++;
+        _uiManager.UpdateBombText(BombCounter);
     }
 }
