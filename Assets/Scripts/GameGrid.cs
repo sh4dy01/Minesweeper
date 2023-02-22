@@ -7,10 +7,10 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject baseBlock;
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
-    [SerializeField] private GameDifficultySo gameMod;
     [SerializeField] private AudioClip _explodeSFX;
     [SerializeField] private AudioClip _breakSFX;
-  
+    
+    private GameDifficultySo _gameMod;
     private int _flagCounter;
 
     public class BlockInfo
@@ -51,18 +51,20 @@ public class GameGrid : MonoBehaviour
 
     private void Awake()
     {
-        _grid = new BlockInfo[gameMod.Width, gameMod.Height];
+        _gameMod = GameManager.Instance.GameDifficulty;
+        _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[gameMod.Width, gameMod.Height];
+        
         if (Camera.main == null) return;
         
         var main = Camera.main;
-        main.transform.position = new Vector3(gameMod.Width * 0.5f, gameMod.Height * 0.5f, -10);
-        main.orthographicSize = (gameMod.Height / 2) + 2;
+        main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
+        main.orthographicSize = (_gameMod.Height / 2) + 2;
     }
 
     private void Start()
     {
-        GameManager.Instance.InitBombCounter(gameMod.BombQuantity);
+        GameManager.Instance.InitBombCounter(_gameMod.BombQuantity);
 
         CreateGrid();
         SetBomb();
@@ -71,9 +73,9 @@ public class GameGrid : MonoBehaviour
 
     private void CreateGrid()
     {
-        for (int x = 0; x < gameMod.Width; x++)
+        for (int x = 0; x < _gameMod.Width; x++)
         {
-            for (int y = 0; y < gameMod.Height; y++)
+            for (int y = 0; y < _gameMod.Height; y++)
             {
                 BlockInfo info = new();
                 info.Init(new Vector3Int(x, y, 0));
@@ -86,10 +88,10 @@ public class GameGrid : MonoBehaviour
     {
         int bombPlaced = 0;
         
-        while (bombPlaced < gameMod.BombQuantity)
+        while (bombPlaced < _gameMod.BombQuantity)
         {
-            int x = Random.Range(0, gameMod.Width);
-            int y = Random.Range(0, gameMod.Height);
+            int x = Random.Range(0, _gameMod.Width);
+            int y = Random.Range(0, _gameMod.Height);
             
             if (_grid[x, y].IsBomb) continue;
 
@@ -100,7 +102,7 @@ public class GameGrid : MonoBehaviour
             foreach (var position in _neighbourPositions)
             {
                 Vector3Int neighbor = bombPos + position;
-                if (neighbor.x >= gameMod.Width || neighbor.y >= gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+                if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
                     continue;
                 
                     
