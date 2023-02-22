@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public class GameGrid : MonoBehaviour
 {
+    [SerializeField] private GameObject deadZones;
     [SerializeField] private GameObject baseBlock;
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
@@ -51,6 +52,8 @@ public class GameGrid : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.InitializeGame();
+
         _gameMod = GameManager.Instance.GameDifficulty;
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
@@ -60,12 +63,11 @@ public class GameGrid : MonoBehaviour
         var main = Camera.main;
         main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
         main.orthographicSize = (_gameMod.Height / 2) + 2;
+        deadZones.transform.position = main.transform.position;
     }
 
     private void Start()
     {
-        GameManager.Instance.InitBombCounter(_gameMod.BombQuantity);
-
         CreateGrid();
         SetBomb();
         SetBlock();
@@ -149,6 +151,7 @@ public class GameGrid : MonoBehaviour
         if (info.IsBomb)
         {
             b.Explosion();
+            GameManager.Instance.FinishTheGame();
         }
         else
         {
