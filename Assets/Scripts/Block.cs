@@ -48,17 +48,22 @@ public class Block : MonoBehaviour
             }
             
             _spriteRenderer.sprite = which;
+            GetComponent<Collider2D>().enabled = false;
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
         {
-            if (_spriteRenderer.sprite == _emptySprite || _spriteRenderer.sprite == _bombSprite)
-            {
-                if(_flag.activeSelf) _flag.SetActive(false); 
-                return;
-            }
-            
             _flag.SetActive(!_flag.activeSelf);
+            switch (_flag.activeSelf)
+            {
+                case true:
+                    if (GameManager.Instance.BombCounter <= 0) return;
+                    GameManager.Instance.DecreaseBombCounter();
+                    break;
+                case false:
+                    GameManager.Instance.IncreaseBombCounter();
+                    break;
+            }
         }
     }
 
