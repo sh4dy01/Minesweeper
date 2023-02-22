@@ -53,7 +53,7 @@ public class GameGrid : MonoBehaviour
     {
         _gameMod = GameManager.Instance.GameDifficulty;
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
-        _blocks = new Block[gameMod.Width, gameMod.Height];
+        _blocks = new Block[_gameMod.Width, _gameMod.Height];
         
         if (Camera.main == null) return;
         
@@ -158,7 +158,7 @@ public class GameGrid : MonoBehaviour
 			foreach (Vector3Int position in _neighbourPositions)
 			{
 				Vector3Int neighbor = info.Position + position;
-				if (neighbor.x >= gameMod.Width || neighbor.y >= gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
 					continue;
 
 				RevealBlock(neighbor.x, neighbor.y);
