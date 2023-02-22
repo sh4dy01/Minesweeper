@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public int BombCounter { get; private set; }
 
     #region Singleton
+
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
         if (!Instance)
         {
             Instance = this;
-            Instance._uiManager = FindObjectOfType<UIManager>();
+            DontDestroyOnLoad(Instance);
         }
         else
         {
@@ -30,14 +31,17 @@ public class GameManager : MonoBehaviour
             Instance = null;
         }
     }
+
     #endregion
 
     public void InitBombCounter(int bombs)
     {
         _maxBombCounter = bombs;
         BombCounter = bombs;
+        
+        _uiManager = FindObjectOfType<UIManager>();
         _uiManager.UpdateBombText(BombCounter);
-    } 
+    }
 
     public void DecreaseBombCounter()
     {
