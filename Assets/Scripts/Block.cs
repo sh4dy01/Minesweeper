@@ -11,18 +11,14 @@ public class Block : MonoBehaviour
     [SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
     [SerializeField] private float radius = 10.0F;
     [SerializeField] private float power = 10.0F;
-    private Collider2D[] colliders = null;
+    private Collider2D[] colliders;
 
-    private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private AudioSource _audioSource;
 
     public Vector3 Position { get; set; }
     public GameGrid.BlockInfo BlockInfo { get; set; }
     public bool Revealed { get; set; }
-
-
-    public bool IsBomb => _isBomb;
     public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
 
@@ -34,15 +30,16 @@ public class Block : MonoBehaviour
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _audioSource = gameObject.GetComponent<AudioSource>();
-        _rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void OnMouseOver()
     {
+        if (GameManager.Instance.IsFinished) return;
+        
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
         
         //Left click to open block
-        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
+        if (Input.GetMouseButtonDown(0) && !_flag.activeSelf && !Revealed)
         {
             GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
             _audioSource.Play();
@@ -87,11 +84,11 @@ public class Block : MonoBehaviour
 		else
 		{
 			GameManager.Instance.DecreaseBombCounter();
-		}
+        }
 
-		_spriteRenderer.sprite = which;
-		GetComponent<Collider2D>().enabled = false;
-	}
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+        _spriteRenderer.sprite = which;
+    }
 
     public void Explosion()
     {
@@ -100,15 +97,14 @@ public class Block : MonoBehaviour
         {
             Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
 
-            if (rb != null)
-            {
-                Vector2 distanceToVector = hit.transform.position - transform.position;
-                if (distanceToVector.magnitude > 0)
-                {
-                    float explosionForce = power*50 / distanceToVector.magnitude;
-                    rb.AddForce(distanceToVector.normalized * explosionForce);
-                }
-            }
+            if (rb == null) continue;
+            
+            Vector2 distanceToVector = hit.transform.position - transform.position;
+            
+            if (!(distanceToVector.magnitude > 0)) continue;
+            
+            float explosionForce = power*50 / distanceToVector.magnitude;
+            rb.AddForce(distanceToVector.normalized * explosionForce);
         }
     }
 }
