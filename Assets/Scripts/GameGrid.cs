@@ -1,4 +1,4 @@
-using System;
+using Managers;
 using ScriptableObjects.script;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,8 +8,8 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject baseBlock;
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
-    [SerializeField] private AudioClip _explodeSFX;
-    [SerializeField] private AudioClip _breakSFX;
+    [SerializeField] private AudioClip explodeSfx;
+    [SerializeField] private AudioClip breakSfx;
     
     private GameDifficultySo _gameMod;
     private int _flagCounter;
@@ -53,6 +53,9 @@ public class GameGrid : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.InitializeGame();
+        
+        if (GameManager.Instance.IsSeedSet)
+            Random.InitState(GameManager.Instance.Seed);
 
         _gameMod = GameManager.Instance.GameDifficulty;
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
@@ -125,7 +128,7 @@ public class GameGrid : MonoBehaviour
             _blocks[info.X, info.Y] = infoComponent;
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
-            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? _explodeSFX : _breakSFX;
+            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
             infoComponent.Position = info.Position;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);

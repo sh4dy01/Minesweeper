@@ -1,76 +1,86 @@
 using ScriptableObjects.script;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Managers
 {
-    [SerializeField] private GameDifficultySo _difficulty;
-
-    private GameGrid _gameGrid;
-    private UIManager _uiManager;
-    private int _maxBombCounter;
-    private bool _isFinished;
-
-    public bool IsFinished => _isFinished;
-    public int BombCounter { get; private set; }
-    public GameDifficultySo GameDifficulty => _difficulty;
-    public GameGrid GameGrid { get => _gameGrid; }
-
-    #region Singleton
-    public static GameManager Instance { get; private set; }
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (!Instance)
+        [SerializeField] private GameDifficultySo difficulty;
+
+        private UIManager _uiManager;
+        private int _maxBombCounter;
+
+        public bool IsFinished { get; private set; }
+        public int BombCounter { get; private set; }
+        public bool IsSeedSet { get; private set; }
+        public int Seed { get; private set; }
+
+        public GameDifficultySo GameDifficulty => difficulty;
+        public GameGrid GameGrid { get; private set; }
+
+        #region Singleton
+        public static GameManager Instance { get; private set; }
+        private void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(Instance);
+            if (!Instance)
+            {
+                Instance = this;
+                DontDestroyOnLoad(Instance);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
+
+        private void OnDestroy()
         {
-            Destroy(gameObject);
+            if (Instance == this)
+            {
+                Instance = null;
+            }
         }
-    }
+        #endregion
 
-    private void OnDestroy()
-    {
-        if (Instance == this)
+        public void InitializeGame()
         {
-            Instance = null;
+            GameGrid = FindObjectOfType<GameGrid>();
+            _uiManager = FindObjectOfType<UIManager>();
+
+            IsFinished = false;
+            _maxBombCounter = difficulty.BombQuantity;
+            BombCounter = _maxBombCounter;
+            _uiManager.UpdateBombText(BombCounter);
         }
-    }
-    #endregion
 
-    public void InitializeGame()
-    {
-        _gameGrid = FindObjectOfType<GameGrid>();
-        _uiManager = FindObjectOfType<UIManager>();
+        public void SetGameSeed(string seedText)
+        {
+            IsSeedSet = true;
+            Seed = Mathf.Abs(int.Parse(seedText));
+        }
 
-        _isFinished = false;
-        _maxBombCounter = _difficulty.BombQuantity;
-        BombCounter = _maxBombCounter;
-        _uiManager.UpdateBombText(BombCounter);
-    } 
+        public void DecreaseBombCounter()
+        {
+            if (BombCounter <= 0) return;
+            BombCounter--;
+            _uiManager.UpdateBombText(BombCounter);
+        }
 
-    public void DecreaseBombCounter()
-    {
-        if (BombCounter <= 0) return;
-        BombCounter--;
-        _uiManager.UpdateBombText(BombCounter);
-    }
+        public void IncreaseBombCounter()
+        {
+            if (BombCounter >= _maxBombCounter) return;
+            BombCounter++;
+            _uiManager.UpdateBombText(BombCounter);
+        }
 
-    public void IncreaseBombCounter()
-    {
-        if (BombCounter >= _maxBombCounter) return;
-        BombCounter++;
-        _uiManager.UpdateBombText(BombCounter);
-    }
+        public void SetDifficulty(GameDifficultySo difficulty)
+        {
+            this.difficulty = difficulty;
+        }
 
-    public void SetDifficulty(GameDifficultySo difficulty)
-    {
-        _difficulty = difficulty;
-    }
-
-    public void FinishTheGame()
-    {
-        _isFinished = true;
+        public void FinishTheGame()
+        {
+            IsFinished = true;
+        }
     }
 }
