@@ -14,6 +14,10 @@ public class GameGrid : MonoBehaviour
     private GameDifficultySo _gameMod;
     private int _flagCounter;
 
+    // Shaking.
+    private Vector3 _originalPosition;
+    private float _shakeIntensity;
+
     public class BlockInfo
     {
         public Vector3Int Position { get; private set; }
@@ -60,13 +64,17 @@ public class GameGrid : MonoBehaviour
         _gameMod = GameManager.Instance.GameDifficulty;
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
-        
-        if (Camera.main == null) return;
+
+        _shakeIntensity = 1.0F;
+
+		if (Camera.main == null) return;
         
         var main = Camera.main;
         main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
         main.orthographicSize = (_gameMod.Height / 2) + 2;
-    }
+
+        _originalPosition = transform.position;
+	}
 
     private void Start()
     {
@@ -75,7 +83,19 @@ public class GameGrid : MonoBehaviour
         SetBlock();
     }
 
-    private void CreateGrid()
+	private void Update()
+	{
+        _shakeIntensity -= Time.deltaTime;
+        if (_shakeIntensity < 0.0F)
+        {
+            _shakeIntensity = 0.0F;
+		}
+
+        Vector3 randomOffset = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0.0F) * _shakeIntensity;
+        transform.SetPositionAndRotation(randomOffset, Quaternion.identity);
+	}
+
+	private void CreateGrid()
     {
         for (int x = 0; x < _gameMod.Width; x++)
         {

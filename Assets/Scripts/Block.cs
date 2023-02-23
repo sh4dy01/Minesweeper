@@ -47,7 +47,6 @@ public class Block : MonoBehaviour
                 GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
             else if (BlockInfo.BombCounter != 0)
                 GameManager.Instance.GameGrid.RevealAround(BlockInfo);
-            _audioSource.Play();
         } 
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
@@ -92,7 +91,9 @@ public class Block : MonoBehaviour
         }
 
         _spriteRenderer.sprite = which;
-    }
+
+		_audioSource.Play();
+	}
 
     public void Explosion()
     {
@@ -100,6 +101,8 @@ public class Block : MonoBehaviour
         foreach (Collider2D hit in colliders)
         {
             Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+            Block b = hit.GetComponent<Block>();
+            if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
 
             if (rb == null) continue;
             
