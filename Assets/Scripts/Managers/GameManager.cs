@@ -6,9 +6,13 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private GameDifficultySo _difficulty;
-        [SerializeField] private Canvas _winUI;
+        [SerializeField] private GameObject _winUIClass;
+		[SerializeField] private GameObject _gameOverUIClass;
 
-        private GameGrid _gameGrid;
+		private GameObject _winUI;
+		private GameObject _gameOverUI;
+
+		private GameGrid _gameGrid;
         private UIManager _uiManager;
         private int _maxBombCounter;
         private bool _isFinished;
@@ -50,7 +54,10 @@ namespace Managers
             GameGrid = FindObjectOfType<GameGrid>();
             _uiManager = FindObjectOfType<UIManager>();
 
-            if (_difficulty == null)
+            _winUI = Instantiate(_winUIClass);
+			_gameOverUI = Instantiate(_gameOverUIClass);
+
+			if (_difficulty == null)
             {
                 Debug.LogError("Difficulty isn't set !");
                 return;
@@ -86,11 +93,17 @@ namespace Managers
             _difficulty = difficulty;
         }
 
+        private void PopupGameOverUI()
+        {
+            _gameOverUI.SetActive(true);
+        }
+
         public void FinishTheGame(bool win)
         {
             _isFinished = true;
 
-            if (win) _winUI.enabled = true;
+            if (win) _winUI.SetActive(true);
+            else Invoke("PopupGameOverUI", 3.0F);
         }
     }
 }

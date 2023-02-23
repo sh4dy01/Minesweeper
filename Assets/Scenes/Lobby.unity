@@ -250,6 +250,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1917217383305168723, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
+      propertyPath: _winUIClass
+      value: 
+      objectReference: {fileID: 2369939370629912819, guid: 001c78008df03964e9ba3c703b709417, type: 3}
+    - target: {fileID: 1917217383305168723, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
+      propertyPath: _gameOverUIClass
+      value: 
+      objectReference: {fileID: 3646610493182204047, guid: 03292d05abadc9748b7cf426772c04cf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
 --- !u!1 &2112187406
