@@ -352,6 +352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 8978272040826373161, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 514bf3726bb784547bd49c82cd274fca, type: 3}
     - target: {fileID: 8978272040926796177, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
       propertyPath: timerText
       value: 
@@ -641,7 +645,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7426161637355002818, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426161637355002844, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
+      propertyPath: Pan2D
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426161637355002844, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
+      propertyPath: m_Pitch
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426161637355002844, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
+      propertyPath: m_Volume
+      value: 0.144
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426161637355002844, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bba2de15c32739945bbc7b85442df612, type: 3}
+    - target: {fileID: 7426161637355002844, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426161637355002844, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 0.312
       objectReference: {fileID: 0}
     - target: {fileID: 7426161637355002845, guid: 1b440328f5a67034e95c10b94966f256, type: 3}
       propertyPath: m_RootOrder
