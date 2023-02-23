@@ -156,7 +156,6 @@ public class GameGrid : MonoBehaviour
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
             blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
-            infoComponent.Position = info.GridPosition;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
         }
