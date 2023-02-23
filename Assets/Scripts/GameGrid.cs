@@ -184,8 +184,8 @@ public class GameGrid : MonoBehaviour
 
         if (info.IsBomb)
         {
-            b.Explosion();
-            GameManager.Instance.FinishTheGame(false);
+	        GameManager.Instance.FinishTheGame(false);
+	        b.Explosion();
 		}
         else
         {

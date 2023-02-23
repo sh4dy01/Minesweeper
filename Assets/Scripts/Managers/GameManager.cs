@@ -11,7 +11,6 @@ namespace Managers
         private GameGrid _gameGrid;
         private UIManager _uiManager;
         private int _maxBombCounter;
-        private bool _isFinished;
 
         public bool IsFinished { get; private set; }
         public int BombCounter { get; private set; }
@@ -88,7 +87,7 @@ namespace Managers
 
         public void FinishTheGame(bool win)
         {
-            _isFinished = true;
+            IsFinished = true;
 
             if (win) _winUI.enabled = true;
         }
