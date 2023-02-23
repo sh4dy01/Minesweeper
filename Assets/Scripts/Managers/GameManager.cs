@@ -5,17 +5,20 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private GameDifficultySo difficulty;
+        [SerializeField] private GameDifficultySo _difficulty;
+	[SerializeField] private Canvas _winUI;
 
-        private UIManager _uiManager;
-        private int _maxBombCounter;
+	private GameGrid _gameGrid;
+    private UIManager _uiManager;
+    private int _maxBombCounter;
+    private bool _isFinished;
 
         public bool IsFinished { get; private set; }
         public int BombCounter { get; private set; }
         public bool IsSeedSet { get; private set; }
         public int Seed { get; private set; }
 
-        public GameDifficultySo GameDifficulty => difficulty;
+        public GameDifficultySo GameDifficulty => _difficulty;
         public GameGrid GameGrid { get; private set; }
 
         #region Singleton
@@ -47,13 +50,13 @@ namespace Managers
             GameGrid = FindObjectOfType<GameGrid>();
             _uiManager = FindObjectOfType<UIManager>();
 
-            if (difficulty == null)
+            if (_difficulty == null)
             {
                 Debug.LogError("Difficulty isn't set !");
                 return;
             }
             IsFinished = false;
-            _maxBombCounter = difficulty.BombQuantity;
+            _maxBombCounter = _difficulty.BombQuantity;
             BombCounter = _maxBombCounter;
             _uiManager.UpdateBombText(BombCounter);
         }
@@ -80,12 +83,13 @@ namespace Managers
 
         public void SetDifficulty(GameDifficultySo difficulty)
         {
-            this.difficulty = difficulty;
+            _difficulty = difficulty;
         }
 
-        public void FinishTheGame()
-        {
-            IsFinished = true;
-        }
-    }
+    public void FinishTheGame(bool win)
+    {
+        _isFinished = true;
+
+        if (win) _winUI.enabled = true;
+}
 }
