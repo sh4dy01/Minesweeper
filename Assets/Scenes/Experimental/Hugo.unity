@@ -1513,9 +1513,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861d276d317de9a49b610d36aa47b595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bgLights: []
+  _bgLights:
+  - {fileID: 1793356466}
+  - {fileID: 1545493396}
+  - {fileID: 1276048677}
+  - {fileID: 1741482905}
+  - {fileID: 1727665873}
   _gridLight: {fileID: 157916677}
   _bgLightsOffIntensity: 0.2
+  _gridLightsOffIntensity: 0.2
 --- !u!4 &1825332091
 Transform:
   m_ObjectHideFlags: 0
