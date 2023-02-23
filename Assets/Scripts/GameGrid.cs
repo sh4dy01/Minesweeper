@@ -8,10 +8,9 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject baseBlock;
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
-
-    [SerializeField] private AudioClip _explodeSFX;
-    [SerializeField] private AudioClip _breakSFX;
-
+    [SerializeField] private AudioClip explodeSfx;
+    [SerializeField] private AudioClip breakSfx;
+    
     private GameDifficultySo _gameMod;
     private int _flagCounter;
 	private int _numBlocks;
@@ -151,7 +150,7 @@ public class GameGrid : MonoBehaviour
             _blocks[info.X, info.Y] = infoComponent;
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
-            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? _explodeSFX : _breakSFX;
+            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
             infoComponent.Position = info.Position;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
@@ -185,8 +184,8 @@ public class GameGrid : MonoBehaviour
 
         if (info.IsBomb)
         {
-            b.Explosion();
-            GameManager.Instance.FinishTheGame(false);
+	        GameManager.Instance.FinishTheGame(false);
+	        b.Explosion();
 		}
         else
         {

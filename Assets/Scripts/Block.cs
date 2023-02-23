@@ -36,6 +36,7 @@ public class Block : MonoBehaviour
 
     private void OnMouseOver()
     {
+        Debug.Log(GameManager.Instance.IsFinished);
         if (GameManager.Instance.IsFinished) return;
         
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -100,8 +101,8 @@ public class Block : MonoBehaviour
         colliders = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D hit in colliders)
         {
-            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
-            Block b = hit.GetComponent<Block>();
+            Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
+            Block b = hit.gameObject.GetComponent<Block>();
             if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
 
             if (rb == null) continue;
