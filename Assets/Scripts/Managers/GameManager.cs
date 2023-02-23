@@ -47,6 +47,11 @@ namespace Managers
             GameGrid = FindObjectOfType<GameGrid>();
             _uiManager = FindObjectOfType<UIManager>();
 
+            if (difficulty == null)
+            {
+                Debug.LogError("Difficulty isn't set !");
+                return;
+            }
             IsFinished = false;
             _maxBombCounter = difficulty.BombQuantity;
             BombCounter = _maxBombCounter;
