@@ -21,38 +21,40 @@ public class GameGrid : MonoBehaviour
 
     public class BlockInfo
     {
-        public Vector3Int Position { get; private set; }
+        public Vector3 WorldPosition { get; private set; }
+        public Vector2Int GridPosition { get; private set; }
         public bool IsBomb { get; private set; }
         public int BombCounter { get; private set; }
         
         // Block position in game grid.
-        public int X { get => Position.x; }
-		public int Y { get => Position.y; }
+        public int X { get => GridPosition.x; }
+		public int Y { get => GridPosition.y; }
 
 		public void IncrementBombCounter() => BombCounter++;
         public void SetBomb() => IsBomb = true;
         
-        public void Init(Vector3Int position)
+        public void Init(Vector2Int position, Vector3 worldPosition)
         {
             IsBomb = false;
             BombCounter = 0;
-            Position = position;
+            GridPosition = position;
+            WorldPosition = worldPosition;
         }
     }
     
     private BlockInfo[,] _grid;
     private Block[,] _blocks;
     
-    private readonly Vector3Int[] _neighbourPositions = 
+    private readonly Vector2Int[] _neighbourPositions = 
     {
-        Vector3Int.up,
-        Vector3Int.right,
-        Vector3Int.down,
-        Vector3Int.left,
-        Vector3Int.up + Vector3Int.right,
-        Vector3Int.up + Vector3Int.left,
-        Vector3Int.down + Vector3Int.right,
-        Vector3Int.down + Vector3Int.left
+        Vector2Int.up,
+        Vector2Int.right,
+        Vector2Int.down,
+        Vector2Int.left,
+        Vector2Int.up + Vector2Int.right,
+        Vector2Int.up + Vector2Int.left,
+        Vector2Int.down + Vector2Int.right,
+        Vector2Int.down + Vector2Int.left
     };
 
     private void Awake()
@@ -72,8 +74,8 @@ public class GameGrid : MonoBehaviour
 		if (Camera.main == null) return;
         
         var main = Camera.main;
-        main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
-        main.orthographicSize = (_gameMod.Height / 2) + 2;
+        //main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
+        //main.orthographicSize = (_gameMod.Height / 2) + 2;
 
         _originalPosition = transform.position;
 	}
@@ -99,12 +101,15 @@ public class GameGrid : MonoBehaviour
 
 	private void CreateGrid()
     {
-        for (int x = 0; x < _gameMod.Width; x++)
+	    float halfWidth = _gameMod.Width * 0.5f;
+	    float halfHeight = _gameMod.Height * 0.5f;
+
+	    for (int x = 0; x < _gameMod.Width; x++)
         {
             for (int y = 0; y < _gameMod.Height; y++)
             {
                 BlockInfo info = new();
-                info.Init(new Vector3Int(x, y, 0));
+                info.Init(new Vector2Int(x, y), new Vector3(x - halfWidth, y - halfHeight, 0));
                 _grid[x, y] = info;
             }
         }
@@ -124,10 +129,10 @@ public class GameGrid : MonoBehaviour
             BlockInfo info = _grid[x, y];
             
             info.SetBomb();
-            Vector3Int bombPos = info.Position;
+            Vector2Int bombPos = info.GridPosition;
             foreach (var position in _neighbourPositions)
             {
-                Vector3Int neighbor = bombPos + position;
+                Vector2Int neighbor = bombPos + position;
                 if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
                     continue;
                 
@@ -144,14 +149,14 @@ public class GameGrid : MonoBehaviour
         foreach (BlockInfo info in _grid)
         {
             Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
-            GameObject blockObj = Instantiate(baseBlock, info.Position, Quaternion.identity, parent);
+            GameObject blockObj = Instantiate(baseBlock, info.WorldPosition, Quaternion.identity, parent);
             Block infoComponent = blockObj.GetComponent<Block>();
 
             _blocks[info.X, info.Y] = infoComponent;
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
             blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
-            infoComponent.Position = info.Position;
+            infoComponent.Position = info.GridPosition;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
         }
@@ -192,9 +197,9 @@ public class GameGrid : MonoBehaviour
             // Propagate.
             if (info.BombCounter != 0) return;
 
-			foreach (Vector3Int position in _neighbourPositions)
+			foreach (Vector2Int position in _neighbourPositions)
 			{
-				Vector3Int neighbor = info.Position + position;
+				Vector2Int neighbor = info.GridPosition + position;
 				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
 					continue;
 

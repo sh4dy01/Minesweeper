@@ -17,7 +17,7 @@ public class Block : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private AudioSource _audioSource;
 
-    public Vector3 Position { get; set; }
+    public Vector2 Position { get; set; }
     public GameGrid.BlockInfo BlockInfo { get; set; }
     public bool Revealed { get; set; }
 	public bool Flagged { get => _flag.activeSelf; }
