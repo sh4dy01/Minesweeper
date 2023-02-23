@@ -10,12 +10,13 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private AudioClip _explodeSFX;
     [SerializeField] private AudioClip _breakSFX;
-    
+
     private GameDifficultySo _gameMod;
     private int _flagCounter;
+	private int _numBlocks;
 
-    // Shaking.
-    private Vector3 _originalPosition;
+	// Shaking.
+	private Vector3 _originalPosition;
     private float _shakeIntensity;
 
     public class BlockInfo
@@ -62,7 +63,8 @@ public class GameGrid : MonoBehaviour
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
 
-        _shakeIntensity = 1.0F;
+        _shakeIntensity = 0.0F;
+		_numBlocks = _gameMod.Width * _gameMod.Height;
 
 		if (Camera.main == null) return;
         
@@ -167,11 +169,21 @@ public class GameGrid : MonoBehaviour
 
         b.RevealThisBlock();
 
+		_numBlocks--;
+        if (_numBlocks == _gameMod.BombQuantity)
+        {
+			GameManager.Instance.FinishTheGame(true);
+        }
+
+		// Add to shake intensity.
+		// With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
+		_shakeIntensity += 0.02F;
+
         if (info.IsBomb)
         {
             b.Explosion();
-            GameManager.Instance.FinishTheGame();
-        }
+            GameManager.Instance.FinishTheGame(false);
+		}
         else
         {
             // Propagate.

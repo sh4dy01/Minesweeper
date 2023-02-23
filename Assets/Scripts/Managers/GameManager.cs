@@ -4,8 +4,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameDifficultySo _difficulty;
+	[SerializeField] private Canvas _winUI;
 
-    private GameGrid _gameGrid;
+	private GameGrid _gameGrid;
     private UIManager _uiManager;
     private int _maxBombCounter;
     private bool _isFinished;
@@ -69,8 +70,10 @@ public class GameManager : MonoBehaviour
         _difficulty = difficulty;
     }
 
-    public void FinishTheGame()
+    public void FinishTheGame(bool win)
     {
         _isFinished = true;
+
+        if (win) _winUI.enabled = true;
     }
 }
