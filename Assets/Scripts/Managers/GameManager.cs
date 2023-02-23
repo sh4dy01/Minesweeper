@@ -6,12 +6,12 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private GameDifficultySo _difficulty;
-	[SerializeField] private Canvas _winUI;
+        [SerializeField] private Canvas _winUI;
 
-	private GameGrid _gameGrid;
-    private UIManager _uiManager;
-    private int _maxBombCounter;
-    private bool _isFinished;
+        private GameGrid _gameGrid;
+        private UIManager _uiManager;
+        private int _maxBombCounter;
+        private bool _isFinished;
 
         public bool IsFinished { get; private set; }
         public int BombCounter { get; private set; }
@@ -86,10 +86,11 @@ namespace Managers
             _difficulty = difficulty;
         }
 
-    public void FinishTheGame(bool win)
-    {
-        _isFinished = true;
+        public void FinishTheGame(bool win)
+        {
+            _isFinished = true;
 
-        if (win) _winUI.enabled = true;
-}
+            if (win) _winUI.enabled = true;
+        }
+    }
 }
