@@ -285,7 +285,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1917217383305168720, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1917217383305168720, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
       propertyPath: m_LocalPosition.x
@@ -331,6 +331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1917217383305168723, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
+      propertyPath: difficulty
+      value: 
+      objectReference: {fileID: 11400000, guid: bc424ca8ecca95e428bc95cc87dda5c2, type: 2}
     - target: {fileID: 1917217383305168723, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
       propertyPath: _difficulty
       value: 
@@ -403,7 +407,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1100774824
 PrefabInstance:
@@ -421,12 +425,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: dc6b9b88bb5603a4c8f599c7c3cbefbf, type: 2}
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: breakSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 261fbc04dc351a4458557742c43e74f2, type: 3}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: deadZones
       value: 
       objectReference: {fileID: 2057326232}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: explodeSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 70a3689ec7895c84ba4d2cc8eec5d4d8, type: 3}
     - target: {fileID: 3747098514834780508, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3747098514834780508, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: m_LocalPosition.x
