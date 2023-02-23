@@ -12,5 +12,20 @@ namespace ScriptableObjects.script
         public int Width => _width;
         public int Height => _height;
         public int BombQuantity => _bombQuantity;
+        
+        public void SetWidth(int width)
+        {
+            _width = width;
+        }
+        
+        public void SetHeight(int height)
+        {
+            _height = height;
+        }
+        
+        public void SetBombQuantity(int bombQuantity)
+        {
+            _bombQuantity = bombQuantity;
+        }
     }
 }
