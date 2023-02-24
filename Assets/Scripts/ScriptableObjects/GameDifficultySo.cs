@@ -8,6 +8,7 @@ namespace ScriptableObjects.script
         [SerializeField] private int _width;
         [SerializeField] private int _height;
         [SerializeField] private int _bombQuantity;
+        [SerializeField] private int _countdown;
 
         public int Width => _width;
         public int Height => _height;
@@ -27,5 +28,6 @@ namespace ScriptableObjects.script
         {
             _bombQuantity = bombQuantity;
         }
+        public int Countdown => _countdown;
     }
 }
