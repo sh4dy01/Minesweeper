@@ -36,7 +36,6 @@ public class Block : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log(GameManager.Instance.IsFinished);
         if (GameManager.Instance.IsFinished) return;
         
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
