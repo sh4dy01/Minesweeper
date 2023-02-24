@@ -29,10 +29,10 @@ public class GameGrid : MonoBehaviour
         public int BombCounter { get; private set; }
         
         // Block position in game grid.
-        public int X { get => GridPosition.x; }
-		public int Y { get => GridPosition.y; }
+        public int GridX => GridPosition.x;
+        public int GridY => GridPosition.y;
 
-		public void IncrementBombCounter() => BombCounter++;
+        public void IncrementBombCounter() => BombCounter++;
         public void SetBomb() => IsBomb = true;
         
         public void Init(Vector2Int position, Vector3 worldPosition)
@@ -157,7 +157,7 @@ public class GameGrid : MonoBehaviour
             GameObject blockObj = Instantiate(baseBlock, info.WorldPosition, Quaternion.identity, parent);
             Block infoComponent = blockObj.GetComponent<Block>();
 
-            _blocks[info.X, info.Y] = infoComponent;
+            _blocks[info.GridX, info.GridY] = infoComponent;
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
             //blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
@@ -168,7 +168,7 @@ public class GameGrid : MonoBehaviour
 
 	public void RevealBlock(BlockInfo info)
     {
-        RevealBlock(info.X, info.Y);
+        RevealBlock(info.GridX, info.GridY);
 
 		_blockAudioSource.Play();
 	}
@@ -210,8 +210,8 @@ public class GameGrid : MonoBehaviour
 				Vector2Int neighbor = info.GridPosition + position;
 				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 ||
 				    neighbor.y < 0) return;
-				int nx = info.GridPosition.x + position.x;
-				int ny = info.GridPosition.y + position.y;
+				int nx = info.GridX + position.x;
+				int ny = info.GridY + position.y;
 				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
 					continue;
 
@@ -224,7 +224,7 @@ public class GameGrid : MonoBehaviour
     // are enough flags.
     public void RevealAround(BlockInfo info)
     {
-        RevealAround(info.X, info.Y, info.BombCounter);
+        RevealAround(info.GridX, info.GridY, info.BombCounter);
 
 		_blockAudioSource.Play();
     }
