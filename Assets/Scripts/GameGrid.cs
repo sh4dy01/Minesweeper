@@ -10,6 +10,8 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private AudioClip explodeSfx;
     [SerializeField] private AudioClip breakSfx;
+
+    private AudioSource _blockAudioSource;
     
     private GameDifficultySo _gameMod;
     private int _flagCounter;
@@ -21,38 +23,40 @@ public class GameGrid : MonoBehaviour
 
     public class BlockInfo
     {
-        public Vector3Int Position { get; private set; }
+        public Vector3 WorldPosition { get; private set; }
+        public Vector2Int GridPosition { get; private set; }
         public bool IsBomb { get; private set; }
         public int BombCounter { get; private set; }
         
         // Block position in game grid.
-        public int X { get => Position.x; }
-		public int Y { get => Position.y; }
+        public int GridX => GridPosition.x;
+        public int GridY => GridPosition.y;
 
-		public void IncrementBombCounter() => BombCounter++;
+        public void IncrementBombCounter() => BombCounter++;
         public void SetBomb() => IsBomb = true;
         
-        public void Init(Vector3Int position)
+        public void Init(Vector2Int position, Vector3 worldPosition)
         {
             IsBomb = false;
             BombCounter = 0;
-            Position = position;
+            GridPosition = position;
+            WorldPosition = worldPosition;
         }
     }
     
     private BlockInfo[,] _grid;
     private Block[,] _blocks;
     
-    private readonly Vector3Int[] _neighbourPositions = 
+    private readonly Vector2Int[] _neighbourPositions = 
     {
-        Vector3Int.up,
-        Vector3Int.right,
-        Vector3Int.down,
-        Vector3Int.left,
-        Vector3Int.up + Vector3Int.right,
-        Vector3Int.up + Vector3Int.left,
-        Vector3Int.down + Vector3Int.right,
-        Vector3Int.down + Vector3Int.left
+        Vector2Int.up,
+        Vector2Int.right,
+        Vector2Int.down,
+        Vector2Int.left,
+        Vector2Int.up + Vector2Int.right,
+        Vector2Int.up + Vector2Int.left,
+        Vector2Int.down + Vector2Int.right,
+        Vector2Int.down + Vector2Int.left
     };
 
     private void Awake()
@@ -66,21 +70,24 @@ public class GameGrid : MonoBehaviour
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
 
-        _shakeIntensity = 0.0F;
+        _blockAudioSource = GetComponent<AudioSource>();
+        _blockAudioSource.clip = breakSfx;
+
+		_shakeIntensity = 0.0F;
 		_numBlocks = _gameMod.Width * _gameMod.Height;
 
 		if (Camera.main == null) return;
         
         var main = Camera.main;
-        main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
-        main.orthographicSize = (_gameMod.Height / 2) + 2;
+        //main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
+        //main.orthographicSize = (_gameMod.Height / 2) + 2;
 
         _originalPosition = transform.position;
 	}
 
     private void Start()
     {
-        CreateGrid();
+		CreateGrid();
         SetBomb();
         SetBlock();
     }
@@ -99,12 +106,15 @@ public class GameGrid : MonoBehaviour
 
 	private void CreateGrid()
     {
-        for (int x = 0; x < _gameMod.Width; x++)
+	    float halfWidth = _gameMod.Width * 0.5f;
+	    float halfHeight = _gameMod.Height * 0.5f;
+
+	    for (int x = 0; x < _gameMod.Width; x++)
         {
             for (int y = 0; y < _gameMod.Height; y++)
             {
                 BlockInfo info = new();
-                info.Init(new Vector3Int(x, y, 0));
+                info.Init(new Vector2Int(x, y), new Vector3(x - halfWidth, y - halfHeight, 0));
                 _grid[x, y] = info;
             }
         }
@@ -124,10 +134,10 @@ public class GameGrid : MonoBehaviour
             BlockInfo info = _grid[x, y];
             
             info.SetBomb();
-            Vector3Int bombPos = info.Position;
+            Vector2Int bombPos = info.GridPosition;
             foreach (var position in _neighbourPositions)
             {
-                Vector3Int neighbor = bombPos + position;
+                Vector2Int neighbor = bombPos + position;
                 if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
                     continue;
                 
@@ -144,14 +154,13 @@ public class GameGrid : MonoBehaviour
         foreach (BlockInfo info in _grid)
         {
             Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
-            GameObject blockObj = Instantiate(baseBlock, info.Position, Quaternion.identity, parent);
+            GameObject blockObj = Instantiate(baseBlock, info.WorldPosition, Quaternion.identity, parent);
             Block infoComponent = blockObj.GetComponent<Block>();
 
-            _blocks[info.X, info.Y] = infoComponent;
+            _blocks[info.GridX, info.GridY] = infoComponent;
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
-            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
-            infoComponent.Position = info.Position;
+            //blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
         }
@@ -159,10 +168,12 @@ public class GameGrid : MonoBehaviour
 
 	public void RevealBlock(BlockInfo info)
     {
-        RevealBlock(info.X, info.Y);
-    }
+        RevealBlock(info.GridX, info.GridY);
 
-    public void RevealBlock(int x, int y)
+		_blockAudioSource.Play();
+	}
+
+    private void RevealBlock(int x, int y)
     {
         Block b = _blocks[x, y];
         BlockInfo info = _grid[x, y];
@@ -186,6 +197,7 @@ public class GameGrid : MonoBehaviour
         if (info.IsBomb)
         {
 	        GameManager.Instance.FinishTheGame(false);
+            _blockAudioSource.clip = explodeSfx;
 	        b.Explosion();
 		}
         else
@@ -193,25 +205,31 @@ public class GameGrid : MonoBehaviour
             // Propagate.
             if (info.BombCounter != 0) return;
 
-			foreach (Vector3Int position in _neighbourPositions)
+			foreach (Vector2Int position in _neighbourPositions)
 			{
-				Vector3Int neighbor = info.Position + position;
-				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+				Vector2Int neighbor = info.GridPosition + position;
+				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 ||
+				    neighbor.y < 0) return;
+				int nx = info.GridX + position.x;
+				int ny = info.GridY + position.y;
+				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
 					continue;
 
-				RevealBlock(neighbor.x, neighbor.y);
+				RevealBlock(nx, ny);
 			}
 		}
     }
 
-    // Called whe  the player presses a number. It will try to reveal the squares around it, if there
+    // Called when the player presses a number. It will try to reveal the squares around it, if there
     // are enough flags.
     public void RevealAround(BlockInfo info)
     {
-        RevealAround(info.X, info.Y, info.BombCounter);
+        RevealAround(info.GridX, info.GridY, info.BombCounter);
+
+		_blockAudioSource.Play();
     }
 
-    public void RevealAround(int x, int y, int requiredFlags)
+	private void RevealAround(int x, int y, int requiredFlags)
     {
         // Get number of surrounding flags.
         int numFlags = 0;

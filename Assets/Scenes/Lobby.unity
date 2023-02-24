@@ -864,7 +864,7 @@ PrefabInstance:
     - target: {fileID: 1917217383305168723, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
       propertyPath: _winUIClass
       value: 
-      objectReference: {fileID: 2369939370629912819, guid: 001c78008df03964e9ba3c703b709417, type: 3}
+      objectReference: {fileID: 9199358290318602911, guid: 5ee5bc4c4ef35f9418a0b2eef9b095bd, type: 3}
     - target: {fileID: 1917217383305168723, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
       propertyPath: _gameOverUIClass
       value: 
