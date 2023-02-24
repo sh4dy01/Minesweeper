@@ -40,6 +40,11 @@ public class Countdown : MonoBehaviour
                 ChangeMusic();
             }
         }
+
+        if (_minutes <= 0 && _seconds <= 0)
+        {
+            GameManager.Instance.FinishTheGame();
+        }
     }
 
     private void ChangeMusic()

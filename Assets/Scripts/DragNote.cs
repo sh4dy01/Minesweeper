@@ -8,6 +8,7 @@ public class DragNote : MonoBehaviour
     private Vector2 mousePosition;
     private float deltaX, deltaY;
     private int _numPages = 3;
+    private bool _isGrab = false;
     
     [SerializeField] private Texture2D _cursorGrab;
     [SerializeField] private GameObject _paper;
@@ -20,14 +21,16 @@ public class DragNote : MonoBehaviour
     }
 
     private void OnMouseDrag()
-    {        
+    {
+        
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (_numPages > 0)
+        if (_numPages > 0 && !_isGrab)
         {
             Instantiate(_paper, new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY + .1f, transform.position.z), quaternion.identity);
             _numPages--;
+            _isGrab = true;
         }
-        else
+        else if (_numPages <= 0)
         {
             transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY + .1f, transform.position.z);
         }
@@ -35,7 +38,9 @@ public class DragNote : MonoBehaviour
 
     private void OnMouseUp()
     {
+        _isGrab = false;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-        transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY - .1f, transform.position.z);
+        if(_numPages <= 0)
+            transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY - .1f, transform.position.z);
     }
 }

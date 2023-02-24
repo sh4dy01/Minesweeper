@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3392382428212971544}
   - component: {fileID: 3392382428212971550}
   - component: {fileID: 3392382428212971545}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 3392382428762942226}
   - component: {fileID: 3392382428762942227}
   - component: {fileID: 5732779996405269268}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Countdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
