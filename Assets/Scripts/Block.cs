@@ -96,6 +96,7 @@ public class Block : MonoBehaviour
         colliders = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D hit in colliders)
         {
+            Debug.Log(hit);
             Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
             Block b = hit.gameObject.GetComponent<Block>();
             if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;

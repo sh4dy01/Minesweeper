@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Managers;
 
 public class Countdown : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Countdown : MonoBehaviour
 
         if (_minutes <= 0 && _seconds <= 0)
         {
-            GameManager.Instance.FinishTheGame();
+            GameManager.Instance.FinishTheGame(false);
         }
     }
 
