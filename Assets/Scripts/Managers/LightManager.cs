@@ -28,15 +28,7 @@ public class LightManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SwitchLight();
-        }
-    }
-
-    private void SwitchLight()
+    public void SwitchLight()
     {
         _lightsOn = !_lightsOn;
         if (_lightsOn)
