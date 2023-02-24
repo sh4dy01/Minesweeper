@@ -10,17 +10,16 @@ public class Block : MonoBehaviour
     [SerializeField] private GameObject _flag;
     [SerializeField] private Texture2D _screwdriverCursor;
     [SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
-    [SerializeField] private float radius = 10.0F;
-    [SerializeField] private float power = 10.0F;
-    private Collider2D[] colliders;
+    [SerializeField] private float _radius = 10.0F;
+    [SerializeField] private float _power = 10.0F;
+    private Collider2D[] _colliders;
 
     private SpriteRenderer _spriteRenderer;
 
-    public Vector3 Position { get; set; }
     public GameGrid.BlockInfo BlockInfo { get; set; }
-    public bool Revealed { get; set; }
-	public bool Flagged { get => _flag.activeSelf; }
-	public void SetBomb(bool value) => _isBomb = value;
+    public bool Revealed { get; private set; }
+	public bool Flagged => _flag.activeSelf;
+    public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
 
     // Start is called before the first frame update
@@ -93,8 +92,8 @@ public class Block : MonoBehaviour
 
     public void Explosion()
     {
-        colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-        foreach (Collider2D hit in colliders)
+        _colliders = Physics2D.OverlapCircleAll(transform.position, _radius);
+        foreach (Collider2D hit in _colliders)
         {
             Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
             if (hit.gameObject.CompareTag("Block"))
@@ -109,7 +108,7 @@ public class Block : MonoBehaviour
             
             if (!(distanceToVector.magnitude > 0)) continue;
             
-            float explosionForce = power*50 / distanceToVector.magnitude;
+            float explosionForce = _power*50 / distanceToVector.magnitude;
             rb.AddForce(distanceToVector.normalized * explosionForce);
         }
     }
