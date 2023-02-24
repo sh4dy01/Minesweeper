@@ -15,7 +15,6 @@ public class Block : MonoBehaviour
     private Collider2D[] _colliders;
 
     private SpriteRenderer _spriteRenderer;
-    private AudioSource _audioSource;
 
     public GameGrid.BlockInfo BlockInfo { get; set; }
     public bool Revealed { get; private set; }
@@ -30,12 +29,10 @@ public class Block : MonoBehaviour
         _bombAroundCounter = 0;
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        _audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnMouseOver()
     {
-        Debug.Log(GameManager.Instance.IsFinished);
         if (GameManager.Instance.IsFinished) return;
         
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -47,7 +44,7 @@ public class Block : MonoBehaviour
                 GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
             else if (BlockInfo.BombCounter != 0)
                 GameManager.Instance.GameGrid.RevealAround(BlockInfo);
-        } 
+        }
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
         {
@@ -91,8 +88,6 @@ public class Block : MonoBehaviour
         }
 
         _spriteRenderer.sprite = which;
-
-		_audioSource.Play();
 	}
 
     public void Explosion()
@@ -101,8 +96,11 @@ public class Block : MonoBehaviour
         foreach (Collider2D hit in _colliders)
         {
             Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
-            Block b = hit.gameObject.GetComponent<Block>();
-            if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
+            if (hit.gameObject.CompareTag("Block"))
+            {
+                Block b = hit.gameObject.GetComponent<Block>();
+                if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
+            }
 
             if (rb == null) continue;
             

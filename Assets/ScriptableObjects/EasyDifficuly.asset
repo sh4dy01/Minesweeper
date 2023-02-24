@@ -15,3 +15,4 @@ MonoBehaviour:
   _width: 9
   _height: 9
   _bombQuantity: 10
+  _countdown: 5

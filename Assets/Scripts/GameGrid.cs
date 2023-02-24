@@ -10,6 +10,8 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private AudioClip explodeSfx;
     [SerializeField] private AudioClip breakSfx;
+
+    private AudioSource _blockAudioSource;
     
     private GameDifficultySo _gameMod;
     private int _flagCounter;
@@ -68,7 +70,10 @@ public class GameGrid : MonoBehaviour
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
 
-        _shakeIntensity = 0.0F;
+        _blockAudioSource = GetComponent<AudioSource>();
+        _blockAudioSource.clip = breakSfx;
+
+		_shakeIntensity = 0.0F;
 		_numBlocks = _gameMod.Width * _gameMod.Height;
 
 		if (Camera.main == null) return;
@@ -82,7 +87,7 @@ public class GameGrid : MonoBehaviour
 
     private void Start()
     {
-        CreateGrid();
+		CreateGrid();
         SetBomb();
         SetBlock();
     }
@@ -155,7 +160,7 @@ public class GameGrid : MonoBehaviour
             _blocks[info.X, info.Y] = infoComponent;
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
-            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
+            //blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
         }
@@ -164,9 +169,11 @@ public class GameGrid : MonoBehaviour
 	public void RevealBlock(BlockInfo info)
     {
         RevealBlock(info.X, info.Y);
-    }
 
-    public void RevealBlock(int x, int y)
+		_blockAudioSource.Play();
+	}
+
+    private void RevealBlock(int x, int y)
     {
         Block b = _blocks[x, y];
         BlockInfo info = _grid[x, y];
@@ -185,10 +192,12 @@ public class GameGrid : MonoBehaviour
 		// Add to shake intensity.
 		// With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
 		_shakeIntensity += 0.02F;
+        if (_shakeIntensity > 1.5F) _shakeIntensity = 1.5F;
 
         if (info.IsBomb)
         {
 	        GameManager.Instance.FinishTheGame(false);
+            _blockAudioSource.clip = explodeSfx;
 	        b.Explosion();
 		}
         else
@@ -200,21 +209,26 @@ public class GameGrid : MonoBehaviour
 			{
 				Vector2Int neighbor = info.GridPosition + position;
 				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+				int nx = info.GridPosition.x + position.x;
+				int ny = info.GridPosition.y + position.y;
+				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
 					continue;
 
-				RevealBlock(neighbor.x, neighbor.y);
+				RevealBlock(nx, ny);
 			}
 		}
     }
 
-    // Called whe  the player presses a number. It will try to reveal the squares around it, if there
+    // Called when the player presses a number. It will try to reveal the squares around it, if there
     // are enough flags.
     public void RevealAround(BlockInfo info)
     {
         RevealAround(info.X, info.Y, info.BombCounter);
+
+		_blockAudioSource.Play();
     }
 
-    public void RevealAround(int x, int y, int requiredFlags)
+	private void RevealAround(int x, int y, int requiredFlags)
     {
         // Get number of surrounding flags.
         int numFlags = 0;
