@@ -15,7 +15,6 @@ public class Block : MonoBehaviour
     private Collider2D[] colliders;
 
     private SpriteRenderer _spriteRenderer;
-    private AudioSource _audioSource;
 
     public Vector3 Position { get; set; }
     public GameGrid.BlockInfo BlockInfo { get; set; }
@@ -31,12 +30,10 @@ public class Block : MonoBehaviour
         _bombAroundCounter = 0;
         _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        _audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnMouseOver()
     {
-        Debug.Log(GameManager.Instance.IsFinished);
         if (GameManager.Instance.IsFinished) return;
         
         Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -48,7 +45,7 @@ public class Block : MonoBehaviour
                 GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
             else if (BlockInfo.BombCounter != 0)
                 GameManager.Instance.GameGrid.RevealAround(BlockInfo);
-        } 
+        }
         //Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
         {
@@ -92,8 +89,6 @@ public class Block : MonoBehaviour
         }
 
         _spriteRenderer.sprite = which;
-
-		_audioSource.Play();
 	}
 
     public void Explosion()

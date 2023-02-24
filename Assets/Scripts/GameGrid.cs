@@ -10,6 +10,8 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private AudioClip explodeSfx;
     [SerializeField] private AudioClip breakSfx;
+
+    private AudioSource _blockAudioSource;
     
     private GameDifficultySo _gameMod;
     private int _flagCounter;
@@ -66,7 +68,10 @@ public class GameGrid : MonoBehaviour
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
 
-        _shakeIntensity = 0.0F;
+        _blockAudioSource = GetComponent<AudioSource>();
+        _blockAudioSource.clip = breakSfx;
+
+		_shakeIntensity = 0.0F;
 		_numBlocks = _gameMod.Width * _gameMod.Height;
 
 		if (Camera.main == null) return;
@@ -80,7 +85,7 @@ public class GameGrid : MonoBehaviour
 
     private void Start()
     {
-        CreateGrid();
+		CreateGrid();
         SetBomb();
         SetBlock();
     }
@@ -150,7 +155,7 @@ public class GameGrid : MonoBehaviour
             _blocks[info.X, info.Y] = infoComponent;
             infoComponent.BlockInfo = info;
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
-            blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
+            //blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
             infoComponent.Position = info.Position;
             infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
@@ -160,7 +165,10 @@ public class GameGrid : MonoBehaviour
 	public void RevealBlock(BlockInfo info)
     {
         RevealBlock(info.X, info.Y);
-    }
+
+        Debug.Log(_blockAudioSource.clip);
+		_blockAudioSource.Play();
+	}
 
     public void RevealBlock(int x, int y)
     {
@@ -186,6 +194,7 @@ public class GameGrid : MonoBehaviour
         if (info.IsBomb)
         {
 	        GameManager.Instance.FinishTheGame(false);
+            _blockAudioSource.clip = explodeSfx;
 	        b.Explosion();
 		}
         else
@@ -195,20 +204,24 @@ public class GameGrid : MonoBehaviour
 
 			foreach (Vector3Int position in _neighbourPositions)
 			{
-				Vector3Int neighbor = info.Position + position;
-				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
+				int nx = info.Position.x + position.x;
+				int ny = info.Position.y + position.y;
+				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
 					continue;
 
-				RevealBlock(neighbor.x, neighbor.y);
+				RevealBlock(nx, ny);
 			}
 		}
     }
 
-    // Called whe  the player presses a number. It will try to reveal the squares around it, if there
+    // Called when the player presses a number. It will try to reveal the squares around it, if there
     // are enough flags.
     public void RevealAround(BlockInfo info)
     {
         RevealAround(info.X, info.Y, info.BombCounter);
+
+		Debug.Log(_blockAudioSource.clip);
+		_blockAudioSource.Play();
     }
 
     public void RevealAround(int x, int y, int requiredFlags)
