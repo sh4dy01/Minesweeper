@@ -72,5 +72,6 @@ public class GameManager : MonoBehaviour
     public void FinishTheGame()
     {
         _isFinished = true;
+        
     }
 }
