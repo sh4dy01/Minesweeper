@@ -166,11 +166,10 @@ public class GameGrid : MonoBehaviour
     {
         RevealBlock(info.X, info.Y);
 
-        Debug.Log(_blockAudioSource.clip);
 		_blockAudioSource.Play();
 	}
 
-    public void RevealBlock(int x, int y)
+    private void RevealBlock(int x, int y)
     {
         Block b = _blocks[x, y];
         BlockInfo info = _grid[x, y];
@@ -220,11 +219,10 @@ public class GameGrid : MonoBehaviour
     {
         RevealAround(info.X, info.Y, info.BombCounter);
 
-		Debug.Log(_blockAudioSource.clip);
 		_blockAudioSource.Play();
     }
 
-    public void RevealAround(int x, int y, int requiredFlags)
+	private void RevealAround(int x, int y, int requiredFlags)
     {
         // Get number of surrounding flags.
         int numFlags = 0;
