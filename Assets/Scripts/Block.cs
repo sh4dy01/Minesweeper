@@ -98,8 +98,11 @@ public class Block : MonoBehaviour
         {
             Debug.Log(hit);
             Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
-            Block b = hit.gameObject.GetComponent<Block>();
-            if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
+            if (hit.gameObject.CompareTag("Block"))
+            {
+                Block b = hit.gameObject.GetComponent<Block>();
+                if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
+            }
 
             if (rb == null) continue;
             
