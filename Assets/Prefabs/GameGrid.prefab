@@ -108,9 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c767a7b49ee3d3448df1f547b32db45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadZones: {fileID: 0}
   baseBlock: {fileID: 6701616694451313148, guid: 5d7016f80e1a26441a5383d71b182317, type: 3}
   bombContainer: {fileID: 5268617884696954965}
   blockContainer: {fileID: 2504414786894710017}
-  _explodeSFX: {fileID: 8300000, guid: 70a3689ec7895c84ba4d2cc8eec5d4d8, type: 3}
-  _breakSFX: {fileID: 8300000, guid: 261fbc04dc351a4458557742c43e74f2, type: 3}
+  explodeSfx: {fileID: 8300000, guid: 70a3689ec7895c84ba4d2cc8eec5d4d8, type: 3}
+  breakSfx: {fileID: 8300000, guid: 261fbc04dc351a4458557742c43e74f2, type: 3}
