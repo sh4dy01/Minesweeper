@@ -22,6 +22,7 @@ public class DragTimer : MonoBehaviour
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY + .1f, transform.position.z);
+        Debug.Log(transform.position);
     }
 
     private void OnMouseUp()

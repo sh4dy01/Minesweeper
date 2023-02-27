@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0417, y: 0.0892}
-  m_SizeDelta: {x: 7.2157, y: 2.4068}
+  m_AnchoredPosition: {x: -0.1017, y: 0.1412}
+  m_SizeDelta: {x: 1.3865, y: 0.9464}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3392382428212971550
 MeshRenderer:
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,17 +100,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '00 : 00'
+  m_text: 00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278650848
-  m_fontColor: {r: 0.8773585, g: 0.028969401, b: 0.028969401, a: 1}
+    rgba: 4278979596
+  m_fontColor: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -127,10 +127,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 6
+  m_fontSize: 7
+  m_fontSizeBase: 7
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 5
   m_fontSizeMax: 15
   m_fontStyle: 0
@@ -185,9 +185,9 @@ GameObject:
   - component: {fileID: 3392382428762942239}
   - component: {fileID: 3392382428762942226}
   - component: {fileID: 3392382428762942227}
-  - component: {fileID: 5732779996405269268}
+  - component: {fileID: 5965278249143577936}
   m_Layer: 3
-  m_Name: Countdown
+  m_Name: BombCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 3392382428762942238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.7181, y: 0, z: 0}
-  m_LocalScale: {x: 1.0757927, y: 1.0587404, z: 1}
+  m_LocalScale: {x: 1.2588373, y: 1.2388837, z: 1.1701487}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3392382428212971544}
@@ -250,7 +250,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 3f45aca01af73b447ac3a967ab2633d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f52f71922ba5c9428bb82e5fdd43d90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -295,18 +295,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.038615704, y: 0.07891625}
+  m_Offset: {x: -0.054493904, y: -1.3993492}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9, y: 4.6}
+    oldSize: {x: 9, y: 9}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.5505705, y: 2.7398539}
+  m_Size: {x: 2.895101, y: 6.216734}
   m_EdgeRadius: 0
 --- !u!114 &3392382428762942227
 MonoBehaviour:
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cursorGrab: {fileID: 2800000, guid: 14ca3e5b620f5614385c7b874a10a011, type: 3}
---- !u!114 &5732779996405269268
+--- !u!114 &5965278249143577936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,8 +330,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3392382428762942238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 504eaec1d5ec7c54b8ba4563018e6508, type: 3}
+  m_Script: {fileID: 11500000, guid: 1593426b14c27f64f8bb87820f42ecc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countDownText: {fileID: 3392382428212971545}
-  _audioClip: {fileID: 8300000, guid: de30938350dbaa040b4ca6ccf0199a02, type: 3}
+  bombCounterText: {fileID: 3392382428212971545}
