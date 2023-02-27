@@ -9,10 +9,12 @@ namespace ScriptableObjects.script
         [SerializeField] private int _height;
         [SerializeField] private int _bombQuantity;
         [SerializeField] private int _countdown;
+        [SerializeField] private bool _isCustom;
 
         public int Width => _width;
         public int Height => _height;
         public int BombQuantity => _bombQuantity;
+        public bool IsCustom => _isCustom;
         
         public void SetWidth(int width)
         {

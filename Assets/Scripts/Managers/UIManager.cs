@@ -1,10 +1,6 @@
 using Managers;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -49,13 +45,13 @@ public class UIManager : MonoBehaviour
         _loseUI.SetActive(true);
     }
 
-    public void GameScene()
+    public void LoadGameScene()
     {
-        SceneManager.LoadScene("game");
+        SceneLoader.LoadGameScene();
     }
-
-    public void LobbyScene()
+    
+    public void LoadLobbyScene()
     {
-        SceneManager.LoadScene("Lobby");
+        SceneLoader.LoadLobbyScene();
     }
 }
