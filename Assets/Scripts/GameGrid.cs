@@ -1,6 +1,7 @@
 using Managers;
 using ScriptableObjects.script;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class GameGrid : MonoBehaviour
@@ -16,6 +17,7 @@ public class GameGrid : MonoBehaviour
     private GameDifficultySo _gameMod;
     private int _flagCounter;
 	private int _numBlocks;
+	private float _gameScale;
 
 	// Shaking.
 	private Vector3 _originalPosition;
@@ -27,14 +29,16 @@ public class GameGrid : MonoBehaviour
         public Vector2Int GridPosition { get; private set; }
         public bool IsBomb { get; private set; }
         public int BombCounter { get; private set; }
-        
+        public float BlockScale { get; private set; }
+
         // Block position in game grid.
         public int GridX => GridPosition.x;
         public int GridY => GridPosition.y;
 
         public void IncrementBombCounter() => BombCounter++;
         public void SetBomb() => IsBomb = true;
-        
+        public void SetScale(float scale) => BlockScale = scale;
+
         public void Init(Vector2Int position, Vector3 worldPosition)
         {
             IsBomb = false;
@@ -75,12 +79,23 @@ public class GameGrid : MonoBehaviour
 
 		_shakeIntensity = 0.0F;
 		_numBlocks = _gameMod.Width * _gameMod.Height;
-
-		if (Camera.main == null) return;
+		_gameScale = 18.0f/(_gameMod.Height+_gameMod.Width);
+		
+		var main = Camera.main;
+		if (main == null) return;
+		
+		//get camera size
+		float height = 2f * main.orthographicSize;
+		float width = height * main.aspect * 0.8f;
+		float border = 4f;
+		
+		//test height and width and take the smaller scale to avoid out of camera blocks
+		_gameScale = (height - border) / _gameMod.Height;
+		float tempGameScale = (width - border) / _gameMod.Width;
+		if (_gameScale > tempGameScale) _gameScale = tempGameScale;
         
-        var main = Camera.main;
         //main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
-        //main.orthographicSize = (_gameMod.Height / 2) + 2;
+        main.orthographicSize = main.orthographicSize * 0.75f;
 
         _originalPosition = transform.position;
 	}
@@ -114,7 +129,8 @@ public class GameGrid : MonoBehaviour
             for (int y = 0; y < _gameMod.Height; y++)
             {
                 BlockInfo info = new();
-                info.Init(new Vector2Int(x, y), new Vector3(x - halfWidth, y - halfHeight, 0));
+                info.Init(new Vector2Int(x, y), new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0));
+                info.SetScale(_gameScale);
                 _grid[x, y] = info;
             }
         }
@@ -159,6 +175,7 @@ public class GameGrid : MonoBehaviour
 
             _blocks[info.GridX, info.GridY] = infoComponent;
             infoComponent.BlockInfo = info;
+            infoComponent.transform.localScale = new Vector3(info.BlockScale, info.BlockScale, 0);
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
             //blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
             infoComponent.SetBomb(info.IsBomb);
