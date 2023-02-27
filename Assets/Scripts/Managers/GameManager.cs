@@ -11,11 +11,6 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private GameDifficultySo _difficulty;
-        [SerializeField] private GameObject _winUIClass;
-		[SerializeField] private GameObject _gameOverUIClass;
-
-		private GameObject _winUI;
-		private GameObject _gameOverUI;
 
 		private GameGrid _gameGrid;
         private UIManager _uiManager;
@@ -62,9 +57,6 @@ namespace Managers
         {
             GameGrid = FindObjectOfType<GameGrid>();
             _uiManager = FindObjectOfType<UIManager>();
-
-            _winUI = Instantiate(_winUIClass);
-			_gameOverUI = Instantiate(_gameOverUIClass);
 
 			if (_difficulty == null)
             {
@@ -144,21 +136,17 @@ namespace Managers
             _difficulty = difficulty;
         }
 
-        private void PopupGameOverUI()
-        {
-            _gameOverUI.SetActive(true);
-        }
-
         public void FinishTheGame(bool win)
         {
             IsFinished = true;
 
-            if (win) _winUI.SetActive(true);
-            else Invoke("PopupGameOverUI", 3.0F);
+            if (win) _uiManager.ShowWinUI();
+            else _uiManager.ShowLoseUI();
         }
+        
 
         #region SceneModify
-        
+
         public void GameScene()
         {
             SceneManager.LoadScene("game");
