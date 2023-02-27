@@ -19,7 +19,6 @@ public class Block : MonoBehaviour
     public GameGrid.BlockInfo BlockInfo { get; set; }
     public bool Revealed { get; private set; }
 	public bool Flagged => _flag.activeSelf;
-    public void SetBomb(bool value) => _isBomb = value;
     public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
 
     // Start is called before the first frame update
@@ -27,7 +26,6 @@ public class Block : MonoBehaviour
     {
         Revealed = false;
         _bombAroundCounter = 0;
-        _isBomb = false;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -78,7 +76,7 @@ public class Block : MonoBehaviour
 
 		Sprite which = _bombSprite;
 
-		if (!_isBomb)
+		if (!BlockInfo.IsBomb)
 		{
 			which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
 		}

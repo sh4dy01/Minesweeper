@@ -186,7 +186,6 @@ public class GameGrid : MonoBehaviour
             infoComponent.transform.localScale = new Vector3(info.BlockScale, info.BlockScale, 0);
             blockObj.name = info.IsBomb ? "Bomb" : "Empty";
             //blockObj.GetComponent<AudioSource>().clip = info.IsBomb ? explodeSfx : breakSfx;
-            infoComponent.SetBomb(info.IsBomb);
             infoComponent.SetBombAroundCounter(info.BombCounter);
         }
     }
@@ -224,7 +223,7 @@ public class GameGrid : MonoBehaviour
             if (!_firstClickOccurred)
             {
                 info.SetBomb(false);
-                while (true)
+				while (true)
                 {
 					int xb = Random.Range(0, _gameMod.Width);
 					int yb = Random.Range(0, _gameMod.Height);
@@ -232,7 +231,7 @@ public class GameGrid : MonoBehaviour
                     if (_grid[xb, yb].IsBomb || _blocks[xb, yb].Revealed) continue;
 
                     _grid[xb, yb].SetBomb(true);
-                    break;
+					break;
 				}
             }
             else
@@ -245,11 +244,9 @@ public class GameGrid : MonoBehaviour
                 Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
             }
 		}
-        else
-        {
-            // Propagate.
-            if (info.BombCounter != 0) return;
-
+        else if (info.BombCounter == 0)
+		{
+			// Propagate.
 			foreach (Vector2Int position in _neighbourPositions)
 			{
 				Vector2Int neighbor = info.GridPosition + position;
