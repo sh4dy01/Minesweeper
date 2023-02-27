@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1917217383305168720}
-  - component: {fileID: 1917217383305168723}
+  - component: {fileID: 5128092825971199957}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1917217383305168723
+--- !u!114 &5128092825971199957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b283e1e7c459c43b0be8dacb7a6826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _difficulty: {fileID: 0}
+  _winUIClass: {fileID: 5876196977342326502, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
+  _gameOverUIClass: {fileID: 2503102175604600727, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
+  _uiContainer: {fileID: 0}
