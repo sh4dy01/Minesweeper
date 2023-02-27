@@ -15,3 +15,5 @@ MonoBehaviour:
   _width: 0
   _height: 0
   _bombQuantity: 0
+  _countdown: 0
+  _isCustom: 1
