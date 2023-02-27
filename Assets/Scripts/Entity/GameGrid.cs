@@ -11,8 +11,9 @@ public class GameGrid : MonoBehaviour
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private AudioClip explodeSfx;
     [SerializeField] private AudioClip breakSfx;
+	[SerializeField] private GameObject explosionParticles;
 
-    private AudioSource _blockAudioSource;
+	private AudioSource _blockAudioSource;
     
     private GameDifficultySo _gameMod;
     private int _flagCounter;
@@ -216,6 +217,9 @@ public class GameGrid : MonoBehaviour
 	        GameManager.Instance.FinishTheGame(false);
             _blockAudioSource.clip = explodeSfx;
 	        b.Explosion();
+
+            // Play particles effect.
+            Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
 		}
         else
         {
