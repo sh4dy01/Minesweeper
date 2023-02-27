@@ -103,7 +103,7 @@ public class GameGrid : MonoBehaviour
 		if (_gameScale > tempGameScale) _gameScale = tempGameScale;
         
         //main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
-        main.orthographicSize = main.orthographicSize * 0.75f;
+        //main.orthographicSize = main.orthographicSize * 0.75f;
 
         _originalPosition = transform.position;
 	}
