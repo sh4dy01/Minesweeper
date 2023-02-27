@@ -18,6 +18,8 @@ public class GameGrid : MonoBehaviour
     private int _flagCounter;
 	private int _numBlocks;
 
+    private bool _firstClickOccurred;
+
 	// Shaking.
 	private Vector3 _originalPosition;
     private float _shakeIntensity;
@@ -34,7 +36,7 @@ public class GameGrid : MonoBehaviour
         public int GridY => GridPosition.y;
 
         public void IncrementBombCounter() => BombCounter++;
-        public void SetBomb() => IsBomb = true;
+        public void SetBomb(bool b = true) => IsBomb = b;
         
         public void Init(Vector2Int position, Vector3 worldPosition)
         {
@@ -77,6 +79,8 @@ public class GameGrid : MonoBehaviour
 		_shakeIntensity = 0.0F;
 		_numBlocks = _gameMod.Width * _gameMod.Height;
 
+		_firstClickOccurred = false;
+
 		if (Camera.main == null) return;
         
         var main = Camera.main;
@@ -89,9 +93,9 @@ public class GameGrid : MonoBehaviour
     private void Start()
     {
 		CreateGrid();
-        SetBomb();
-        SetBlock();
-    }
+		SetBomb();
+		SetBlock();
+	}
 
 	private void Update()
 	{
@@ -123,7 +127,7 @@ public class GameGrid : MonoBehaviour
 
     private void SetBomb()
     {
-        int bombPlaced = 0;
+		int bombPlaced = 0;
         
         while (bombPlaced < _gameMod.BombQuantity)
         {
@@ -132,7 +136,7 @@ public class GameGrid : MonoBehaviour
             
             if (_grid[x, y].IsBomb) continue;
 
-            BlockInfo info = _grid[x, y];
+			BlockInfo info = _grid[x, y];
             
             info.SetBomb();
             Vector2Int bombPos = info.GridPosition;
@@ -148,11 +152,11 @@ public class GameGrid : MonoBehaviour
                 
             bombPlaced++;
         }
-    }
+	}
 
     private void SetBlock()
     {
-        foreach (BlockInfo info in _grid)
+		foreach (BlockInfo info in _grid)
         {
             Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
             GameObject blockObj = Instantiate(baseBlock, info.WorldPosition, Quaternion.identity, parent);
@@ -169,7 +173,7 @@ public class GameGrid : MonoBehaviour
 
 	public void RevealBlock(BlockInfo info)
     {
-        RevealBlock(info.GridX, info.GridY);
+		RevealBlock(info.GridX, info.GridY);
 
 		_blockAudioSource.Play();
 	}
@@ -197,12 +201,29 @@ public class GameGrid : MonoBehaviour
 
         if (info.IsBomb)
         {
-	        GameManager.Instance.FinishTheGame(false);
-            _blockAudioSource.clip = explodeSfx;
-	        b.Explosion();
+            if (!_firstClickOccurred)
+            {
+                info.SetBomb(false);
+                while (true)
+                {
+					int xb = Random.Range(0, _gameMod.Width);
+					int yb = Random.Range(0, _gameMod.Height);
 
-            // Play particles effect.
-            Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
+                    if (_grid[xb, yb].IsBomb || _blocks[xb, yb].Revealed) continue;
+
+                    _grid[xb, yb].SetBomb(true);
+                    break;
+				}
+            }
+            else
+            {
+                GameManager.Instance.FinishTheGame(false);
+                _blockAudioSource.clip = explodeSfx;
+                b.Explosion();
+
+                // Play particles effect.
+                Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
+            }
 		}
         else
         {
@@ -212,8 +233,7 @@ public class GameGrid : MonoBehaviour
 			foreach (Vector2Int position in _neighbourPositions)
 			{
 				Vector2Int neighbor = info.GridPosition + position;
-				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 ||
-				    neighbor.y < 0) return;
+                if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0) continue;
 				int nx = info.GridX + position.x;
 				int ny = info.GridY + position.y;
 				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
@@ -222,7 +242,9 @@ public class GameGrid : MonoBehaviour
 				RevealBlock(nx, ny);
 			}
 		}
-    }
+
+        _firstClickOccurred = true;
+	}
 
     // Called when the player presses a number. It will try to reveal the squares around it, if there
     // are enough flags.
