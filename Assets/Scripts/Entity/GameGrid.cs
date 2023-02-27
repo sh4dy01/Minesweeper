@@ -208,8 +208,8 @@ public class GameGrid : MonoBehaviour
 			foreach (Vector2Int position in _neighbourPositions)
 			{
 				Vector2Int neighbor = info.GridPosition + position;
-				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0) continue;
-
+				if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 ||
+				    neighbor.y < 0) return;
 				int nx = info.GridX + position.x;
 				int ny = info.GridY + position.y;
 				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
