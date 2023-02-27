@@ -115,6 +115,7 @@ Transform:
   - {fileID: 3531231438773547452}
   - {fileID: 3531231437646997888}
   - {fileID: 3531231438215792138}
+  - {fileID: 4449315676367564068}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1257,4 +1258,118 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2734001620739099835, guid: e5d561ebab3826f469e4897ba560d9dc, type: 3}
   m_PrefabInstance: {fileID: 1508824303489272497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3859999182044440380
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3531231438473957728}
+    m_Modifications:
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.17693602
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.015370296
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.67426395
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _gridLight
+      value: 
+      objectReference: {fileID: 3531231438615375905}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _mouseLight
+      value: 
+      objectReference: {fileID: 3531231439372492223}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[0]
+      value: 
+      objectReference: {fileID: 3531231439143148694}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[1]
+      value: 
+      objectReference: {fileID: 3531231439367157168}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[2]
+      value: 
+      objectReference: {fileID: 3531231439636601601}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[3]
+      value: 
+      objectReference: {fileID: 3531231438927627709}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[4]
+      value: 
+      objectReference: {fileID: 3531231438941714677}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[5]
+      value: 
+      objectReference: {fileID: 3531231439143148694}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[6]
+      value: 
+      objectReference: {fileID: 3531231439367157168}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[7]
+      value: 
+      objectReference: {fileID: 3531231439636601601}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[8]
+      value: 
+      objectReference: {fileID: 3531231438927627709}
+    - target: {fileID: 589511709177776665, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: _bgLights.Array.data[9]
+      value: 
+      objectReference: {fileID: 3531231438941714677}
+    - target: {fileID: 589511709177776666, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_Name
+      value: LightManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+--- !u!4 &4449315676367564068 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 589511709177776664, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+  m_PrefabInstance: {fileID: 3859999182044440380}
   m_PrefabAsset: {fileID: 0}

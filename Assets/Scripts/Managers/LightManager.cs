@@ -7,31 +7,42 @@ using UnityEngine.Rendering.Universal;
 
 public class LightManager : MonoBehaviour
 {
-    private bool _lightsOn = true;
     [SerializeField] private List<Light2D> _bgLights;
     [SerializeField] private Light2D _gridLight;
     [SerializeField] private Light2D _mouseLight;
     [SerializeField] private float _bgLightsOffIntensity;
     [SerializeField] private float _gridLightsOffIntensity;
+
+    [Header("Alarm")] 
+    [SerializeField] private Color _alarmColor;
     
+    private bool _isLightsOn;
+    private bool _isAlarm;
     private List<float> _bgLightsOnIntensity;
+    private List<Color> _bgLightsColor;
     private float _gridLightOnIntensity;
+    private Color _gridLightColor;
 
     private void Awake()
     {
+        _isAlarm = false;
+        _isLightsOn = true;
         _bgLightsOnIntensity = new List<float>();
+        _bgLightsColor = new List<Color>();
         _gridLightOnIntensity = _gridLight.intensity;
+        _gridLightColor = _gridLight.color;
         
         foreach (var bgLight in _bgLights)
         {
             _bgLightsOnIntensity.Add(bgLight.intensity);
+            _bgLightsColor.Add(bgLight.color);
         }
     }
 
     public void SwitchLight()
     {
-        _lightsOn = !_lightsOn;
-        if (_lightsOn)
+        _isLightsOn = !_isLightsOn;
+        if (_isLightsOn)
         {
             TurnOnLights();
         }
@@ -61,5 +72,35 @@ public class LightManager : MonoBehaviour
 
         _gridLight.intensity = _gridLightOnIntensity;
         _mouseLight.enabled = false;
+    }
+
+    public void SwitchAlarm()
+    {
+        _isAlarm = !_isAlarm;
+
+        if (_isAlarm)
+            ActivateAlarm();
+        else
+            DisableAlarm();
+    }
+    
+    private void ActivateAlarm()
+    {
+        _gridLight.color = _alarmColor;
+        
+        foreach (var bgLight in _bgLights)
+        {
+            bgLight.color = _alarmColor;
+        }
+    }
+    
+    private void DisableAlarm()
+    {
+        _gridLight.color = _gridLightColor;
+
+        for (int i = 0; i < _bgLightsColor.Count; i++)
+        {
+            _bgLights[i].color = _bgLightsColor[i];
+        }
     }
 }
