@@ -15,28 +15,35 @@ namespace Managers
         [SerializeField] private float _gridLightsOffIntensity;
         
         [Header("Buttons")]
-        [SerializeField] private GameObject _alarmButton;
         [SerializeField] private GameObject _lightSwitch;
 
         [Header("Alarm")] 
         [SerializeField] private Color _alarmColor;
-        [SerializeField] private float _activateAlarmDelay;
-    
+        
+        [Header("Sound")]
+        [SerializeField] private AudioClip _switchOnSound;
+        [SerializeField] private AudioClip _switchOffSound;
+
         private bool _isLightsOn;
         private bool _isAlarm;
         private List<float> _bgLightsOnIntensity;
         private List<Color> _bgLightsColor;
         private float _gridLightOnIntensity;
         private Color _gridLightColor;
+        private AudioSource _audioSource;
 
         private void Awake()
         {
             _isAlarm = false;
             _isLightsOn = true;
+            
             _bgLightsOnIntensity = new List<float>();
             _bgLightsColor = new List<Color>();
+            
             _gridLightOnIntensity = _gridLight.intensity;
             _gridLightColor = _gridLight.color;
+
+            _audioSource = GetComponent<AudioSource>();
         
             foreach (var bgLight in _bgLights)
             {
@@ -64,6 +71,8 @@ namespace Managers
 
         private void TurnOffLights()
         {
+            ChangeSoundAndPlay(_switchOffSound);
+            
             foreach (var light2D in _bgLights)
             {
                 LightOff(light2D);
@@ -72,10 +81,13 @@ namespace Managers
             SetLightIntensity(_gridLight, _gridLightsOffIntensity);
             LightOn(_mouseLight);
             LightOff(_gridLight);
+            ShowButton(_lightSwitch);
         }
 
         private void TurnOnLights()
         {
+            ChangeSoundAndPlay(_switchOnSound);
+            
             foreach (var light2D in _bgLights)
             {
                 LightOn(light2D);
@@ -84,12 +96,13 @@ namespace Managers
             SetLightIntensity(_gridLight, _gridLightOnIntensity);
             LightOn(_gridLight);
             LightOff(_mouseLight);
+            HideButton(_lightSwitch);
         }
 
         public void ActivateAlarm()
         {
             Color color = _alarmColor;
-            color.r = 0.01f;
+            color.r = 0.05f;
             
             LightOn(_mouseLight);
             SetLightColor(_gridLight, color);
@@ -100,27 +113,12 @@ namespace Managers
             }
             
             HideButton(_lightSwitch);
-
-            StartCoroutine(ShowAlarmButtonAfterSeconds());
-        }
-    
-        public void DisableAlarm()
-        {
-            SetLightColor(_gridLight, _gridLightColor);
-
-            for (int i = 0; i < _bgLightsColor.Count; i++)
-            {
-                SetLightColor(_bgLights[i], _bgLightsColor[i]);
-            }
-
-            HideButton(_alarmButton);
         }
 
-        private IEnumerator ShowAlarmButtonAfterSeconds()
+        private void ChangeSoundAndPlay(AudioClip sound)
         {
-            yield return new WaitForSeconds(_activateAlarmDelay);
-
-            ShowButton(_alarmButton);
+            _audioSource.clip = sound;
+            _audioSource.Play();
         }
 
         /// -------- UTILITY -------- ///
