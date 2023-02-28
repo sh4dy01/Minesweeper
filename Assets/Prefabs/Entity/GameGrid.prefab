@@ -113,9 +113,9 @@ MonoBehaviour:
   borderBlock: {fileID: 22118763966460017, guid: 9dc58e35d3632c64880c9a17385e860f, type: 3}
   bombContainer: {fileID: 5268617884696954965}
   blockContainer: {fileID: 2504414786894710017}
-  explodeSfx: {fileID: 8300000, guid: 70a3689ec7895c84ba4d2cc8eec5d4d8, type: 3}
+  explodeSfx: {fileID: 8300000, guid: 842f261a3ab5d5447bcbfd688371558a, type: 3}
   breakSfx: {fileID: 8300000, guid: 261fbc04dc351a4458557742c43e74f2, type: 3}
-  explosionParticles: {fileID: 0}
+  explosionParticles: {fileID: 2513770899492820724, guid: 4f396050ba380eb47a881b9edaf1a6f5, type: 3}
 --- !u!82 &3955548296228074394
 AudioSource:
   m_ObjectHideFlags: 0
@@ -127,8 +127,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

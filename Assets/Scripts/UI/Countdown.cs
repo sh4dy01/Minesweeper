@@ -25,11 +25,11 @@ namespace UI
         private void Awake()
         {
             _isAlarmActivated = false;
-            _lightManager.OnSwitchLightsOn += SetLightTriggerEvent;
         }
 
         private void Start()
         {
+            _lightManager.OnSwitchLightsOn += SetLightTriggerEvent;
             _internalTimer = GameManager.Instance.GameDifficulty.Countdown;
             _alarmTrigger = Mathf.CeilToInt(_internalTimer * alarmSwitchTrigger);
             SetLightTriggerEvent();
