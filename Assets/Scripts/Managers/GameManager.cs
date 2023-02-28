@@ -1,6 +1,4 @@
-using System.Linq;
 using ScriptableObjects.script;
-using TMPro;
 using UnityEngine;
 
 namespace Managers

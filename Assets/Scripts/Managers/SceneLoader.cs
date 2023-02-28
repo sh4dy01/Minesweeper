@@ -32,11 +32,13 @@ namespace Managers
         public static void LoadGameScene()
         {
             SceneManager.LoadScene("game");
+            MusicManager.Instance.SetGameMusic();
         }
 
         public static void LoadLobbyScene()
         {
             SceneManager.LoadScene("Lobby");
+            MusicManager.Instance.SetLobbyMusic();
         }
     }
 }

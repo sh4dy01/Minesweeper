@@ -335,4 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownText: {fileID: 3392382428212971545}
-  _audioClip: {fileID: 8300000, guid: de30938350dbaa040b4ca6ccf0199a02, type: 3}
+  _lightManager: {fileID: 0}
+  alarmSwitchTrigger: 0.2
+  minLightEventTrigger: 0.1
+  maxLightEventTrigger: 0.3
