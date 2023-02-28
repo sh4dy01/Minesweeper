@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private bool _isBomb;
-    [SerializeField] private int _bombAroundCounter;
+    // Prefab properties.
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
     [SerializeField] private GameObject _flag;
@@ -12,20 +11,17 @@ public class Block : MonoBehaviour
     [SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
     [SerializeField] private float _radius = 10.0F;
     [SerializeField] private float _power = 10.0F;
+
     private Collider2D[] _colliders;
 
     private SpriteRenderer _spriteRenderer;
 
+    // Reference to block's data in the game's logic.
     public GameGrid.BlockInfo BlockInfo { get; set; }
-    public bool Revealed { get; private set; }
-	public bool Flagged => _flag.activeSelf;
-    public void SetBombAroundCounter(int value) => _bombAroundCounter = value;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        Revealed = false;
-        _bombAroundCounter = 0;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -35,29 +31,31 @@ public class Block : MonoBehaviour
         
         //Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
         
-        //Left click to open block
+        // Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
         {
-            if (!Revealed)
+            if (!BlockInfo.Revealed)
                 GameManager.Instance.GameGrid.RevealBlock(BlockInfo);
-            else if (BlockInfo.BombCounter != 0)
+            else if (BlockInfo.NumBombsAround != 0)
                 GameManager.Instance.GameGrid.RevealAround(BlockInfo);
         }
-        //Right click to flag a block
+        // Right click to flag a block
         else if (Input.GetMouseButtonDown(1))
         {
-            if (!_flag.activeSelf && (GameManager.Instance.BombCounter <= 0 || Revealed)) return;
+            if (!_flag.activeSelf && (GameManager.Instance.BombCounter <= 0 || BlockInfo.Revealed)) return;
 
+            // Update flag status.
             _flag.SetActive(!_flag.activeSelf);
-            switch (_flag.activeSelf)
+            BlockInfo.Flagged = _flag.activeSelf;
+
+			if (_flag.activeSelf)
             {
-                case true:
-                    if (GameManager.Instance.BombCounter <= 0) return;
-                    GameManager.Instance.DecreaseBombCounter();
-                    break;
-                case false:
-                    GameManager.Instance.IncreaseBombCounter();
-                    break;
+                if (GameManager.Instance.BombCounter <= 0) return;
+                GameManager.Instance.DecreaseBombCounter();
+            }
+            else
+            {
+                GameManager.Instance.IncreaseBombCounter();
             }
         }
     }
@@ -72,13 +70,13 @@ public class Block : MonoBehaviour
         // This block is flagged.
         if (_flag.activeSelf) return;
 
-        Revealed = true;
+		BlockInfo.Revealed = true;
 
 		Sprite which = _bombSprite;
 
 		if (!BlockInfo.IsBomb)
 		{
-			which = _bombAroundCounter == 0 ? _emptySprite : _bombCounterSprites[_bombAroundCounter - 1];
+			which = BlockInfo.NumBombsAround == 0 ? _emptySprite : _bombCounterSprites[BlockInfo.NumBombsAround - 1];
 		}
 		else
 		{
@@ -97,7 +95,7 @@ public class Block : MonoBehaviour
             if (hit.gameObject.CompareTag("Block"))
             {
                 Block b = hit.gameObject.GetComponent<Block>();
-                if (!b.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
+                if (!b.BlockInfo.Revealed) rb.bodyType = RigidbodyType2D.Dynamic;
             }
 
             if (rb == null) continue;
