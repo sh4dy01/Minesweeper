@@ -2,55 +2,61 @@ using Managers;
 using TMPro;
 using UnityEngine;
 
-public class Countdown : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshPro countDownText;
-    [SerializeField] private AudioClip _audioClip;
-    [SerializeField] private int timeToChangeMusic;
-    [SerializeField] private LightManager _lightManager;
-    
-    private AudioSource _audioSource;
-    private float _internalTimer;
-    private int _seconds;
-    private int _minutes;
-
-    private bool _isMusicChanged = false;
-
-    private void Start()
+    public class Countdown : MonoBehaviour
     {
-        _internalTimer = GameManager.Instance.GameDifficulty.Countdown;
-    }
+        [SerializeField] private TextMeshPro countDownText;
+        [SerializeField] private AudioClip _alarmMusic;
+        [SerializeField] private LightManager _lightManager;
+        [SerializeField] [Range(0.1f, 0.8f)] private float alarmSwitchTrigger;
 
-    private void Update()
-    {
-        if (_internalTimer > 0)
+        private AudioSource _audioSource;
+        private float _internalTimer;
+        private int _alarmTrigger;
+        private int _seconds;
+        private int _minutes;
+        private bool _isAlarmActivated;
+
+        private void Awake()
         {
-            _internalTimer -= Time.deltaTime;
-            _seconds = Mathf.CeilToInt(_internalTimer);
-            _minutes = _seconds / 60;
-            _seconds = _seconds % 60;
+            _isAlarmActivated = false;
         }
 
-        countDownText.text = _minutes.ToString("00") + " : " + _seconds.ToString("00");
-
-        if (_minutes * 60 + _seconds <= timeToChangeMusic)
+        private void Start()
         {
-            if (!_isMusicChanged)
+            _internalTimer = GameManager.Instance.GameDifficulty.Countdown;
+            _alarmTrigger = Mathf.CeilToInt(_internalTimer * alarmSwitchTrigger);
+            
+            Debug.Log("Will trigger at : " + _alarmTrigger);
+        }
+
+        private void Update()
+        {
+            if (_internalTimer > 0)
             {
-                _isMusicChanged = true;
-                _lightManager.ActivateAlarm();
-                ChangeMusic();
+                _internalTimer -= Time.deltaTime;
+                _seconds = Mathf.CeilToInt(_internalTimer);
+                _minutes = _seconds / 60;
+                _seconds = _seconds % 60;
+            }
+
+            countDownText.text = _minutes.ToString("00") + " : " + _seconds.ToString("00");
+
+            if (_minutes * 60 + _seconds <= _alarmTrigger)
+            {
+                if (!_isAlarmActivated)
+                {
+                    _isAlarmActivated = true;
+                    _lightManager.ActivateAlarm();
+                    MusicManager.Instance.ChangeMusic(_alarmMusic);
+                }
+            }
+
+            if (_minutes <= 0 && _seconds <= 0)
+            {
+                GameManager.Instance.FinishTheGame(false);
             }
         }
-
-        if (_minutes <= 0 && _seconds <= 0)
-        {
-            GameManager.Instance.FinishTheGame(false);
-        }
-    }
-
-    private void ChangeMusic()
-    {
-        MusicManager.Instance.ChangeMusic(_audioClip);
     }
 }
