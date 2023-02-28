@@ -248,6 +248,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameLose
       objectReference: {fileID: 0}
+    - target: {fileID: 2503102175604600727, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2725947563731458837, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
