@@ -81,7 +81,7 @@ public class GameGrid : MonoBehaviour
         _blockAudioSource.clip = breakSfx;
 
 		_shakeIntensity = 0.0F;
-		_numBlocks = _gameMod.Width * _gameMod.Height;
+		_numBlocks = _gameMod.Width * _gameMod.Height - _gameMod.BombQuantity;
 
 		_firstClickOccurred = false;
 
@@ -207,10 +207,13 @@ public class GameGrid : MonoBehaviour
 
         b.RevealThisBlock();
 
-		_numBlocks--;
-        if (_numBlocks == _gameMod.BombQuantity)
+        if (!info.IsBomb)
         {
-			GameManager.Instance.FinishTheGame(true);
+            _numBlocks--;
+            if (_numBlocks == 0)
+            {
+                GameManager.Instance.FinishTheGame(true);
+            }
         }
 
 		// Add to shake intensity.
