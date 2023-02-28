@@ -436,6 +436,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 297707563}
     - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
+      propertyPath: explodeSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 842f261a3ab5d5447bcbfd688371558a, type: 3}
+    - target: {fileID: 3153360233157158964, guid: fadf3a31cc58fbc4896a6ef089674b02, type: 3}
       propertyPath: _explodeSFX
       value: 
       objectReference: {fileID: 8300000, guid: 70a3689ec7895c84ba4d2cc8eec5d4d8, type: 3}
@@ -564,6 +568,10 @@ PrefabInstance:
       propertyPath: _gameOverUIClass
       value: 
       objectReference: {fileID: 3023903156799894974, guid: dbcd290e299350f4296f74f500159029, type: 3}
+    - target: {fileID: 5128092825971199957, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
+      propertyPath: _difficulty
+      value: 
+      objectReference: {fileID: 11400000, guid: bc424ca8ecca95e428bc95cc87dda5c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2421c5643a82f4c4ca648348b2450222, type: 3}
 --- !u!1001 &3531231438495411748
