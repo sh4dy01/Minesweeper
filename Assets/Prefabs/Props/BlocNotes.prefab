@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3392382428762942239}
   - component: {fileID: 3392382428762942226}
   - component: {fileID: 5896156532852661727}
+  - component: {fileID: -6999252286209336138}
   m_Layer: 3
   m_Name: BlocNotes
   m_TagString: Untagged
@@ -148,3 +149,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cursorGrab: {fileID: 2800000, guid: 14ca3e5b620f5614385c7b874a10a011, type: 3}
   _paper: {fileID: 3392382428762942238, guid: b6cdedf4f00bc5242b9cbebe87296524, type: 3}
+--- !u!114 &-6999252286209336138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3392382428762942238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657efa99acff5024cad6ebb5876c16b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursorGrab: {fileID: 2800000, guid: 14ca3e5b620f5614385c7b874a10a011, type: 3}
+  _cursorHover: {fileID: 2800000, guid: feadc603dffd79844aadac43560b216d, type: 3}

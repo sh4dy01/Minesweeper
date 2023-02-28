@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class DragTimer : MonoBehaviour
+public class DragProps : MonoBehaviour
 {
     private Vector2 mousePosition;
     private float deltaX, deltaY;
