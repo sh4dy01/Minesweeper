@@ -56,7 +56,10 @@ MonoBehaviour:
   _mouseLight: {fileID: 0}
   _bgLightsOffIntensity: 0
   _gridLightsOffIntensity: 0
-  _alarmColor: {r: 0, g: 0, b: 0, a: 0}
+  _alarmButton: {fileID: 6351040514571919145}
+  _lightSwitch: {fileID: 9125970425489105515}
+  _alarmColor: {r: 1, g: 0, b: 0, a: 1}
+  _activateAlarmDelay: 10
 --- !u!1 &6351040514571919145
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -6,14 +7,20 @@ namespace Managers
 {
     public class LightManager : MonoBehaviour
     {
+        [Header("Lights")]
         [SerializeField] private List<Light2D> _bgLights;
         [SerializeField] private Light2D _gridLight;
         [SerializeField] private Light2D _mouseLight;
         [SerializeField] private float _bgLightsOffIntensity;
         [SerializeField] private float _gridLightsOffIntensity;
+        
+        [Header("Buttons")]
+        [SerializeField] private GameObject _alarmButton;
+        [SerializeField] private GameObject _lightSwitch;
 
         [Header("Alarm")] 
         [SerializeField] private Color _alarmColor;
+        [SerializeField] private float _activateAlarmDelay;
     
         private bool _isLightsOn;
         private bool _isAlarm;
@@ -40,14 +47,18 @@ namespace Managers
 
         public void SwitchLight()
         {
+            if (_isAlarm) return;
+
             _isLightsOn = !_isLightsOn;
-            if (_isLightsOn)
+            
+            switch (_isLightsOn)
             {
-                TurnOnLights();
-            }
-            else
-            {
-                TurnOffLights();
+                case true:
+                    TurnOnLights();
+                    break;
+                default:
+                    TurnOffLights();
+                    break;
             }
         }
 
@@ -55,52 +66,69 @@ namespace Managers
         {
             foreach (var light2D in _bgLights)
             {
-                light2D.enabled = false;
+                LightOff(light2D);
             }
         
-            _gridLight.intensity = _gridLightsOffIntensity;
-            _mouseLight.enabled = true;
+            SetLightIntensity(_gridLight, _gridLightsOffIntensity);
+            LightOn(_mouseLight);
+            LightOff(_gridLight);
         }
 
         private void TurnOnLights()
         {
             foreach (var light2D in _bgLights)
             {
-                light2D.enabled = true;
+                LightOn(light2D);
             }
 
-            _gridLight.intensity = _gridLightOnIntensity;
-            _mouseLight.enabled = false;
+            SetLightIntensity(_gridLight, _gridLightOnIntensity);
+            LightOn(_gridLight);
+            LightOff(_mouseLight);
         }
 
-        public void SwitchAlarm()
+        public void ActivateAlarm()
         {
-            _isAlarm = !_isAlarm;
-
-            if (_isAlarm)
-                ActivateAlarm();
-            else
-                DisableAlarm();
-        }
-    
-        private void ActivateAlarm()
-        {
-            _gridLight.color = _alarmColor;
-        
+            Color color = _alarmColor;
+            color.r = 0.01f;
+            
+            LightOn(_mouseLight);
+            SetLightColor(_gridLight, color);
+            
             foreach (var bgLight in _bgLights)
             {
-                bgLight.color = _alarmColor;
+                SetLightColor(bgLight, _alarmColor);
             }
+            
+            HideButton(_lightSwitch);
+
+            StartCoroutine(ShowAlarmButtonAfterSeconds());
         }
     
-        private void DisableAlarm()
+        public void DisableAlarm()
         {
-            _gridLight.color = _gridLightColor;
+            SetLightColor(_gridLight, _gridLightColor);
 
             for (int i = 0; i < _bgLightsColor.Count; i++)
             {
-                _bgLights[i].color = _bgLightsColor[i];
+                SetLightColor(_bgLights[i], _bgLightsColor[i]);
             }
+
+            HideButton(_alarmButton);
         }
+
+        private IEnumerator ShowAlarmButtonAfterSeconds()
+        {
+            yield return new WaitForSeconds(_activateAlarmDelay);
+
+            ShowButton(_alarmButton);
+        }
+
+        /// -------- UTILITY -------- ///
+        private static void SetLightColor(Light2D light, Color color) => light.color = color;
+        private static void SetLightIntensity(Light2D light, float intensity) => light.intensity = intensity;
+        private static void LightOff(Light2D light) => light.enabled = false;
+        private static void LightOn(Light2D light) => light.enabled = true;
+        private static void HideButton(GameObject button) => button.SetActive(false);
+        private static void ShowButton(GameObject button) => button.SetActive(true);
     }
 }

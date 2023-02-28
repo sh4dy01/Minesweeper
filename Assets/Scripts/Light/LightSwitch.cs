@@ -9,7 +9,7 @@ public class LightSwitch : MonoBehaviour
     private void OnMouseDown()
     {
         if (_isAlarm)
-            _lightManager.SwitchAlarm();
+            _lightManager.DisableAlarm();
         else
             _lightManager.SwitchLight();
     }
