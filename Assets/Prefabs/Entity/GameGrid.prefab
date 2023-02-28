@@ -110,10 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseBlock: {fileID: 6701616694451313148, guid: 5d7016f80e1a26441a5383d71b182317, type: 3}
+  borderBlock: {fileID: 22118763966460017, guid: 9dc58e35d3632c64880c9a17385e860f, type: 3}
   bombContainer: {fileID: 5268617884696954965}
   blockContainer: {fileID: 2504414786894710017}
   explodeSfx: {fileID: 8300000, guid: 70a3689ec7895c84ba4d2cc8eec5d4d8, type: 3}
   breakSfx: {fileID: 8300000, guid: 261fbc04dc351a4458557742c43e74f2, type: 3}
+  explosionParticles: {fileID: 0}
 --- !u!82 &3955548296228074394
 AudioSource:
   m_ObjectHideFlags: 0
