@@ -101,6 +101,10 @@ namespace Managers
 
         public void ActivateAlarm()
         {
+            _isAlarm = true;
+
+            MusicManager.Instance.SetAlarmMusic();
+            
             Color color = _alarmColor;
             color.r = 0.05f;
             

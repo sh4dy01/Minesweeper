@@ -6,6 +6,7 @@ namespace Managers
     {
         [SerializeField] private AudioClip _lobbyMusic;
         [SerializeField] private AudioClip _gameMusic;
+        [SerializeField] private AudioClip _alarmMusic;
         
         private AudioSource _audioSource;
         
@@ -34,20 +35,14 @@ namespace Managers
         }
         #endregion
 
-        public void ChangeMusic(AudioClip audioClip)
+        private void ChangeMusic(AudioClip audioClip)
         {
             _audioSource.clip = audioClip;
             _audioSource.Play();
         }
 
-        public void SetLobbyMusic()
-        {
-            ChangeMusic(_lobbyMusic);
-        }
-        
-        public void SetGameMusic()
-        {
-            ChangeMusic(_gameMusic);
-        }
+        public void SetLobbyMusic() => ChangeMusic(_lobbyMusic);
+        public void SetGameMusic() => ChangeMusic(_gameMusic);
+        public void SetAlarmMusic() => ChangeMusic(_alarmMusic);
     }
 }

@@ -143,3 +143,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lobbyMusic: {fileID: 8300000, guid: 33c8c092a160b5841aca089afeae772b, type: 3}
   _gameMusic: {fileID: 8300000, guid: d6d352ed4d4dcee4aa85b07549e525ad, type: 3}
+  _alarmMusic: {fileID: 8300000, guid: fdda89d74ab8da84ea96b01d79e8b697, type: 3}

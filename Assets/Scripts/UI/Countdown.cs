@@ -7,7 +7,6 @@ namespace UI
     public class Countdown : MonoBehaviour
     {
         [SerializeField] private TextMeshPro countDownText;
-        [SerializeField] private AudioClip _alarmMusic;
         [SerializeField] private LightManager _lightManager;
         [SerializeField] [Range(0.1f, 0.8f)] private float alarmSwitchTrigger;
 
@@ -27,19 +26,13 @@ namespace UI
         {
             _internalTimer = GameManager.Instance.GameDifficulty.Countdown;
             _alarmTrigger = Mathf.CeilToInt(_internalTimer * alarmSwitchTrigger);
-            
-            Debug.Log("Will trigger at : " + _alarmTrigger);
         }
 
         private void Update()
         {
-            if (_internalTimer > 0)
-            {
-                _internalTimer -= Time.deltaTime;
-                _seconds = Mathf.CeilToInt(_internalTimer);
-                _minutes = _seconds / 60;
-                _seconds = _seconds % 60;
-            }
+            if (_internalTimer <= 0) return;
+            
+            DecreaseTimer();
 
             countDownText.text = _minutes.ToString("00") + " : " + _seconds.ToString("00");
 
@@ -49,7 +42,6 @@ namespace UI
                 {
                     _isAlarmActivated = true;
                     _lightManager.ActivateAlarm();
-                    MusicManager.Instance.ChangeMusic(_alarmMusic);
                 }
             }
 
@@ -57,6 +49,14 @@ namespace UI
             {
                 GameManager.Instance.FinishTheGame(false);
             }
+        }
+
+        private void DecreaseTimer()
+        {
+            _internalTimer -= Time.deltaTime;
+            _seconds = Mathf.CeilToInt(_internalTimer);
+            _minutes = _seconds / 60;
+            _seconds = _seconds % 60;
         }
     }
 }
