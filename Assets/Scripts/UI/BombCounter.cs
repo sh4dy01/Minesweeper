@@ -7,15 +7,9 @@ using UnityEngine;
 public class BombCounter : MonoBehaviour
 {
     [SerializeField] private TextMeshPro bombCounterText;
-    private int _bombCounter;
 
-    private void Start()
+    public void UpdateCounter(int bombCounter)
     {
-        _bombCounter = GameManager.Instance.GameDifficulty.BombQuantity;
-    }
-
-    private void Update()
-    {
-        bombCounterText.text = _bombCounter.ToString("00");
+        bombCounterText.text = bombCounter.ToString("00");
     }
 }

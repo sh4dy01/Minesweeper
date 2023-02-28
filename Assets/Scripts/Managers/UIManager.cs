@@ -3,14 +3,16 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class UIManager : MonoBehaviour
+    [SerializeField] private BombCounter bombCount;
+    [SerializeField] private GameObject _winUI;
+    [SerializeField] private GameObject _loseUI;
+
+    private float _timer;
+
+    private void Awake()
     {
-        [SerializeField] private TextMeshProUGUI bombText;
-        [SerializeField] private TextMeshProUGUI timerText;
-        [SerializeField] private string baseTimerText;
-        [SerializeField] private string baseBombText;
-        [SerializeField] private GameObject _winUI;
-        [SerializeField] private GameObject _loseUI;
+        _timer = 0;
+    }
 
         private float _timer;
 
@@ -27,14 +29,13 @@ namespace Managers
 
             if (!(_timer >= 1)) return;
         
-            timerText.text = baseTimerText + Time.timeSinceLevelLoad.ToString("00");
-            _timer = 0;
-        }
+        _timer = 0;
+    }
 
-        public void UpdateBombText(int bombCounter)
-        {
-            bombText.text = baseBombText + bombCounter.ToString("00");
-        }
+    public void UpdateBombText(int bombCounter)
+    {
+        bombCount.UpdateCounter(bombCounter);
+    }
 
         public void ShowWinUI()
         {
