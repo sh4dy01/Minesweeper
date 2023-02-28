@@ -16,3 +16,4 @@ MonoBehaviour:
   _height: 9
   _bombQuantity: 10
   _countdown: 100
+  _isCustom: 0
