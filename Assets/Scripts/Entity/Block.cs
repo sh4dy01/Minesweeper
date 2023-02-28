@@ -33,7 +33,7 @@ public class Block : MonoBehaviour
     {
         if (GameManager.Instance.IsFinished) return;
         
-        Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
+        //Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
         
         //Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
