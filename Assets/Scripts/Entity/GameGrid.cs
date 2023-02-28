@@ -1,12 +1,16 @@
+using System.Collections.Generic;
 using Managers;
 using ScriptableObjects.script;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class GameGrid : MonoBehaviour
 {
     [SerializeField] private GameObject baseBlock;
+    [SerializeField] private GameObject borderBlock;
+
     [SerializeField] private GameObject bombContainer;
     [SerializeField] private GameObject blockContainer;
     [SerializeField] private AudioClip explodeSfx;
@@ -19,6 +23,7 @@ public class GameGrid : MonoBehaviour
     private int _flagCounter;
 	private int _numBlocks;
 	private float _gameScale;
+	private Vector2Int _gridSize;
 
     private bool _firstClickOccurred;
 
@@ -61,7 +66,8 @@ public class GameGrid : MonoBehaviour
     
     private BlockInfo[,] _grid;
     private Block[,] _blocks;
-    
+    private List<BorderBlock> _borderBlock;
+
     private readonly Vector2Int[] _neighbourPositions = 
     {
         Vector2Int.up,
@@ -80,8 +86,9 @@ public class GameGrid : MonoBehaviour
         
         if (GameManager.Instance.IsSeedSet)
             Random.InitState(GameManager.Instance.Seed);
-
+        
         _gameMod = GameManager.Instance.GameDifficulty;
+        _gridSize = new Vector2Int(_gameMod.Width+2,_gameMod.Height+2);
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
 
@@ -95,15 +102,13 @@ public class GameGrid : MonoBehaviour
 
 		if (Camera.main == null) return;
 
-		_gameScale = 18.0f/(_gameMod.Height+_gameMod.Width);
-		
 		var main = Camera.main;
 		if (main == null) return;
 		
 		//get camera size
 		float height = 2f * main.orthographicSize;
 		float width = height * main.aspect * 0.8f;
-		float border = 2.5f;
+		float border = 3f;
 		
 		//test height and width and take the smaller scale to avoid out of camera blocks
 		_gameScale = (height - border) / _gameMod.Height;
@@ -133,31 +138,42 @@ public class GameGrid : MonoBehaviour
         transform.SetPositionAndRotation(randomOffset, Quaternion.identity);
 	}
 
-    // Initialize grid with empty BlockInfos.
 	private void CreateGrid()
     {
 	    float halfWidth = _gameMod.Width * 0.5f;
 	    float halfHeight = _gameMod.Height * 0.5f;
 
-	    for (int x = 0; x < _gameMod.Width; x++)
+	    for (int x = 0; x < _gridSize.x; x++)
         {
-            for (int y = 0; y < _gameMod.Height; y++)
+            for (int y = 0; y < _gridSize.y; y++)
             {
-                BlockInfo info = new();
-                info.Init(new Vector2Int(x, y), new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0));
-                info.SetScale(_gameScale);
-                _grid[x, y] = info;
+	            if (x == 0 || x == _gridSize.x-1 || y == 0 || y == _gridSize.y-1)
+	            {
+		            var block = Instantiate(borderBlock,
+			            new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0),
+			            Quaternion.identity, this.transform);
+		            block.transform.localScale = new Vector3(_gameScale,_gameScale,1f);
+	            }
+	            else
+	            {
+		            BlockInfo info = new();
+		            info.Init(new Vector2Int(x-1, y-1), new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0));
+		            info.SetScale(_gameScale);
+		            _grid[x-1, y-1] = info;
+		            
+		            // Create game block.
+		            Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
+		            GameObject blockObj = Instantiate(baseBlock, info.WorldPosition, Quaternion.identity, parent);
 
-				// Create game block.
-				Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
-				GameObject blockObj = Instantiate(baseBlock, info.WorldPosition, Quaternion.identity, parent);
+		            // Link block info by reference.
+		            Block blockComponent = blockObj.GetComponent<Block>();
+		            blockComponent.BlockInfo = info;
+		            blockComponent.transform.localScale = new Vector3(info.BlockScale, info.BlockScale, 0);
+		            _blocks[info.GridX, info.GridY] = blockComponent;
+	            }
+            }
 
-				// Link block info by reference.
-				Block blockComponent = blockObj.GetComponent<Block>();
-				blockComponent.BlockInfo = info;
-				blockComponent.transform.localScale = new Vector3(info.BlockScale, info.BlockScale, 0);
-				_blocks[info.GridX, info.GridY] = blockComponent;
-			}
+
         }
     }
 
@@ -238,6 +254,8 @@ public class GameGrid : MonoBehaviour
             GameManager.Instance.FinishTheGame(false);
             _blockAudioSource.clip = explodeSfx;
             b.Explosion();
+            
+            foreach (var block in _borderBlock) block.SetDynamic();
 
             // Play particles effect.
             Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);

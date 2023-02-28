@@ -15,6 +15,7 @@ namespace ScriptableObjects.script
         public int Height => _height;
         public int BombQuantity => _bombQuantity;
         public bool IsCustom => _isCustom;
+        public int Countdown => _countdown;
         
         public void SetWidth(int width)
         {
@@ -30,6 +31,11 @@ namespace ScriptableObjects.script
         {
             _bombQuantity = bombQuantity;
         }
-        public int Countdown => _countdown;
+        
+        public void SetCountDown(int countDown)
+        {
+            _countdown = countDown;
+        }
+        
     }
 }

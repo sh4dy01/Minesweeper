@@ -58,6 +58,7 @@ public class ButtonManager : MonoBehaviour
         difficultySo.SetHeight((int)_customHeight);
         difficultySo.SetWidth((int)_customWidth);
         difficultySo.SetBombQuantity((int)_customBombQuantity);
+        difficultySo.SetCountDown(Mathf.CeilToInt(80.0F * (int)_customBombQuantity / Mathf.Sqrt(System.Convert.ToSingle(_customHeight * _customWidth))));
         SceneLoader.LoadGameScene();
     }
     
