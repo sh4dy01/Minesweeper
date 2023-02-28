@@ -1,26 +1,18 @@
-using TMPro;
 using UnityEngine;
 
 namespace Managers
 {
-    [SerializeField] private BombCounter bombCount;
-    [SerializeField] private GameObject _winUI;
-    [SerializeField] private GameObject _loseUI;
-
-    private float _timer;
-
-    private void Awake()
+    public class UIManager : MonoBehaviour
     {
-        _timer = 0;
-    }
+        [SerializeField] private BombCounter bombCount;
+        [SerializeField] private GameObject _winUI;
+        [SerializeField] private GameObject _loseUI;
 
         private float _timer;
 
         private void Awake()
         {
             _timer = 0;
-            timerText.text = baseTimerText + "00";
-            bombText.text = baseBombText;
         }
 
         private void Update()
@@ -28,14 +20,14 @@ namespace Managers
             _timer += Time.deltaTime;
 
             if (!(_timer >= 1)) return;
-        
-        _timer = 0;
-    }
 
-    public void UpdateBombText(int bombCounter)
-    {
-        bombCount.UpdateCounter(bombCounter);
-    }
+            _timer = 0;
+        }
+
+        public void UpdateBombText(int bombCounter)
+        {
+            bombCount.UpdateCounter(bombCounter);
+        }
 
         public void ShowWinUI()
         {
@@ -51,7 +43,7 @@ namespace Managers
         {
             SceneLoader.LoadGameScene();
         }
-    
+
         public void LoadLobbyScene()
         {
             SceneLoader.LoadLobbyScene();
