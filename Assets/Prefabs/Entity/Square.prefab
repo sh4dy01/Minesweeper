@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6701616694451313148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6191041b0a2f32845909b4bcafc691e6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 310fe1d17f081fc4e99e53f8186b344c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,19 +100,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa9913abd2582441a9a45e25764536c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emptySprite: {fileID: 21300000, guid: 86fb35bd717090d45bed8d93c146b9cc, type: 3}
-  _bombSprite: {fileID: 21300000, guid: 3864f34e41519604d88b77fd5194ad95, type: 3}
+  _emptySprite: {fileID: 21300000, guid: fe9657799a2c8b141a26846e84deb40b, type: 3}
+  _bombSprite: {fileID: 21300000, guid: cda5a1ac78def314a86678362217a70b, type: 3}
   _flag: {fileID: 8280437019975239311}
   _cursorReveal: {fileID: 2800000, guid: 39381fd52ad50eb43aeba05368cc119c, type: 3}
   _bombCounterSprites:
-  - {fileID: 21300000, guid: 9bfcddee35be8b24887ee07dbce2e3a4, type: 3}
-  - {fileID: 21300000, guid: 24e3803b2b86525498a93215c8a991aa, type: 3}
-  - {fileID: 21300000, guid: 271e0fc89d227eb438a94982fc1b91c8, type: 3}
-  - {fileID: 21300000, guid: 5e7c308d46de5554995a77c02829ab3c, type: 3}
-  - {fileID: 21300000, guid: 0c446a96f41e12c4294a98457a6c5352, type: 3}
-  - {fileID: 21300000, guid: 10658424974df20469079da48bcae0ab, type: 3}
-  - {fileID: 21300000, guid: d2c7e0fa07b9aa444bb409e2bd065668, type: 3}
-  - {fileID: 21300000, guid: 17a87634b39daf44fae95fc9194873dd, type: 3}
+  - {fileID: 21300000, guid: 9f262faf42e43264b86bdbed1c0269b8, type: 3}
+  - {fileID: 21300000, guid: ae2b453bcba8a674da886cda3e2ef196, type: 3}
+  - {fileID: 21300000, guid: f3c5f96a07ae4814a9cbb4d6bac1f89d, type: 3}
+  - {fileID: 21300000, guid: 3497d24e59195e24bb394775ec53a797, type: 3}
+  - {fileID: 21300000, guid: 5025802ee4e40bc4b82dd3af4caf9b27, type: 3}
+  - {fileID: 21300000, guid: c59aa3b7eb6b0644990f048ec31d9168, type: 3}
+  - {fileID: 21300000, guid: 2fb478782d4b6b74fab42b85e145e86c, type: 3}
+  - {fileID: 21300000, guid: 91efd7ff2737f0c4685295739bec0caa, type: 3}
   _radius: 10
   _power: 10
 --- !u!61 &7076930349213765558
@@ -128,7 +128,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00069093704, y: 0.0019659996}
+  m_Offset: {x: 0.00069093704, y: 0.0019655228}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -139,7 +139,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0023031, y: 1.0030661}
+  m_Size: {x: 1.002038, y: 0.9981861}
   m_EdgeRadius: 0
 --- !u!50 &7487420777475955690
 Rigidbody2D:
@@ -235,7 +235,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 27021fba5b7cafc469906da575d4c7b9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc27f4e2e8a97e64888a8d284a7a62e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
