@@ -88,6 +88,8 @@ namespace Managers
 
         public void FinishTheGame(bool win)
         {
+            if (IsFinished) return;
+
             IsFinished = true;
 
             if (win) _uiManager.ShowWinUI();
