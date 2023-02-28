@@ -6,6 +6,8 @@ public class Countdown : MonoBehaviour
 {
     [SerializeField] private TextMeshPro countDownText;
     [SerializeField] private AudioClip _audioClip;
+    [SerializeField] private int timeToChangeMusic;
+    [SerializeField] private LightManager _lightManager;
     
     private AudioSource _audioSource;
     private float _internalTimer;
@@ -31,11 +33,12 @@ public class Countdown : MonoBehaviour
 
         countDownText.text = _minutes.ToString("00") + " : " + _seconds.ToString("00");
 
-        if (_minutes <= 1 && _seconds <= 35)
+        if (_minutes * 60 + _seconds <= timeToChangeMusic)
         {
             if (!_isMusicChanged)
             {
                 _isMusicChanged = true;
+                _lightManager.ActivateAlarm();
                 ChangeMusic();
             }
         }

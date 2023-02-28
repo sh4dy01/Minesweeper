@@ -335,4 +335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownText: {fileID: 3392382428212971545}
-  _audioClip: {fileID: 8300000, guid: de30938350dbaa040b4ca6ccf0199a02, type: 3}
+  _audioClip: {fileID: 8300000, guid: fdda89d74ab8da84ea96b01d79e8b697, type: 3}
+  timeToChangeMusic: 200
+  _lightManager: {fileID: 0}
