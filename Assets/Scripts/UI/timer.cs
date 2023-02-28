@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class timer : MonoBehaviour
+public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshPro timerText;
     private float _seconds;
