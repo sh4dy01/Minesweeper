@@ -8,7 +8,7 @@ public class Block : MonoBehaviour
     [SerializeField] private Sprite _emptySprite;
     [SerializeField] private Sprite _bombSprite;
     [SerializeField] private GameObject _flag;
-    [SerializeField] private Texture2D _screwdriverCursor;
+    [SerializeField] private Texture2D _cursorReveal;
     [SerializeField] private Sprite[] _bombCounterSprites = new Sprite[8];
     [SerializeField] private float _radius = 10.0F;
     [SerializeField] private float _power = 10.0F;
@@ -33,7 +33,7 @@ public class Block : MonoBehaviour
     {
         if (GameManager.Instance.IsFinished) return;
         
-        Cursor.SetCursor(_screwdriverCursor, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(_cursorReveal, Vector2.zero, CursorMode.ForceSoftware);
         
         //Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)

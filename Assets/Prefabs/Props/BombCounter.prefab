@@ -321,6 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cursorGrab: {fileID: 2800000, guid: 14ca3e5b620f5614385c7b874a10a011, type: 3}
+  _cursorHover: {fileID: 2800000, guid: feadc603dffd79844aadac43560b216d, type: 3}
 --- !u!114 &5965278249143577936
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,7 +22,6 @@ public class DragNote : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (_numPages > 0 && !_isGrab)
         {
