@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -8,6 +6,7 @@ public class Countdown : MonoBehaviour
 {
     [SerializeField] private TextMeshPro countDownText;
     [SerializeField] private AudioClip _audioClip;
+    
     private AudioSource _audioSource;
     private float _internalTimer;
     private int _seconds;
@@ -17,7 +16,6 @@ public class Countdown : MonoBehaviour
 
     private void Start()
     {
-        _audioSource = GameObject.FindGameObjectWithTag("MusicManager").GetComponent<AudioSource>();
         _internalTimer = GameManager.Instance.GameDifficulty.Countdown;
     }
 
@@ -50,9 +48,6 @@ public class Countdown : MonoBehaviour
 
     private void ChangeMusic()
     {
-        _audioSource.clip = _audioClip;
-        _audioSource.volume = 0.5f;
-        _audioSource.pitch = 1;
-        _audioSource.Play();
+        MusicManager.Instance.ChangeMusic(_audioClip);
     }
 }
