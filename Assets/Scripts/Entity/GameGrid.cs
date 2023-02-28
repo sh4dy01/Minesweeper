@@ -133,6 +133,7 @@ public class GameGrid : MonoBehaviour
         transform.SetPositionAndRotation(randomOffset, Quaternion.identity);
 	}
 
+    // Initialize grid with empty BlockInfos.
 	private void CreateGrid()
     {
 	    float halfWidth = _gameMod.Width * 0.5f;
@@ -160,6 +161,8 @@ public class GameGrid : MonoBehaviour
         }
     }
 
+    // Layout bombs on the grid. This is called after the first click, to prevent the player from
+    // dying on the first hit.
     private void PlaceBombs()
     {
 		int bombPlaced = 0;
@@ -194,6 +197,8 @@ public class GameGrid : MonoBehaviour
 		_blockAudioSource.Play();
 	}
 
+    // Reveals a clicked block, and recursively reveals the empty blocks around it.
+    // This also checks if one of the blocks is a mine. If so, it will cause the game to end.
     private void RevealBlock(int x, int y)
     {
         Block b = _blocks[x, y];
@@ -226,7 +231,7 @@ public class GameGrid : MonoBehaviour
 		// Add to shake intensity.
 		// With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
 		_shakeIntensity += 0.02F;
-        if (_shakeIntensity > 1.5F) _shakeIntensity = 1.5F;
+        if (_shakeIntensity > 1.2F) _shakeIntensity = 1.2F;
 
         if (info.IsBomb)
         {

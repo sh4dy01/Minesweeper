@@ -9,7 +9,6 @@ namespace Managers
     {
         [SerializeField] private GameDifficultySo _difficulty;
 
-		private GameGrid _gameGrid;
         private UIManager _uiManager;
         private int _maxBombCounter;
 
@@ -67,6 +66,7 @@ namespace Managers
             Seed = Mathf.Abs(int.Parse(seedText));
         }
 
+        // Called when the player places a flag. Updates the remaining bombs counter on screen.
         public void DecreaseBombCounter()
         {
             if (BombCounter <= 0) return;
@@ -74,7 +74,8 @@ namespace Managers
             _uiManager.UpdateBombText(BombCounter);
         }
 
-        public void IncreaseBombCounter()
+		// Called when the player removes a flag. Updates the remaining bombs counter on screen.
+		public void IncreaseBombCounter()
         {
             if (BombCounter >= _maxBombCounter) return;
             BombCounter++;
@@ -86,6 +87,8 @@ namespace Managers
             _difficulty = difficulty;
         }
 
+        // Mark the game as finished. ALso makes a call to the UI manager to
+        // display the win or lose UI depending on the "win" parameter.
         public void FinishTheGame(bool win)
         {
             if (IsFinished) return;
