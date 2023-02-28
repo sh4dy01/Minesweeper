@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -23,7 +23,7 @@ namespace Managers
         [Header("Sound")]
         [SerializeField] private AudioClip _switchOnSound;
         [SerializeField] private AudioClip _switchOffSound;
-
+        
         private bool _isLightsOn;
         private bool _isAlarm;
         private List<float> _bgLightsOnIntensity;
@@ -31,6 +31,11 @@ namespace Managers
         private float _gridLightOnIntensity;
         private Color _gridLightColor;
         private AudioSource _audioSource;
+        
+        public bool IsLightsOn => _isLightsOn;
+        public bool IsAlarmActivated => _isAlarm;
+
+        public event Action OnSwitchLightsOn;
 
         private void Awake()
         {
@@ -57,13 +62,13 @@ namespace Managers
             if (_isAlarm) return;
 
             _isLightsOn = !_isLightsOn;
-            
+            Debug.Log(_isLightsOn);
             switch (_isLightsOn)
             {
                 case true:
                     TurnOnLights();
                     break;
-                default:
+                case false:
                     TurnOffLights();
                     break;
             }
@@ -72,7 +77,7 @@ namespace Managers
         private void TurnOffLights()
         {
             ChangeSoundAndPlay(_switchOffSound);
-            
+
             foreach (var light2D in _bgLights)
             {
                 LightOff(light2D);
@@ -86,6 +91,8 @@ namespace Managers
 
         private void TurnOnLights()
         {
+            OnSwitchLightsOn?.Invoke();
+            
             ChangeSoundAndPlay(_switchOnSound);
             
             foreach (var light2D in _bgLights)

@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownText: {fileID: 3392382428212971545}
-  _alarmMusic: {fileID: 8300000, guid: fdda89d74ab8da84ea96b01d79e8b697, type: 3}
   _lightManager: {fileID: 0}
   alarmSwitchTrigger: 0.2
+  minLightEventTrigger: 0.1
+  maxLightEventTrigger: 0.3
