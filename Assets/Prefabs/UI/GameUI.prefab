@@ -509,6 +509,9 @@ MonoBehaviour:
   _winUI: {fileID: 5258443600132604462}
   _loseUI: {fileID: 1064555162365594963}
   _particle: {fileID: 0}
+  countDown: {fileID: 0}
+  bombCounter: {fileID: 0}
+  propsList: []
 --- !u!82 &4553838409508160386
 AudioSource:
   m_ObjectHideFlags: 0
@@ -628,14 +631,6 @@ PrefabInstance:
     - target: {fileID: 3392382428762942237, guid: 813fc39a33c576c4f9463c8ea4a872a2, type: 3}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3392382428762942237, guid: 813fc39a33c576c4f9463c8ea4a872a2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -378
-      objectReference: {fileID: 0}
-    - target: {fileID: 3392382428762942237, guid: 813fc39a33c576c4f9463c8ea4a872a2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -191
       objectReference: {fileID: 0}
     - target: {fileID: 3392382428762942237, guid: 813fc39a33c576c4f9463c8ea4a872a2, type: 3}
       propertyPath: m_LocalPosition.z
