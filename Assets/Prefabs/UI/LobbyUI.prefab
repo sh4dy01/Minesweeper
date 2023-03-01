@@ -442,7 +442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56.33, y: -36.199993}
+  m_AnchoredPosition: {x: 56.33, y: -36.199997}
   m_SizeDelta: {x: 96.9277, y: 35.1482}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &797172768
@@ -2185,7 +2185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.29239655, y: -18}
+  m_AnchoredPosition: {x: -0.29000854, y: -18}
   m_SizeDelta: {x: 227.4942, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2404960278164546449
@@ -2453,7 +2453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -254.3, y: 70.52899}
+  m_AnchoredPosition: {x: -254.29999, y: 70.52899}
   m_SizeDelta: {x: 508.5959, y: 135.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2404960278454713062
@@ -2738,7 +2738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1.5145874}
   m_SizeDelta: {x: 0.00012207, y: -0.0001}
   m_Pivot: {x: 0.4639099, y: 0.49501455}
 --- !u!222 &2404960279397486492
@@ -2951,7 +2951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.28620148, y: 32}
+  m_AnchoredPosition: {x: -0.2849884, y: 32}
   m_SizeDelta: {x: 227.5066, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2404960279560203029
@@ -3459,9 +3459,9 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Managers.GameManager, Assembly-CSharp
-        m_MethodName: SetGameSeed
+      - m_Target: {fileID: 4515727729688574797}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: SetSeed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

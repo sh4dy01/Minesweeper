@@ -3,6 +3,7 @@ using Managers;
 using ScriptableObjects.script;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
+using SRandom = System.Random;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
@@ -24,6 +25,7 @@ public class GameGrid : MonoBehaviour
 	private int _numBlocks;
 	private float _gameScale;
 	private Vector2Int _gridSize;
+	private SRandom _random;
 
     private bool _firstClickOccurred;
 
@@ -82,9 +84,7 @@ public class GameGrid : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.InitializeGame();
-        
-        if (GameManager.Instance.IsSeedSet)
-            Random.InitState(GameManager.Instance.Seed);
+        _random = GameManager.Instance.IsSeedSet ? new SRandom(GameManager.Instance.Seed) : new SRandom();
         
         _gameMod = GameManager.Instance.GameDifficulty;
         _gridSize = new Vector2Int(_gameMod.Width+2,_gameMod.Height+2);
@@ -123,7 +123,7 @@ public class GameGrid : MonoBehaviour
 
     private void Start()
     {
-		CreateGrid();
+	    CreateGrid();
 	}
 
 	private void Update()
@@ -186,8 +186,8 @@ public class GameGrid : MonoBehaviour
         
         while (bombPlaced < _gameMod.BombQuantity)
         {
-            int x = Random.Range(0, _gameMod.Width);
-            int y = Random.Range(0, _gameMod.Height);
+            int x = _random.Next(0, _gameMod.Width);
+            int y = _random.Next(0, _gameMod.Height);
 			BlockInfo info = _grid[x, y];
 
 			if (info.IsBomb) continue;

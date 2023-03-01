@@ -39,6 +39,7 @@ namespace Managers
         {
             SceneManager.LoadScene("Lobby");
             MusicManager.Instance.SetLobbyMusic();
+            GameManager.Instance.Reset();
         }
     }
 }

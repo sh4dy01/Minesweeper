@@ -66,4 +66,9 @@ public class ButtonManager : MonoBehaviour
     {
         _errorText.text = _errorMessage;
     }
+    
+    public void SetSeed(string inputSeed)
+    {
+        GameManager.Instance.SetGameSeed(inputSeed);
+    }
 }

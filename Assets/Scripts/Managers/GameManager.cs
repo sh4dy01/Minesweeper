@@ -1,5 +1,6 @@
 using ScriptableObjects.script;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Managers
 {
@@ -46,12 +47,13 @@ namespace Managers
         {
             GameGrid = FindObjectOfType<GameGrid>();
             _uiManager = FindObjectOfType<UIManager>();
-
+            
 			if (_difficulty == null)
             {
                 Debug.LogError("Difficulty isn't set !");
                 return;
             }
+
             IsFinished = false;
             _maxBombCounter = _difficulty.BombQuantity;
             BombCounter = _maxBombCounter;
@@ -63,6 +65,8 @@ namespace Managers
             IsSeedSet = true;
             Seed = Mathf.Abs(int.Parse(seedText));
         }
+
+        private void ResetGameSeed() => IsSeedSet = false;
 
         // Called when the player places a flag. Updates the remaining bombs counter on screen.
         public void DecreaseBombCounter()
@@ -95,6 +99,11 @@ namespace Managers
 
             if (win) _uiManager.ShowWinUI();
             else _uiManager.ShowLoseUI();
+        }
+
+        public void Reset()
+        {
+            ResetGameSeed();
         }
     }
 }
