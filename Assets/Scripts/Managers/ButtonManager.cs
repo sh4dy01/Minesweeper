@@ -41,7 +41,7 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("Applied values");
         GameDifficultySo difficultySo = GameManager.Instance.GameDifficulty;
         
-        if (_customHeight == null || _customWidth == null || _customBombQuantity == null || _customHeight < 1 || _customWidth < 1 ||_customBombQuantity < 1 || _customHeight > 50 || _customWidth > 50)
+        if (_customHeight == null || _customWidth == null || _customBombQuantity == null || _customHeight < 3 || _customWidth < 3 ||_customBombQuantity < 1 || _customHeight > 50 || _customWidth > 50)
         {
             _errorMessage = "One of the values is incorrect";
             PrintErrorMessage();

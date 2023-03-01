@@ -27,7 +27,7 @@ public class Block : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (GameManager.Instance.IsFinished) return;
+        if (GameManager.Instance.IsGameFinished) return;
         
         Cursor.SetCursor(_cursorReveal, Vector2.zero, CursorMode.ForceSoftware);
 
