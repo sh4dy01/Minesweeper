@@ -519,6 +519,10 @@ PrefabInstance:
       propertyPath: _lightManager
       value: 
       objectReference: {fileID: 70659927}
+    - target: {fileID: 2485864577995814617, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
+      propertyPath: alarmSwitchTrigger
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2533818328895719306, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -378

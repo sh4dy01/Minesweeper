@@ -31,15 +31,15 @@ namespace Managers
         
         public static void LoadGameScene()
         {
-            SceneManager.LoadScene("game");
             MusicManager.Instance.SetGameMusic();
+            SceneManager.LoadScene("game");
         }
 
         public static void LoadLobbyScene()
         {
-            SceneManager.LoadScene("Lobby");
             MusicManager.Instance.SetLobbyMusic();
             GameManager.Instance.Reset();
+            SceneManager.LoadScene("Lobby");
         }
     }
 }
