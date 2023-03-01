@@ -30,6 +30,11 @@ public class Block : MonoBehaviour
         if (GameManager.Instance.IsFinished) return;
         
         Cursor.SetCursor(_cursorReveal, Vector2.zero, CursorMode.ForceSoftware);
+
+        if (!BlockInfo.Revealed || BlockInfo.NumBombsAround > 0)
+        {
+            _spriteRenderer.color = new Color(0.7F, 0.7F, 0.7F);
+        }
         
         // Left click to open block
         if (Input.GetMouseButtonDown(0) && !_flag.activeSelf)
@@ -62,7 +67,9 @@ public class Block : MonoBehaviour
 
     private void OnMouseExit()
     {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+		_spriteRenderer.color = new Color(1, 1, 1);
+
+		Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     public void RevealThisBlock()
