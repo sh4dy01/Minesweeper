@@ -108,7 +108,7 @@ public class GameGrid : MonoBehaviour
 		//get camera size
 		float height = 2f * main.orthographicSize;
 		float width = height * main.aspect * 0.8f;
-		float border = 3f;
+		float border = 1.5f;
 		
 		//test height and width and take the smaller scale to avoid out of camera blocks
 		_gameScale = (height - border) / _gameMod.Height;
