@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -12,6 +15,7 @@ namespace Managers
         [Header("Props")]
         [SerializeField] private GameObject countDown;
         [SerializeField] private GameObject bombCounter;
+        [SerializeField] private List<GameObject> propsList;
 
         private float _timer;
         private int _spawnPropsWidth;
@@ -24,6 +28,15 @@ namespace Managers
             _spawnPropsHeight = 5;
             RandomPropsPosition(countDown);
             RandomPropsPosition(bombCounter);
+            foreach (var props in propsList)
+            {
+                int _random = Random.Range(0, 100);
+                if (_random < 50)
+                {
+                    Instantiate(props, new Vector3(Random.Range(-_spawnPropsWidth, _spawnPropsWidth), Random.Range(-_spawnPropsHeight, _spawnPropsHeight), gameObject.transform.position.z), quaternion.identity);
+                    RandomPropsPosition(props);
+                }
+            }
         }
 
         private void Update()
