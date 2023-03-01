@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Managers;
 
 public class DragProps : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class DragProps : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (GameManager.Instance.IsFinished) return;
         _isCarrying = true;
         Cursor.SetCursor(_cursorGrab, Vector2.zero, CursorMode.Auto);
         deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
@@ -38,12 +40,14 @@ public class DragProps : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        if (GameManager.Instance.IsFinished) return;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY + .1f, transform.position.z);
     }
 
     private void OnMouseUp()
     {
+        if (GameManager.Instance.IsFinished) return;
         _isCarrying = false;
         Cursor.SetCursor(_cursorHover, Vector2.zero, CursorMode.Auto);
         transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY, transform.position.z);
