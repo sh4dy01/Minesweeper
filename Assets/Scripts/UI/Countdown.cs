@@ -46,7 +46,7 @@ namespace UI
 
         private void Update()
         {
-            if (_internalTimer <= 0) return;
+            if (_internalTimer <= 0 || GameManager.Instance.IsGameFinished) return;
             
             DecreaseTimer();
 
