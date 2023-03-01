@@ -11,8 +11,9 @@ namespace Managers
 
         private UIManager _uiManager;
         private int _maxBombCounter;
-
-        public bool IsFinished { get; private set; }
+        
+        public bool IsPaused { get; private set; }
+        public bool IsGameFinished { get; private set; }
         public int BombCounter { get; private set; }
         public bool IsSeedSet { get; private set; }
         public int Seed { get; private set; }
@@ -55,7 +56,8 @@ namespace Managers
                 return;
             }
 
-            IsFinished = false;
+            IsPaused = false;
+            IsGameFinished = false;
             _maxBombCounter = _difficulty.BombQuantity;
             BombCounter = _maxBombCounter;
             _uiManager.UpdateBombText(BombCounter);
@@ -94,9 +96,9 @@ namespace Managers
         // display the win or lose UI depending on the "win" parameter.
         public void FinishTheGame(bool win)
         {
-            if (IsFinished) return;
+            if (IsGameFinished) return;
 
-            IsFinished = true;
+            IsGameFinished = true;
 
             if (win) _uiManager.ShowWinUI();
             else _uiManager.ShowLoseUI();
@@ -105,6 +107,11 @@ namespace Managers
         public void Reset()
         {
             ResetGameSeed();
+        }
+
+        public void SwitchPauseState()
+        {
+            IsPaused = !IsPaused;
         }
     }
 }
