@@ -191,7 +191,7 @@ public class GameGrid : MonoBehaviour
 			BlockInfo info = _grid[x, y];
 
 			if (info.IsBomb) continue;
-            if (Mathf.Abs(x - firstClickPos.x) <= 1 || Mathf.Abs(y - firstClickPos.y) <= 1) continue;
+            if (Mathf.Abs(x - firstClickPos.x) <= 1 && Mathf.Abs(y - firstClickPos.y) <= 1) continue;
             
             info.SetBomb();
             Vector2Int bombPos = info.GridPosition;
