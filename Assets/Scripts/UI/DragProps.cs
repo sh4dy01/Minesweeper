@@ -16,6 +16,8 @@ public class DragProps : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (GameManager.Instance.IsPaused) return;
+        
         Cursor.SetCursor(_cursorHover, Vector2.zero, CursorMode.Auto);
     }
 
@@ -31,7 +33,7 @@ public class DragProps : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (GameManager.Instance.IsFinished) return;
+        if (GameManager.Instance.IsGameFinished || GameManager.Instance.IsPaused) return;
         _isCarrying = true;
         Cursor.SetCursor(_cursorGrab, Vector2.zero, CursorMode.Auto);
         deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
@@ -40,14 +42,14 @@ public class DragProps : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (GameManager.Instance.IsFinished) return;
+        if (GameManager.Instance.IsGameFinished || GameManager.Instance.IsPaused) return;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY + .1f, transform.position.z);
     }
 
     private void OnMouseUp()
     {
-        if (GameManager.Instance.IsFinished) return;
+        if (GameManager.Instance.IsGameFinished || GameManager.Instance.IsPaused) return;
         _isCarrying = false;
         Cursor.SetCursor(_cursorHover, Vector2.zero, CursorMode.Auto);
         transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY, transform.position.z);
