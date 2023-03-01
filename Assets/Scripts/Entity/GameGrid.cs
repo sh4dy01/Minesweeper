@@ -149,8 +149,7 @@ public class GameGrid : MonoBehaviour
             {
 	            if (x == 0 || x == _gridSize.x-1 || y == 0 || y == _gridSize.y-1)
 	            {
-		            GameObject block = new();
-		            block = Instantiate(borderBlock,
+		            var block = Instantiate(borderBlock,
 			            new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0),
 			            Quaternion.identity, this.transform);
 		            block.transform.localScale = new Vector3(_gameScale,_gameScale,0);
