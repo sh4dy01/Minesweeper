@@ -128,7 +128,7 @@ public class GameGrid : MonoBehaviour
 
 	private void Update()
 	{
-        _shakeIntensity -= Time.deltaTime;
+        _shakeIntensity *= 0.85F;
         if (_shakeIntensity < 0.0F)
         {
             _shakeIntensity = 0.0F;
@@ -249,7 +249,7 @@ public class GameGrid : MonoBehaviour
 		// Add to shake intensity.
 		// With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
 		_shakeIntensity += 0.02F;
-        if (_shakeIntensity > 1.2F) _shakeIntensity = 1.2F;
+        if (_shakeIntensity > 10.0F) _shakeIntensity = 10.0F;
 
         if (info.IsBomb)
         {
