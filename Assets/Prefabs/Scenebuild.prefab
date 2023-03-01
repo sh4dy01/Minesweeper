@@ -1214,7 +1214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2734001620739099835, guid: e5d561ebab3826f469e4897ba560d9dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -20
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2734001620739099835, guid: e5d561ebab3826f469e4897ba560d9dc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1365,6 +1365,22 @@ PrefabInstance:
     - target: {fileID: 589511709177776666, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
       propertyPath: m_Name
       value: LightManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933790129651923748, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933790129651923748, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125970425489105515, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_Name
+      value: LightSwitch
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125970425489105515, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e70a333e5da324c44930bf3b6c8775df, type: 3}
