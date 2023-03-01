@@ -300,7 +300,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 1
+  m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -507,6 +507,22 @@ PrefabInstance:
       propertyPath: _lightManager
       value: 
       objectReference: {fileID: 70659927}
+    - target: {fileID: 2533818328895719306, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -376
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533818328895719306, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -91
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820351857768013520, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 282
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820351857768013520, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 190
+      objectReference: {fileID: 0}
     - target: {fileID: 8978272040565333904, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
