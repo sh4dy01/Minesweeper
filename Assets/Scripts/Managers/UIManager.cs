@@ -7,6 +7,7 @@ namespace Managers
         [SerializeField] private BombCounter bombCount;
         [SerializeField] private GameObject _winUI;
         [SerializeField] private GameObject _loseUI;
+        [SerializeField] private ParticleSystem _particle;
 
         private float _timer;
 
@@ -32,6 +33,8 @@ namespace Managers
         public void ShowWinUI()
         {
             _winUI.SetActive(true);
+            Instantiate<ParticleSystem>(_particle, transform,false);
+            GetComponent<AudioSource>().Play();
         }
 
         public void ShowLoseUI()
