@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1421700947769897359, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1101
+      value: 923.01
       objectReference: {fileID: 0}
     - target: {fileID: 1421700947769897359, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
       propertyPath: m_SizeDelta.y
@@ -256,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1421700947769897359, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.01022
+      value: -0.0024986
       objectReference: {fileID: 0}
     - target: {fileID: 1421700947769897359, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -290,9 +290,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 5693875291256172287, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 923.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693875291256172287, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0009994507
+      objectReference: {fileID: 0}
     - target: {fileID: 5876196977342326502, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
       propertyPath: m_Name
       value: GameWin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876196977342326502, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8943111697984740494, guid: e5ff302cdf219f4408092789e65425bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -325,6 +337,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8978272040565333904}
     m_Modifications:
+    - target: {fileID: 1417523288124998458, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 922.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417523288124998458, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0009994507
+      objectReference: {fileID: 0}
     - target: {fileID: 2503102175604600727, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
       propertyPath: m_Name
       value: GameLose
@@ -379,7 +399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5156683917728928656, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1101
+      value: 922.99
       objectReference: {fileID: 0}
     - target: {fileID: 5156683917728928656, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
       propertyPath: m_SizeDelta.y
@@ -415,7 +435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5156683917728928656, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.01022
+      value: -0.0024986
       objectReference: {fileID: 0}
     - target: {fileID: 5156683917728928656, guid: ee782bcaaba2f8446992ebf67718b88f, type: 3}
       propertyPath: m_AnchoredPosition.y
