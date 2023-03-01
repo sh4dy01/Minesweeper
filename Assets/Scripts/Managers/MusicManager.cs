@@ -40,7 +40,9 @@ namespace Managers
             _audioSource.clip = audioClip;
             _audioSource.Play();
         }
-
+        
+        public void PauseMusic() => _audioSource.Pause();
+        public void ResumeMusic() => _audioSource.Play();
         public void SetLobbyMusic() => ChangeMusic(_lobbyMusic);
         public void SetGameMusic() => ChangeMusic(_gameMusic);
         public void SetAlarmMusic() => ChangeMusic(_alarmMusic);
