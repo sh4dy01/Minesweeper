@@ -1,5 +1,6 @@
 using ScriptableObjects.script;
 using UnityEngine;
+using Quaternion = System.Numerics.Quaternion;
 using Random = System.Random;
 
 namespace Managers
