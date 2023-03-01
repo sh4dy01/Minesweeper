@@ -76,6 +76,7 @@ namespace Managers
 
         private void TurnOffLights()
         {
+            return; // Trolololol.
             ChangeSoundAndPlay(_switchOffSound);
 
             foreach (var light2D in _bgLights)
