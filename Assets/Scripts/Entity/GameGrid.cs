@@ -49,7 +49,6 @@ public class GameGrid : MonoBehaviour
 
         public void IncrementBombCounter() => NumBombsAround++;
         public void SetBomb(bool b = true) => IsBomb = b;
-        public void SetScale(float scale) => BlockScale = scale;
 
 		public void Init(Vector2Int position, Vector3 worldPosition)
         {
@@ -152,13 +151,12 @@ public class GameGrid : MonoBehaviour
 		            var block = Instantiate(borderBlock,
 			            new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0),
 			            Quaternion.identity, this.transform);
-		            block.transform.localScale = new Vector3(_gameScale,_gameScale,1f);
+		            block.transform.localScale = new Vector3(_gameScale,_gameScale,0);
 	            }
 	            else
 	            {
 		            BlockInfo info = new();
 		            info.Init(new Vector2Int(x-1, y-1), new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0));
-		            info.SetScale(_gameScale);
 		            _grid[x-1, y-1] = info;
 		            
 		            // Create game block.
@@ -168,7 +166,7 @@ public class GameGrid : MonoBehaviour
 		            // Link block info by reference.
 		            Block blockComponent = blockObj.GetComponent<Block>();
 		            blockComponent.BlockInfo = info;
-		            blockComponent.transform.localScale = new Vector3(info.BlockScale, info.BlockScale, 0);
+		            blockComponent.transform.localScale = new Vector3(_gameScale, _gameScale, 0);
 		            _blocks[info.GridX, info.GridY] = blockComponent;
 	            }
             }
