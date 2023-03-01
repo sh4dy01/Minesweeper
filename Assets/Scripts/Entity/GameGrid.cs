@@ -285,12 +285,13 @@ public class GameGrid : MonoBehaviour
     // are enough flags.
     public void RevealAround(BlockInfo info)
     {
-        RevealAround(info.GridX, info.GridY, info.NumBombsAround);
-
-		_blockAudioSource.Play();
+        if (RevealAround(info.GridX, info.GridY, info.NumBombsAround))
+        {
+            _blockAudioSource.Play();
+        }
     }
 
-	private void RevealAround(int x, int y, int requiredFlags)
+	private bool RevealAround(int x, int y, int requiredFlags)
     {
         // Get number of surrounding flags.
         int numFlags = 0;
@@ -307,18 +308,22 @@ public class GameGrid : MonoBehaviour
 		}
 
         // Not enough.
-        if (numFlags < requiredFlags) return;
+        if (numFlags < requiredFlags) return false;
 
+        bool blocksFound = false;
 		foreach (Vector3Int position in _neighbourPositions)
 		{
 			Vector3Int neighbor = new Vector3Int(x, y) + position;
 			if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0)
 				continue;
 
-			if (!_grid[neighbor.x, neighbor.y].Flagged)
+			if (!_grid[neighbor.x, neighbor.y].Flagged && !_grid[neighbor.x, neighbor.y].Revealed)
 			{
                 RevealBlock(neighbor.x, neighbor.y);
+                blocksFound = true;
 			}
 		}
+
+        return blocksFound;
 	}
 }
