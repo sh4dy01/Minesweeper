@@ -434,6 +434,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 251427138, guid: c4e5cdc5211115e47b84114abdbf5975, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -94.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 251427139, guid: c4e5cdc5211115e47b84114abdbf5975, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 251427139, guid: c4e5cdc5211115e47b84114abdbf5975, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 586663197, guid: c4e5cdc5211115e47b84114abdbf5975, type: 3}
       propertyPath: m_fontSize
       value: 12
