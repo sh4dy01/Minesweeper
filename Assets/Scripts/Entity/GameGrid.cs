@@ -177,7 +177,7 @@ public class GameGrid : MonoBehaviour
 
     // Layout bombs on the grid. This is called after the first click, to prevent the player from
     // dying on the first hit.
-    private void PlaceBombs()
+    private void PlaceBombs(Vector2Int firstClickPos)
     {
 		int bombPlaced = 0;
         
@@ -187,7 +187,8 @@ public class GameGrid : MonoBehaviour
             int y = Random.Range(0, _gameMod.Height);
 			BlockInfo info = _grid[x, y];
 
-			if (info.IsBomb || info.Revealed) continue;
+			if (info.IsBomb) continue;
+            if (Mathf.Abs(x - firstClickPos.x) <= 1 || Mathf.Abs(y - firstClickPos.y) <= 1) continue;
             
             info.SetBomb();
             Vector2Int bombPos = info.GridPosition;
@@ -227,7 +228,7 @@ public class GameGrid : MonoBehaviour
 		if (!_firstClickOccurred)
 		{
 			_firstClickOccurred = true;
-			PlaceBombs();
+			PlaceBombs(new Vector2Int(x, y));
 		}
 
 		b.RevealThisBlock();
