@@ -65,7 +65,7 @@ public class GameGrid : MonoBehaviour
     
     private BlockInfo[,] _grid;
     private Block[,] _blocks;
-    private List<BorderBlock> _borderBlock;
+    private List<GameObject> _borderBlock;
 
     private readonly Vector2Int[] _neighbourPositions = 
     {
@@ -90,6 +90,7 @@ public class GameGrid : MonoBehaviour
         _gridSize = new Vector2Int(_gameMod.Width+2,_gameMod.Height+2);
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
+        _borderBlock = new List<GameObject>();
 
         _blockAudioSource = GetComponent<AudioSource>();
         _blockAudioSource.clip = breakSfx;
@@ -148,10 +149,12 @@ public class GameGrid : MonoBehaviour
             {
 	            if (x == 0 || x == _gridSize.x-1 || y == 0 || y == _gridSize.y-1)
 	            {
-		            var block = Instantiate(borderBlock,
+		            GameObject block = new();
+		            block = Instantiate(borderBlock,
 			            new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0),
 			            Quaternion.identity, this.transform);
 		            block.transform.localScale = new Vector3(_gameScale,_gameScale,0);
+		            _borderBlock.Add(block);
 	            }
 	            else
 	            {
@@ -254,7 +257,7 @@ public class GameGrid : MonoBehaviour
             _blockAudioSource.clip = explodeSfx;
             b.Explosion();
             
-            foreach (var block in _borderBlock) block.SetDynamic();
+            foreach (var block in _borderBlock) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
             // Play particles effect.
             Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
