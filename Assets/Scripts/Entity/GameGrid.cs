@@ -108,7 +108,7 @@ public class GameGrid : MonoBehaviour
 		//get camera size
 		float height = 2f * main.orthographicSize;
 		float width = height * main.aspect * 0.8f;
-		float border = 3f;
+		float border = 1.5f;
 		
 		//test height and width and take the smaller scale to avoid out of camera blocks
 		_gameScale = (height - border) / _gameMod.Height;
@@ -128,7 +128,7 @@ public class GameGrid : MonoBehaviour
 
 	private void Update()
 	{
-        _shakeIntensity -= Time.deltaTime;
+        _shakeIntensity *= 0.85F;
         if (_shakeIntensity < 0.0F)
         {
             _shakeIntensity = 0.0F;
@@ -249,7 +249,7 @@ public class GameGrid : MonoBehaviour
 		// Add to shake intensity.
 		// With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
 		_shakeIntensity += 0.02F;
-        if (_shakeIntensity > 1.2F) _shakeIntensity = 1.2F;
+        if (_shakeIntensity > 10.0F) _shakeIntensity = 10.0F;
 
         if (info.IsBomb)
         {
