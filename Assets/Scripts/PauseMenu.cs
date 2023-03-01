@@ -32,6 +32,7 @@ public class PauseMenu : MonoBehaviour
     {
         _pauseMenu.SetActive(false);
         GameManager.Instance.SwitchPauseState();
+        MusicManager.Instance.ResumeMusic();
         Time.timeScale = 1;
         _grid.gameObject.SetActive(true);
     }
@@ -40,6 +41,7 @@ public class PauseMenu : MonoBehaviour
     {
         _pauseMenu.SetActive(true);
         Time.timeScale = 0;
+        MusicManager.Instance.PauseMusic();
         GameManager.Instance.SwitchPauseState();
         _grid.gameObject.SetActive(false);
     }
