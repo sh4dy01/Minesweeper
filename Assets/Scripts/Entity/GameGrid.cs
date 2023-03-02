@@ -216,68 +216,82 @@ public class GameGrid : MonoBehaviour
 
     // Reveals a clicked block, and recursively reveals the empty blocks around it.
     // This also checks if one of the blocks is a mine. If so, it will cause the game to end.
-    private void RevealBlock(int x, int y)
+    private void RevealBlock(int bx, int by)
     {
-        Block b = _blocks[x, y];
-        BlockInfo info = b.BlockInfo;
-
         // Already revealed.
-        if (info.Revealed) return;
+        if (_grid[bx, by].Revealed) return;
 
-        info.Revealed = true;
+		// Stack used to hold the positions of blocks to reveal.
+		Stack<(int, int)> positions = new Stack<(int, int)>(256);
+        positions.Push((bx, by));
 
-		// First click.
-		if (!_firstClickOccurred)
-		{
-			_firstClickOccurred = true;
-			PlaceBombs(new Vector2Int(x, y));
-		}
-
-		b.RevealThisBlock();
-
-		// Win detection.
-		if (!info.IsBomb)
+        // Reveal blocks in stack until there's no more.
+        while (positions.Count != 0)
         {
-            _numBlocks--;
-            if (_numBlocks == 0)
+            (int, int) pos = positions.Pop();
+            int x = pos.Item1;
+            int y = pos.Item2;
+
+            Block b = _blocks[x, y];
+            BlockInfo info = b.BlockInfo;
+
+            info.Revealed = true;
+
+            // First click.
+            if (!_firstClickOccurred)
             {
-                GameManager.Instance.FinishTheGame(true);
+                _firstClickOccurred = true;
+                PlaceBombs(new Vector2Int(x, y));
             }
+
+            b.RevealThisBlock();
+
+            // Win detection.
+            if (!info.IsBomb)
+            {
+                _numBlocks--;
+                if (_numBlocks == 0)
+                {
+                    GameManager.Instance.FinishTheGame(true);
+                }
+            }
+
+            // Add to shake intensity.
+            // With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
+            _shakeIntensity += 0.02F;
+            if (_shakeIntensity > 10.0F) _shakeIntensity = 10.0F;
+
+            if (info.IsBomb)
+            {
+                GameManager.Instance.FinishTheGame(false);
+                _blockAudioSource.clip = explodeSfx;
+                b.Explosion();
+
+                foreach (var block in _borderBlock) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+                // Play particles effect.
+                Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
+            }
+            else if (info.NumBombsAround == 0)
+            {
+                // Propagate.
+                foreach (Vector2Int position in _neighbourPositions)
+                {
+                    int nx = info.GridX + position.x;
+                    int ny = info.GridY + position.y;
+
+                    // Revealed.
+                    if (_grid[nx, ny].Revealed) continue;
+
+                    // Out of bounds.
+                    if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0) continue;
+
+                    positions.Push((nx, ny));
+                }
+            }
+
+            _firstClickOccurred = true;
         }
-
-		// Add to shake intensity.
-		// With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
-		_shakeIntensity += 0.02F;
-        if (_shakeIntensity > 10.0F) _shakeIntensity = 10.0F;
-
-        if (info.IsBomb)
-        {
-            GameManager.Instance.FinishTheGame(false);
-            _blockAudioSource.clip = explodeSfx;
-            b.Explosion();
-            
-            foreach (var block in _borderBlock) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
-            // Play particles effect.
-            Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
-		}
-        else if (info.NumBombsAround == 0)
-		{
-			// Propagate.
-			foreach (Vector2Int position in _neighbourPositions)
-			{
-				Vector2Int neighbor = info.GridPosition + position;
-                if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0) continue;
-				int nx = info.GridX + position.x;
-				int ny = info.GridY + position.y;
-				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
-					continue;
-
-				RevealBlock(nx, ny);
-			}
-		}
-
-        _firstClickOccurred = true;
 	}
 
     // Called when the player presses a number. It will try to reveal the squares around it, if there
