@@ -264,13 +264,13 @@ public class GameGrid : MonoBehaviour
             if (info.IsBomb)
             {
                 GameManager.Instance.FinishTheGame(false);
-                _blockAudioSource.clip = explodeSfx;
+                _blockAudioSource.clip = _explodeSfx;
                 b.Explosion();
 
-                foreach (var block in _borderBlock) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                foreach (var block in _borderBlockList) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
                 // Play particles effect.
-                Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
+                Instantiate(_explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
             }
             else if (info.NumBombsAround == 0)
             {
@@ -294,38 +294,6 @@ public class GameGrid : MonoBehaviour
                 }
             }
         }
-
-		// Add to shake intensity.
-		// With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
-		_shakeIntensity += 0.02F;
-        if (_shakeIntensity > 10.0F) _shakeIntensity = 10.0F;
-
-        if (info.IsBomb)
-        {
-            GameManager.Instance.FinishTheGame(false);
-            _blockAudioSource.clip = _explodeSfx;
-            b.Explosion();
-            
-            foreach (var block in _borderBlockList) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
-            // Play particles effect.
-            Instantiate(_explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
-		}
-        else if (info.NumBombsAround == 0)
-		{
-			// Propagate.
-			foreach (Vector2Int position in _neighbourPositions)
-			{
-				Vector2Int neighbor = info.GridPosition + position;
-                if (neighbor.x >= _gameMod.Width || neighbor.y >= _gameMod.Height || neighbor.x < 0 || neighbor.y < 0) continue;
-				int nx = info.GridX + position.x;
-				int ny = info.GridY + position.y;
-				if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
-					continue;
-
-				RevealBlock(nx, ny);
-			}
-		}
 
         _firstClickOccurred = true;
 	}
