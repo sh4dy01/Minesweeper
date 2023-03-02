@@ -504,10 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705637026bc29e841a0f56cdf338e80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombCount: {fileID: 7274156932872969820}
+  _bombCount: {fileID: 7274156932872969820}
   _winUI: {fileID: 5258443600132604462}
   _loseUI: {fileID: 1064555162365594963}
-  _particle: {fileID: 0}
+  _particle: {fileID: 1587717313974660665, guid: 8e6ef66c49e0f58479544e488f35e02d, type: 3}
   countDown: {fileID: 4820351857768013523}
   bombCounter: {fileID: 1814451602589128722}
   propsList:

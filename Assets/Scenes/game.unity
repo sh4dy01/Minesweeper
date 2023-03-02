@@ -669,23 +669,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 9186886664202376839, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
-      propertyPath: _bombCount
-      value: 
-      objectReference: {fileID: 1965026658}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
---- !u!114 &1965026658 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7274156932872969820, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
-  m_PrefabInstance: {fileID: 1965026657}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1593426b14c27f64f8bb87820f42ecc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1965026659 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4820351857017781716, guid: b5286a3a395941b40aecd1b961ba67c5, type: 3}
