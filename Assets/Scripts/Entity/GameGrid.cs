@@ -9,14 +9,14 @@ using Vector3 = UnityEngine.Vector3;
 
 public class GameGrid : MonoBehaviour
 {
-    [SerializeField] private GameObject baseBlock;
-    [SerializeField] private GameObject borderBlock;
+    [SerializeField] private GameObject _baseBlock;
+    [SerializeField] private GameObject _borderBlock;
 
-    [SerializeField] private GameObject bombContainer;
-    [SerializeField] private GameObject blockContainer;
-    [SerializeField] private AudioClip explodeSfx;
-    [SerializeField] private AudioClip breakSfx;
-	[SerializeField] private GameObject explosionParticles;
+    [SerializeField] private GameObject _bombContainer;
+    [SerializeField] private GameObject _blockContainer;
+    [SerializeField] private AudioClip _explodeSfx;
+    [SerializeField] private AudioClip _breakSfx;
+	[SerializeField] private GameObject _explosionParticles;
 
 	private AudioSource _blockAudioSource;
     
@@ -29,11 +29,11 @@ public class GameGrid : MonoBehaviour
 
     private bool _firstClickOccurred;
 
-	// Shaking.
+	// Shaking
 	private Vector3 _originalPosition;
     private float _shakeIntensity;
 
-    // Block data structure.
+    // Block data structure
     public class BlockInfo
     {
         public Vector3 WorldPosition { get; private set; }
@@ -67,7 +67,7 @@ public class GameGrid : MonoBehaviour
     
     private BlockInfo[,] _grid;
     private Block[,] _blocks;
-    private List<GameObject> _borderBlock;
+    private List<GameObject> _borderBlockList;
 
     private readonly Vector2Int[] _neighbourPositions = 
     {
@@ -90,10 +90,10 @@ public class GameGrid : MonoBehaviour
         _gridSize = new Vector2Int(_gameMod.Width+2,_gameMod.Height+2);
         _grid = new BlockInfo[_gameMod.Width, _gameMod.Height];
         _blocks = new Block[_gameMod.Width, _gameMod.Height];
-        _borderBlock = new List<GameObject>();
+        _borderBlockList = new List<GameObject>();
 
         _blockAudioSource = GetComponent<AudioSource>();
-        _blockAudioSource.clip = breakSfx;
+        _blockAudioSource.clip = _breakSfx;
 
 		_shakeIntensity = 0.0F;
 		_numBlocks = _gameMod.Width * _gameMod.Height - _gameMod.BombQuantity;
@@ -149,11 +149,11 @@ public class GameGrid : MonoBehaviour
             {
 	            if (x == 0 || x == _gridSize.x-1 || y == 0 || y == _gridSize.y-1)
 	            {
-		            var block = Instantiate(borderBlock,
+		            var block = Instantiate(_borderBlock,
 			            new Vector3((x - halfWidth) * _gameScale, (y - halfHeight) * _gameScale, 0),
 			            Quaternion.identity, this.transform);
 		            block.transform.localScale = new Vector3(_gameScale,_gameScale,0);
-		            _borderBlock.Add(block);
+		            _borderBlockList.Add(block);
 	            }
 	            else
 	            {
@@ -162,8 +162,8 @@ public class GameGrid : MonoBehaviour
 		            _grid[x-1, y-1] = info;
 		            
 		            // Create game block.
-		            Transform parent = info.IsBomb ? bombContainer.transform : blockContainer.transform;
-		            GameObject blockObj = Instantiate(baseBlock, info.WorldPosition, Quaternion.identity, parent);
+		            Transform parent = info.IsBomb ? _bombContainer.transform : _blockContainer.transform;
+		            GameObject blockObj = Instantiate(_baseBlock, info.WorldPosition, Quaternion.identity, parent);
 
 		            // Link block info by reference.
 		            Block blockComponent = blockObj.GetComponent<Block>();
@@ -254,13 +254,13 @@ public class GameGrid : MonoBehaviour
             if (info.IsBomb)
             {
                 GameManager.Instance.FinishTheGame(false);
-                _blockAudioSource.clip = explodeSfx;
+                _blockAudioSource.clip = _explodeSfx;
                 b.Explosion();
 
-                foreach (var block in _borderBlock) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                foreach (var block in _borderBlockList) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
                 // Play particles effect.
-                Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
+                Instantiate(_explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
             }
             else
             {
@@ -293,6 +293,8 @@ public class GameGrid : MonoBehaviour
                 }
             }
         }
+
+        _firstClickOccurred = true;
 	}
 
     // Called when the player presses a number. It will try to reveal the squares around it, if there

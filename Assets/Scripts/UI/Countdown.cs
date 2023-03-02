@@ -7,11 +7,11 @@ namespace UI
 {
     public class Countdown : MonoBehaviour
     {
-        [SerializeField] private TextMeshPro countDownText;
+        [SerializeField] private TextMeshPro _countDownText;
         [SerializeField] private LightManager _lightManager;
-        [SerializeField] [Range(0.1f, 0.25f)] private float alarmSwitchTrigger;
-        [SerializeField] [Range(0, 0.20f)] private float minLightEventTrigger;
-        [SerializeField] [Range(0.20f, 0.60f)] private float maxLightEventTrigger;
+        [SerializeField] [Range(0.1f, 0.25f)] private float _alarmSwitchTrigger;
+        [SerializeField] [Range(0, 0.20f)] private float _minLightEventTrigger;
+        [SerializeField] [Range(0.20f, 0.60f)] private float _maxLightEventTrigger;
         
         private AudioSource _audioSource;
         private float _internalTimer;
@@ -31,14 +31,14 @@ namespace UI
         {
             _lightManager.OnSwitchLightsOn += SetLightTriggerEvent;
             _internalTimer = GameManager.Instance.GameDifficulty.Countdown;
-            _alarmTrigger = Mathf.CeilToInt(_internalTimer * alarmSwitchTrigger);
+            _alarmTrigger = Mathf.CeilToInt(_internalTimer * _alarmSwitchTrigger);
             SetLightTriggerEvent();
         }
 
         private void SetLightTriggerEvent()
         {
-            int min = Mathf.CeilToInt(_internalTimer * minLightEventTrigger);
-            int max = Mathf.CeilToInt(_internalTimer * maxLightEventTrigger);
+            int min = Mathf.CeilToInt(_internalTimer * _minLightEventTrigger);
+            int max = Mathf.CeilToInt(_internalTimer * _maxLightEventTrigger);
             _lightEventTrigger = Mathf.CeilToInt(_internalTimer) - Random.Range(min, max);
             
             Debug.Log("Light event trigger: " + _lightEventTrigger + " seconds");
@@ -75,7 +75,7 @@ namespace UI
             _minutes = _seconds / 60;
             _seconds = _seconds % 60;
             
-            countDownText.text = _minutes.ToString("00") + " : " + _seconds.ToString("00");
+            _countDownText.text = _minutes.ToString("00") + " : " + _seconds.ToString("00");
         }
     }
 }

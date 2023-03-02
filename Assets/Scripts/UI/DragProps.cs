@@ -7,8 +7,8 @@ using Managers;
 
 public class DragProps : MonoBehaviour
 {
-    private Vector2 mousePosition;
-    private float deltaX, deltaY;
+    private Vector2 _mousePosition;
+    private float _deltaX, _deltaY;
     private bool _isCarrying = false;
     
     [SerializeField] private Texture2D _cursorGrab;
@@ -36,15 +36,15 @@ public class DragProps : MonoBehaviour
         if (GameManager.Instance.IsGameFinished || GameManager.Instance.IsPaused) return;
         _isCarrying = true;
         Cursor.SetCursor(_cursorGrab, Vector2.zero, CursorMode.Auto);
-        deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-        deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
+        _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+        _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
     }
 
     private void OnMouseDrag()
     {
         if (GameManager.Instance.IsGameFinished || GameManager.Instance.IsPaused) return;
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY + .1f, transform.position.z);
+        _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector3(_mousePosition.x - _deltaX, _mousePosition.y - _deltaY + .1f, transform.position.z);
     }
 
     private void OnMouseUp()
@@ -52,6 +52,6 @@ public class DragProps : MonoBehaviour
         if (GameManager.Instance.IsGameFinished || GameManager.Instance.IsPaused) return;
         _isCarrying = false;
         Cursor.SetCursor(_cursorHover, Vector2.zero, CursorMode.Auto);
-        transform.position = new Vector3(mousePosition.x - deltaX, mousePosition.y - deltaY, transform.position.z);
+        transform.position = new Vector3(_mousePosition.x - _deltaX, _mousePosition.y - _deltaY, transform.position.z);
     }
 }

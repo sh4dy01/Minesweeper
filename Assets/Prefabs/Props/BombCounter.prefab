@@ -334,4 +334,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1593426b14c27f64f8bb87820f42ecc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombCounterText: {fileID: 3392382428212971545}
+  _bombCounterText: {fileID: 3392382428212971545}
