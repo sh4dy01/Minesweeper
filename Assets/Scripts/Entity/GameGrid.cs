@@ -218,9 +218,6 @@ public class GameGrid : MonoBehaviour
     // This also checks if one of the blocks is a mine. If so, it will cause the game to end.
     private void RevealBlock(int bx, int by)
     {
-        // Already revealed.
-        if (_grid[bx, by].Revealed) return;
-
 		// Stack used to hold the positions of blocks to reveal.
 		Stack<(int, int)> positions = new Stack<(int, int)>(256);
         positions.Push((bx, by));
@@ -235,7 +232,10 @@ public class GameGrid : MonoBehaviour
             Block b = _blocks[x, y];
             BlockInfo info = b.BlockInfo;
 
-            info.Revealed = true;
+			// Already revealed.
+			if (info.Revealed) continue;
+
+			info.Revealed = true;
 
             // First click.
             if (!_firstClickOccurred)
@@ -245,16 +245,6 @@ public class GameGrid : MonoBehaviour
             }
 
             b.RevealThisBlock();
-
-            // Win detection.
-            if (!info.IsBomb)
-            {
-                _numBlocks--;
-                if (_numBlocks == 0)
-                {
-                    GameManager.Instance.FinishTheGame(true);
-                }
-            }
 
             // Add to shake intensity.
             // With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
@@ -272,25 +262,34 @@ public class GameGrid : MonoBehaviour
                 // Play particles effect.
                 Instantiate(_explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
             }
-            else if (info.NumBombsAround == 0)
+            else
             {
-                Debug.Log(_gameMod.Width + " " + _gameMod.Height);
+				// Win detection.
+				_numBlocks--;
+				if (_numBlocks == 0)
+				{
+					GameManager.Instance.FinishTheGame(true);
+                    return;
+				}
 
-                // Propagate.
-                foreach (Vector2Int position in _neighbourPositions)
-                {
-					int nx = x + position.x;
-					int ny = y + position.y;
+				// Propagate.
+                if (info.NumBombsAround == 0)
+                            {
+                    foreach (Vector2Int position in _neighbourPositions)
+                    {
+                        int nx = x + position.x;
+                        int ny = y + position.y;
 
-					// Out of bounds.
-					if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
-                        continue;
+                        // Out of bounds.
+                        if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
+                            continue;
 
-					// Revealed.
-					if (_grid[nx, ny].Revealed)
-						continue;
+                        // Revealed.
+                        if (_grid[nx, ny].Revealed)
+                            continue;
 
-					positions.Push((nx, ny));
+                        positions.Push((nx, ny));
+                    }
                 }
             }
         }
