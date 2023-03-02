@@ -62,16 +62,11 @@ namespace Managers
             if (_isAlarm) return;
 
             _isLightsOn = !_isLightsOn;
-            Debug.Log(_isLightsOn);
-            switch (_isLightsOn)
-            {
-                case true:
-                    TurnOnLights();
-                    break;
-                case false:
-                    TurnOffLights();
-                    break;
-            }
+            
+            if (_isLightsOn)
+                TurnOnLights();
+            else
+                TurnOffLights();
         }
 
         private void TurnOffLights()

@@ -40,8 +40,6 @@ namespace UI
             int min = Mathf.CeilToInt(_internalTimer * _minLightEventTrigger);
             int max = Mathf.CeilToInt(_internalTimer * _maxLightEventTrigger);
             _lightEventTrigger = Mathf.CeilToInt(_internalTimer) - Random.Range(min, max);
-            
-            Debug.Log("Light event trigger: " + _lightEventTrigger + " seconds");
         }
 
         private void Update()
