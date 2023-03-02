@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class BombCounter : MonoBehaviour
 {
-    [SerializeField] private TextMeshPro bombCounterText;
+    [SerializeField] private TextMeshPro _bombCounterText;
 
     public void UpdateCounter(int bombCounter)
     {
-        bombCounterText.text = bombCounter.ToString("00");
+        _bombCounterText.text = bombCounter.ToString("00");
     }
 }

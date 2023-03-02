@@ -7,7 +7,7 @@ namespace Managers
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private BombCounter bombCount;
+        [SerializeField] private BombCounter _bombCount;
         [SerializeField] private GameObject _winUI;
         [SerializeField] private GameObject _loseUI;
         [SerializeField] private ParticleSystem _particle;
@@ -55,7 +55,7 @@ namespace Managers
 
         public void UpdateBombText(int bombCounter)
         {
-            bombCount.UpdateCounter(bombCounter);
+            _bombCount.UpdateCounter(bombCounter);
         }
 
         public void ShowWinUI()

@@ -1,11 +1,10 @@
-using System;
 using Managers;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject _pauseMenu;
-    
+
     private GameGrid _grid;
 
     private void Awake()
@@ -13,7 +12,6 @@ public class PauseMenu : MonoBehaviour
         _grid = FindObjectOfType<GameGrid>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Escape)) return;

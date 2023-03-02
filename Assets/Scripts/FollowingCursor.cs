@@ -11,6 +11,6 @@ public class FollowingCursor : MonoBehaviour
 
     private void Update()
     {
-        gameObject.transform.position = (Vector2)_camera.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = (Vector2)_camera.ScreenToWorldPoint(Input.mousePosition);
     }
 }

@@ -334,8 +334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504eaec1d5ec7c54b8ba4563018e6508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countDownText: {fileID: 3392382428212971545}
+  _countDownText: {fileID: 3392382428212971545}
   _lightManager: {fileID: 0}
-  alarmSwitchTrigger: 0.2
-  minLightEventTrigger: 0.1
-  maxLightEventTrigger: 0.3
+  _alarmSwitchTrigger: 0
+  _minLightEventTrigger: 0
+  _maxLightEventTrigger: 0

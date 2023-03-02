@@ -13,13 +13,11 @@ public class Block : MonoBehaviour
     [SerializeField] private float _power = 10.0F;
 
     private Collider2D[] _colliders;
-
     private SpriteRenderer _spriteRenderer;
 
     // Reference to block's data in the game's logic.
     public GameGrid.BlockInfo BlockInfo { get; set; }
 
-    // Start is called before the first frame update
     private void Awake()
     {
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -30,7 +28,6 @@ public class Block : MonoBehaviour
         if (GameManager.Instance.IsGameFinished) return;
         
         Cursor.SetCursor(_cursorReveal, Vector2.zero, CursorMode.ForceSoftware);
-
         if (!BlockInfo.Revealed || BlockInfo.NumBombsAround > 0)
         {
             _spriteRenderer.color = new Color(0.7F, 0.7F, 0.7F);
@@ -68,8 +65,7 @@ public class Block : MonoBehaviour
     private void OnMouseExit()
     {
 		_spriteRenderer.color = new Color(1, 1, 1);
-
-		Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     public void RevealThisBlock()
