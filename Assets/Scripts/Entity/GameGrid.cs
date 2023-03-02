@@ -108,11 +108,11 @@ public class GameGrid : MonoBehaviour
 		//get camera size
 		float height = 2f * main.orthographicSize;
 		float width = height * main.aspect * 0.8f;
-		float border = 1.5f;
+		float border = 1f;
 		
 		//test height and width and take the smaller scale to avoid out of camera blocks
-		_gameScale = (height - border) / _gameMod.Height;
-		float tempGameScale = (width - border) / _gameMod.Width;
+		_gameScale = (height - border) / (_gridSize.y);
+		float tempGameScale = (width - border) / (_gridSize.x);
 		if (_gameScale > tempGameScale) _gameScale = tempGameScale;
         
         //main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
@@ -140,8 +140,8 @@ public class GameGrid : MonoBehaviour
 
 	private void CreateGrid()
     {
-	    float halfWidth = _gameMod.Width * 0.5f;
-	    float halfHeight = _gameMod.Height * 0.5f;
+	    float halfWidth = (_gameMod.Width+1.5f) * 0.5f;
+	    float halfHeight = (_gameMod.Height+0.5f) * 0.5f;
 
 	    for (int x = 0; x < _gridSize.x; x++)
         {
@@ -216,32 +216,82 @@ public class GameGrid : MonoBehaviour
 
     // Reveals a clicked block, and recursively reveals the empty blocks around it.
     // This also checks if one of the blocks is a mine. If so, it will cause the game to end.
-    private void RevealBlock(int x, int y)
+    private void RevealBlock(int bx, int by)
     {
-        Block b = _blocks[x, y];
-        BlockInfo info = b.BlockInfo;
-
         // Already revealed.
-        if (info.Revealed) return;
+        if (_grid[bx, by].Revealed) return;
 
-        info.Revealed = true;
+		// Stack used to hold the positions of blocks to reveal.
+		Stack<(int, int)> positions = new Stack<(int, int)>(256);
+        positions.Push((bx, by));
 
-		// First click.
-		if (!_firstClickOccurred)
-		{
-			_firstClickOccurred = true;
-			PlaceBombs(new Vector2Int(x, y));
-		}
-
-		b.RevealThisBlock();
-
-		// Win detection.
-		if (!info.IsBomb)
+        // Reveal blocks in stack until there's no more.
+        while (positions.Count != 0)
         {
-            _numBlocks--;
-            if (_numBlocks == 0)
+            (int, int) pos = positions.Pop();
+            int x = pos.Item1;
+            int y = pos.Item2;
+
+            Block b = _blocks[x, y];
+            BlockInfo info = b.BlockInfo;
+
+            info.Revealed = true;
+
+            // First click.
+            if (!_firstClickOccurred)
             {
-                GameManager.Instance.FinishTheGame(true);
+                _firstClickOccurred = true;
+                PlaceBombs(new Vector2Int(x, y));
+            }
+
+            b.RevealThisBlock();
+
+            // Win detection.
+            if (!info.IsBomb)
+            {
+                _numBlocks--;
+                if (_numBlocks == 0)
+                {
+                    GameManager.Instance.FinishTheGame(true);
+                }
+            }
+
+            // Add to shake intensity.
+            // With recursion, the effect will add up, shaking more vigorously the more tiles are revealed at one time.
+            _shakeIntensity += 0.02F;
+            if (_shakeIntensity > 10.0F) _shakeIntensity = 10.0F;
+
+            if (info.IsBomb)
+            {
+                GameManager.Instance.FinishTheGame(false);
+                _blockAudioSource.clip = explodeSfx;
+                b.Explosion();
+
+                foreach (var block in _borderBlock) block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+                // Play particles effect.
+                Instantiate(explosionParticles, info.WorldPosition + new Vector3(0.5F, 0.5F, -1.0F), Quaternion.identity);
+            }
+            else if (info.NumBombsAround == 0)
+            {
+                Debug.Log(_gameMod.Width + " " + _gameMod.Height);
+
+                // Propagate.
+                foreach (Vector2Int position in _neighbourPositions)
+                {
+					int nx = x + position.x;
+					int ny = y + position.y;
+
+					// Out of bounds.
+					if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
+                        continue;
+
+					// Revealed.
+					if (_grid[nx, ny].Revealed)
+						continue;
+
+					positions.Push((nx, ny));
+                }
             }
         }
 
