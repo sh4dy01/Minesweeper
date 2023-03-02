@@ -108,11 +108,11 @@ public class GameGrid : MonoBehaviour
 		//get camera size
 		float height = 2f * main.orthographicSize;
 		float width = height * main.aspect * 0.8f;
-		float border = 1.5f;
+		float border = 1f;
 		
 		//test height and width and take the smaller scale to avoid out of camera blocks
-		_gameScale = (height - border) / _gameMod.Height;
-		float tempGameScale = (width - border) / _gameMod.Width;
+		_gameScale = (height - border) / (_gridSize.y);
+		float tempGameScale = (width - border) / (_gridSize.x);
 		if (_gameScale > tempGameScale) _gameScale = tempGameScale;
         
         //main.transform.position = new Vector3(_gameMod.Width * 0.5f, _gameMod.Height * 0.5f, -10);
@@ -140,8 +140,8 @@ public class GameGrid : MonoBehaviour
 
 	private void CreateGrid()
     {
-	    float halfWidth = _gameMod.Width * 0.5f;
-	    float halfHeight = _gameMod.Height * 0.5f;
+	    float halfWidth = (_gameMod.Width+1.5f) * 0.5f;
+	    float halfHeight = (_gameMod.Height+0.5f) * 0.5f;
 
 	    for (int x = 0; x < _gridSize.x; x++)
         {
