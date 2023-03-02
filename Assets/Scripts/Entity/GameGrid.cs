@@ -274,23 +274,25 @@ public class GameGrid : MonoBehaviour
             }
             else if (info.NumBombsAround == 0)
             {
+                Debug.Log(_gameMod.Width + " " + _gameMod.Height);
+
                 // Propagate.
                 foreach (Vector2Int position in _neighbourPositions)
                 {
-                    int nx = info.GridX + position.x;
-                    int ny = info.GridY + position.y;
+					int nx = x + position.x;
+					int ny = y + position.y;
 
-                    // Revealed.
-                    if (_grid[nx, ny].Revealed) continue;
+					// Out of bounds.
+					if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0)
+                        continue;
 
-                    // Out of bounds.
-                    if (nx >= _gameMod.Width || ny >= _gameMod.Height || nx < 0 || ny < 0) continue;
+					// Revealed.
+					if (_grid[nx, ny].Revealed)
+						continue;
 
-                    positions.Push((nx, ny));
+					positions.Push((nx, ny));
                 }
             }
-
-            _firstClickOccurred = true;
         }
 	}
 
