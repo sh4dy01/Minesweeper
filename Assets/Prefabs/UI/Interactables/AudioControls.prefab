@@ -335,13 +335,13 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.0001
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8918546015805630590}
-        m_TargetAssemblyTypeName: Managers.MixerController, Assembly-CSharp
-        m_MethodName: SetMusicVolume
+      - m_Target: {fileID: 2565312826089346738}
+        m_TargetAssemblyTypeName: Managers.AudioSlider, Assembly-CSharp
+        m_MethodName: OnChangeSlider
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -361,6 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6052295439004251803}
   - component: {fileID: 4302921825670748424}
+  - component: {fileID: 7090028021350460128}
   m_Layer: 5
   m_Name: SoundVolumeControl
   m_TagString: Untagged
@@ -486,6 +487,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7090028021350460128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021692930728782312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6344c8d9b130644a57978b666aada9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: c2849d2fadd5e6a4f84400e332775c5c, type: 2}
+  _slider: {fileID: 3933252417357888390}
+  _volumeParameter: 1
 --- !u!1 &5640674908443400397
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +852,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7243128639355911850}
+  - component: {fileID: 2565312826089346738}
   m_Layer: 5
   m_Name: MusicVolumeControl
   m_TagString: Untagged
@@ -865,6 +882,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0.00012207031, y: -102.4}
   m_SizeDelta: {x: 157.18, y: 42.838}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2565312826089346738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271549700461109721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6344c8d9b130644a57978b666aada9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: c2849d2fadd5e6a4f84400e332775c5c, type: 2}
+  _slider: {fileID: 139446139635430327}
+  _volumeParameter: 0
 --- !u!1 &8372824286029892502
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,13 +985,13 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.0001
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8918546015805630590}
-        m_TargetAssemblyTypeName: Managers.MixerController, Assembly-CSharp
-        m_MethodName: SetSoundVolume
+      - m_Target: {fileID: 7090028021350460128}
+        m_TargetAssemblyTypeName: Managers.AudioSlider, Assembly-CSharp
+        m_MethodName: OnChangeSlider
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1085,7 +1117,6 @@ GameObject:
   - component: {fileID: 8358092690140856315}
   - component: {fileID: 9110978562758138475}
   - component: {fileID: 130095455947404526}
-  - component: {fileID: 8918546015805630590}
   m_Layer: 5
   m_Name: AudioControls
   m_TagString: Untagged
@@ -1153,21 +1184,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8918546015805630590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8505186139890227532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c6344c8d9b130644a57978b666aada9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioMixer: {fileID: 24100000, guid: c2849d2fadd5e6a4f84400e332775c5c, type: 2}
-  _soundSlider: {fileID: 3933252417357888390}
-  _musicSlider: {fileID: 139446139635430327}
 --- !u!1 &8596994464583873173
 GameObject:
   m_ObjectHideFlags: 0
