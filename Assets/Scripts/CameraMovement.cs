@@ -26,15 +26,17 @@ public class CameraMovement : MonoBehaviour
         _zoomScale = 1;
     }
 
-    private void Update ()
+    private void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") == 0f) return;
+        float f = Input.GetAxis("Mouse ScrollWheel");
+
+		if (f == 0f) return;
         
-        if (_camera.orthographicSize <= minSize && Input.GetAxis("Mouse ScrollWheel") < 0)
+        if (_camera.orthographicSize <= minSize && f < 0)
         {
             Zoom();
         }
-        else if (_camera.orthographicSize >= maxSize && Input.GetAxis("Mouse ScrollWheel") > 0)
+        else if (_camera.orthographicSize >= maxSize && f > 0)
         {
             Zoom();
         }
@@ -48,7 +50,24 @@ public class CameraMovement : MonoBehaviour
         _camera.orthographicSize = size;
         
         _zoomScale += Input.GetAxis("Mouse ScrollWheel") * zoomSensitivity;
-    }
+
+        Reposition();
+	}
+
+    // Move the camera while taking the bounds into account.
+    private void Reposition()
+    {
+		Vector3 camPos = transform.position;
+		float yBounds = minSize - _camera.orthographicSize;
+		float xBounds = yBounds * _camera.aspect;
+
+		if (camPos.y > yBounds) camPos.y = yBounds;
+		if (camPos.y < -yBounds) camPos.y = -yBounds;
+		if (camPos.x > xBounds) camPos.x = xBounds;
+		if (camPos.x < -xBounds) camPos.x = -xBounds;
+
+		transform.position = camPos;
+	}
     
     private void LateUpdate()
     {
@@ -59,13 +78,6 @@ public class CameraMovement : MonoBehaviour
             Input.GetAxisRaw("Mouse Y") * Time.deltaTime * moveSensitivity * _zoomScale, 
             0f);
 
-        Vector3 camPos = transform.position;
-        float yBounds = minSize - _camera.orthographicSize;
-        float xBounds = yBounds * _camera.aspect;
-        if (camPos.y > yBounds) camPos.y = yBounds;
-        if (camPos.y < -yBounds) camPos.y = -yBounds;
-        if (camPos.x > xBounds) camPos.x = xBounds;
-        if (camPos.x < -xBounds) camPos.x = -xBounds;
-        transform.position = camPos;
+        Reposition();
     }
 }
