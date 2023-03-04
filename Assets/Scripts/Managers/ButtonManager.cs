@@ -71,4 +71,9 @@ public class ButtonManager : MonoBehaviour
     {
         GameManager.Instance.SetGameSeed(inputSeed);
     }
+    
+    public void QuitGame()
+    {
+        SceneLoader.QuitGame();
+    }
 }

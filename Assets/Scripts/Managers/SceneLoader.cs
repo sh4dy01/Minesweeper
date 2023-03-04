@@ -41,5 +41,10 @@ namespace Managers
             GameManager.Instance.Reset();
             SceneManager.LoadScene("Lobby");
         }
+        
+        public static void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }
