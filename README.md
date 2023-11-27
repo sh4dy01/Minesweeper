@@ -7,6 +7,7 @@ The objective of this project was to explore the intricacies of Unity while elev
 * Original Rules
 * Mouse Only
 * Lights Feature
+* Disruptive Objects
 * Different Difficulties
 * Camera Control
 * Music and Sound
