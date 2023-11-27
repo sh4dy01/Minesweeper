@@ -28,13 +28,9 @@ Follow these steps to play the game:
 |:----------------------------------:|
 | ![Main menu screen](https://github.com/sh4dy01/Minesweeper/assets/25281014/28ce6e9d-c674-4025-8d7e-f2f831250216) |
 
-|              IN-GAME               |
-|:----------------------------------:|
-| ![In-Game screen](https://github.com/sh4dy01/Minesweeper/assets/25281014/a61916d2-65e9-4f91-98d1-7cb0b073f130) |
-
 ---
-|              LOSE-GAME               |
-|:----------------------------------:|
-| ![Lose menu screen](https://github.com/sh4dy01/Minesweeper/assets/25281014/b68be7cf-0ced-492b-bf43-20c57fdcb8ea) |
+|              IN-GAME               |             LOSE-GAME             |
+|:----------------------------------:|:--------------------------------:|
+| ![In-Game screen](https://github.com/sh4dy01/Minesweeper/assets/25281014/a61916d2-65e9-4f91-98d1-7cb0b073f130) | ![Lose menu screen](https://github.com/sh4dy01/Minesweeper/assets/25281014/b68be7cf-0ced-492b-bf43-20c57fdcb8ea) |
 
 
